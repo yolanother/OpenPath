@@ -84,6 +84,12 @@
             "id": "3845",
             "versionId": "2.13.0",
             "versionNumber": 593944
+        },
+        {
+            "name": "Odin - Inspector and Serializer",
+            "id": "89041",
+            "versionId": "3.0.7",
+            "versionNumber": 631625
         }
     ]
 }
