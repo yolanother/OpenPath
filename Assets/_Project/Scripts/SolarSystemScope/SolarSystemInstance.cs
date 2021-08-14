@@ -37,7 +37,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
             #endif
 
             var starConfig = solarSystemConfig.GetStarConfig(coordinates);
-            Instantiate(starConfig.StarPrefab).transform.parent = transform;
+            var star = Instantiate(starConfig.StarPrefab).transform;
+            star.parent = transform;
 
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
             for (int i = 0; i < planetPositions.Length; i++)
@@ -46,6 +47,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 var planet = Instantiate(config.Prefab);
                 planet.transform.parent = transform;
                 planet.transform.position = planetPositions[i] * Vector3.forward * solarSystemConfig.distanceScale;
+                var lightSource = planet.GetComponent<LightSource>();
+                if(lightSource) lightSource.Sun = star.gameObject;
             }
         }
     }

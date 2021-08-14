@@ -96,7 +96,10 @@ namespace DoubTech.OpenPath.Data
                 }
             }
 
-            return planetConfigs[Random.Range(0, planetConfigs.Length - 1)];
+            Random.InitState(GetSeed(coordinates) + 5 + index);
+            var planetIndex = Random.Range(0, possiblePlanets.Count - 1);
+            Debug.Log(planetIndex);
+            return possiblePlanets[planetIndex];
         }
     }
 }
