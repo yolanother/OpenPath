@@ -10,6 +10,7 @@
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.SolarSystemScope;
+using DoubTech.OpenPath.Orbits;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Data
@@ -29,6 +30,7 @@ namespace DoubTech.OpenPath.Data
         [SerializeField] public StarConfig[] starConfigs;
         [SerializeField] public PlanetConfig[] planetConfigs;
         [SerializeField] public float distanceScale = 10;
+        [SerializeField] public Orbit planetOrbitPrefab;
 
         public int GetSeed(Vector2 coordinates)
         {

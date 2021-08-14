@@ -29,7 +29,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15908825810e08840ab5d5df4eb3ac2a, type: 2}
   - {fileID: 11400000, guid: d8037b0d2c0238745a980b394a35daac, type: 2}
   planetConfigs:
-  - {fileID: 11400000, guid: 057309e7a7458db47b3f84f94060d4ec, type: 2}
-  - {fileID: 11400000, guid: 0e6fd80ec6930134e8d496a8e02cad64, type: 2}
   - {fileID: 11400000, guid: b2fc131cf31cfe54aa92a19a3373b235, type: 2}
+  - {fileID: 11400000, guid: 0e6fd80ec6930134e8d496a8e02cad64, type: 2}
+  - {fileID: 11400000, guid: 057309e7a7458db47b3f84f94060d4ec, type: 2}
+  - {fileID: 11400000, guid: 10a13077330d116478308e830280d4bf, type: 2}
+  - {fileID: 11400000, guid: 90a8281a4c39f6848a6eab12309b2eb3, type: 2}
+  - {fileID: 11400000, guid: 21c629739b28a1340947b59723527db6, type: 2}
+  - {fileID: 11400000, guid: 790898ee17069774bae9e5bf8cdd1b93, type: 2}
+  - {fileID: 11400000, guid: c88b69332fc270e43bb56cfb60c09f9c, type: 2}
+  - {fileID: 11400000, guid: 88d04ceab1eca0a49ae7b0bbfba3095c, type: 2}
+  - {fileID: 11400000, guid: f1b16d8949bc75e4d96c918d75962fbf, type: 2}
+  - {fileID: 11400000, guid: b84d9f21f8730324bb80f3e1eb90fca1, type: 2}
+  - {fileID: 11400000, guid: 1434dafb6592b8a4292f0891ef19874d, type: 2}
+  - {fileID: 11400000, guid: 781cec6383a4d344aa7f03e2c6631189, type: 2}
+  - {fileID: 11400000, guid: f38e19393f058e2458d57096f4be0c27, type: 2}
+  - {fileID: 11400000, guid: 7f213b7a024a6434283a784b40688133, type: 2}
+  - {fileID: 11400000, guid: 3fcbac9ff48424f4e93b8decaa4696e6, type: 2}
+  - {fileID: 11400000, guid: 7806e6e354bfb0948ae24325cad98f97, type: 2}
+  - {fileID: 11400000, guid: e1809b8f2a4a0f744824c508becb7033, type: 2}
+  - {fileID: 11400000, guid: dc5460e1e7bb4ee4b8b2771752ffa894, type: 2}
   distanceScale: 100
+  planetOrbitPrefab: {fileID: 7230438060499463654, guid: c061009002f1bce40b494c7ef284b8ae,
+    type: 3}

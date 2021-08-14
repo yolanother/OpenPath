@@ -43,12 +43,23 @@ namespace DoubTech.OpenPath.SolarSystemScope
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
             for (int i = 0; i < planetPositions.Length; i++)
             {
+                var orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                orbit.transform.parent = transform;
                 var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
                 var planet = Instantiate(config.Prefab);
-                planet.transform.parent = transform;
-                planet.transform.position = planetPositions[i] * Vector3.forward * solarSystemConfig.distanceScale;
+                orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
+                planet.transform.parent = orbit.orbitingObjectContainer;
+                planet.transform.localPosition = Vector3.zero;
+                planet.transform.localEulerAngles = Vector3.zero;
                 var lightSource = planet.GetComponent<LightSource>();
                 if(lightSource) lightSource.Sun = star.gameObject;
+                orbit.ellipse.radiusX = planetPositions[i] *
+                                        solarSystemConfig.distanceScale;
+                orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
+
+                orbit.startPosition = Random.Range(0, 1f);
+
+                orbit.RefreshOrbits();
             }
         }
     }
