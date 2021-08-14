@@ -15,7 +15,7 @@ namespace DoubTech.OpenPath.Orbits
     {
         [SerializeField] public Transform orbitingObjectContainer;
         [SerializeField] public Ellipse ellipse;
-        [SerializeField] private float speed;
+        [SerializeField] public float speed;
         [Range(0, 1)] [SerializeField] public float startPosition;
 
         [HideInInspector] [SerializeField] private OrbitRenderer orbitRenderer;

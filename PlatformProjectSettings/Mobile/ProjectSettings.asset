@@ -583,6 +583,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: DOUBTECH_ASSET_MANAGER;ODIN_INSPECTOR;ODIN_INSPECTOR_3
+    7: DOUBTECH_ASSET_MANAGER;ODIN_INSPECTOR;ODIN_INSPECTOR_3
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

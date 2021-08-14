@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Orbits
@@ -14,10 +15,13 @@ namespace DoubTech.OpenPath.Orbits
     [RequireComponent(typeof(LineRenderer))]
     public class OrbitRenderer : MonoBehaviour
     {
-        [SerializeField] private int segments = 32;
+        [SerializeField] private int segments = 64;
         [SerializeField] private Orbit orbit;
+        [SerializeField] private float width = 10;
 
         [HideInInspector] [SerializeField] private LineRenderer lineRenderer;
+
+        private Camera camera;
 
         private void OnValidate()
         {
@@ -44,5 +48,25 @@ namespace DoubTech.OpenPath.Orbits
             lineRenderer.SetPositions(positions);
         }
 
+        private void OnEnable()
+        {
+        }
+
+
+        private void Update()
+        {
+            if(!camera) {
+                camera = Camera.main;
+            }
+
+            if (camera)
+            {
+                var linewidth = (camera.orthographicSize / 10000) * width;
+                lineRenderer.startWidth = linewidth;
+                lineRenderer.endWidth = linewidth;
+            }
+
+            orbit.orbitingObjectContainer.transform.RotateAround(orbit.orbitingObjectContainer.transform.position, Vector3.forward, Time.deltaTime * orbit.speed * 2);
+        }
     }
 }
