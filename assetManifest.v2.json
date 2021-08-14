@@ -1,0 +1,89 @@
+{
+    "manifestVersion": 2,
+    "installedAssets": [
+        {
+            "name": "Next-Gen Planets",
+            "id": "163061",
+            "versionId": "1.2",
+            "versionNumber": 605076
+        },
+        {
+            "name": "Deep Space Skybox Pack",
+            "id": "11056",
+            "versionId": "1.0",
+            "versionNumber": 25795
+        },
+        {
+            "name": "8K Milky Way Skybox",
+            "id": "94001",
+            "versionId": "1.0",
+            "versionNumber": 280883
+        },
+        {
+            "name": "3D Scifi Kit Vol 3",
+            "id": "121447",
+            "versionId": "1.15",
+            "versionNumber": 583738
+        },
+        {
+            "name": "Modular Sci-Fi Weapons",
+            "id": "146883",
+            "versionId": "2.1",
+            "versionNumber": 621264
+        },
+        {
+            "name": "Sci-Fi Effects",
+            "id": "20416",
+            "versionId": "2.2.1",
+            "versionNumber": 613838
+        },
+        {
+            "name": "Highlight Plus",
+            "id": "134149",
+            "versionId": "6.5",
+            "versionNumber": 632556
+        },
+        {
+            "name": "Ultimate SFX & Music Bundle - Everything Bundle",
+            "id": "200453",
+            "versionId": "1.0",
+            "versionNumber": 629829
+        },
+        {
+            "name": "Pro Sound Collection",
+            "id": "50235",
+            "versionId": "1.3",
+            "versionNumber": 286758
+        },
+        {
+            "name": "Universal Sound FX",
+            "id": "17256",
+            "versionId": "1.4",
+            "versionNumber": 213297
+        },
+        {
+            "name": "Lean Touch+",
+            "id": "72356",
+            "versionId": "2.3.2",
+            "versionNumber": 610139
+        },
+        {
+            "name": "Awesome Charts and Graphs",
+            "id": "138153",
+            "versionId": "1.1.7",
+            "versionNumber": 596042
+        },
+        {
+            "name": "Modern UI Pack",
+            "id": "201717",
+            "versionId": "5.0.0",
+            "versionNumber": 634599
+        },
+        {
+            "name": "SimpleSQL",
+            "id": "3845",
+            "versionId": "2.13.0",
+            "versionNumber": 593944
+        }
+    ]
+}
