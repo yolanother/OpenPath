@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe91c8eecf95678459a704f9c8ff7978, type: 3}
-  m_Name: PlanetConfig
+  m_Name: Amerald
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 4742099698497994149, guid: afa9591244e419f42812d9c37e54db96, type: 3}
   minSpawnDistanceFromSun: 0
   maxSpawnDistanceFromSun: 0

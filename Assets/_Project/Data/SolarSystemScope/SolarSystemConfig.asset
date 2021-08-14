@@ -19,4 +19,17 @@ MonoBehaviour:
   maxDistanceBetweenPlanets: 5
   minMoons: 0
   maxMoons: 3
-  starConfigs: []
+  minStarSize: 1
+  maxStarSize: 10
+  starConfigs:
+  - {fileID: 11400000, guid: 7945d360dc1223c40b673717a9f0aec3, type: 2}
+  - {fileID: 11400000, guid: 58b713a6cd881cc408f72c17e87625e9, type: 2}
+  - {fileID: 11400000, guid: 5b544f2c47a332a40b3bb3c392e67d9c, type: 2}
+  - {fileID: 11400000, guid: 8e5de1ea073f4e04d960e6f68606ed21, type: 2}
+  - {fileID: 11400000, guid: 15908825810e08840ab5d5df4eb3ac2a, type: 2}
+  - {fileID: 11400000, guid: d8037b0d2c0238745a980b394a35daac, type: 2}
+  planetConfigs:
+  - {fileID: 11400000, guid: 057309e7a7458db47b3f84f94060d4ec, type: 2}
+  - {fileID: 11400000, guid: 0e6fd80ec6930134e8d496a8e02cad64, type: 2}
+  - {fileID: 11400000, guid: b2fc131cf31cfe54aa92a19a3373b235, type: 2}
+  distanceScale: 100

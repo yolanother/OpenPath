@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbd8de66f6989544aa13d6febf2b14f, type: 3}
   m_Name: StarRed
   m_EditorClassIdentifier: 
-  starPrefab: {fileID: 0}
+  starPrefab: {fileID: 7540577861092710303, guid: 44694d4ddf2c72445a6f3d8fdd80272f,
+    type: 3}

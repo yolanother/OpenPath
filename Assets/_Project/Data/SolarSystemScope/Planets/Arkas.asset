@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffbd8de66f6989544aa13d6febf2b14f, type: 3}
-  m_Name: StarWhite
+  m_Script: {fileID: 11500000, guid: fe91c8eecf95678459a704f9c8ff7978, type: 3}
+  m_Name: Arkas
   m_EditorClassIdentifier: 
-  starPrefab: {fileID: 7540577861092710303, guid: 44694d4ddf2c72445a6f3d8fdd80272f,
-    type: 3}
+  prefab: {fileID: 635320437410210682, guid: 4249e009d46761d49a715b787ef80a0b, type: 3}
+  minSpawnDistanceFromSun: 0
+  maxSpawnDistanceFromSun: 0

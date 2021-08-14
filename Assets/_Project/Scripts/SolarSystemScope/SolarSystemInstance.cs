@@ -8,7 +8,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
+using DoubTech.OpenPath.Data.Config;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -27,13 +29,23 @@ namespace DoubTech.OpenPath.SolarSystemScope
         {
             this.coordinates = coordinates;
 
-            var starConfig = solarSystemConfig.GetStarConfig(coordinates);
-            Instantiate(starConfig.StarPrefab);
-
-            var planetCount = solarSystemConfig.PlanetCount(coordinates);
-            for (int i = 0; i < planetCount; i++)
+            #if UNITY_EDITOR
+            for (int i = transform.childCount - 1; i >= 0; i--)
             {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+            #endif
 
+            var starConfig = solarSystemConfig.GetStarConfig(coordinates);
+            Instantiate(starConfig.StarPrefab).transform.parent = transform;
+
+            var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
+            for (int i = 0; i < planetPositions.Length; i++)
+            {
+                var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
+                var planet = Instantiate(config.Prefab);
+                planet.transform.parent = transform;
+                planet.transform.position = planetPositions[i] * Vector3.forward * solarSystemConfig.distanceScale;
             }
         }
     }

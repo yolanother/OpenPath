@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace DoubTech.OpenPath.Data
         [SerializeField] public int maxStarSize = 10;
         [SerializeField] public StarConfig[] starConfigs;
         [SerializeField] public PlanetConfig[] planetConfigs;
+        [SerializeField] public float distanceScale = 10;
 
         public int GetSeed(Vector2 coordinates)
         {
@@ -35,7 +37,7 @@ namespace DoubTech.OpenPath.Data
                                    coordinates.y));
         }
 
-        public int PlanetCount(Vector2 coordinates)
+        public int GetPlanetCount(Vector2 coordinates)
         {
             var seed = GetSeed(coordinates);
             Random.InitState(seed + 1);
@@ -56,16 +58,45 @@ namespace DoubTech.OpenPath.Data
             return Random.Range(minStarSize, maxStarSize);
         }
 
-        public float GetPlanetPosition(Vector2 coordinates, int index)
+        public float[] GetPlanetPositions(Vector2 coordinates)
         {
+            float[] positions = new float[GetPlanetCount(coordinates)];
             Random.InitState(GetSeed(coordinates) + 4);
             float distance = GetStarSize(coordinates);
-            for (int i = 0; i < index; i++)
+
+            for (int i = 0; i < positions.Length; i++)
             {
                 distance += Random.Range(minDistanceBetweenPlanets, maxDistanceBetweenPlanets);
+                positions[i] = distance;
             }
 
-            return distance;
+            return positions;
+        }
+
+        public PlanetConfig GetPlanetConfig(Vector2 coordinates, int index, float distance = -1)
+        {
+            if (distance == -1)
+            {
+                distance = GetPlanetPositions(coordinates)[index];
+            }
+            Random.InitState(GetSeed(coordinates) + 5);
+            List<PlanetConfig> possiblePlanets = new List<PlanetConfig>();
+            // TODO: Index this and improve search
+            foreach (var planetConfig in planetConfigs)
+            {
+                if (planetConfig.maxSpawnDistanceFromSun == 0 &&
+                    planetConfig.minSpawnDistanceFromSun == 0)
+                {
+                    possiblePlanets.Add(planetConfig);
+                }
+                else if (distance >= planetConfig.minSpawnDistanceFromSun &&
+                         distance <= planetConfig.maxSpawnDistanceFromSun)
+                {
+                    possiblePlanets.Add(planetConfig);
+                }
+            }
+
+            return planetConfigs[Random.Range(0, planetConfigs.Length - 1)];
         }
     }
 }
