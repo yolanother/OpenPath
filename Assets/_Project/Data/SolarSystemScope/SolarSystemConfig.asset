@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c9f85dc4977134ba9c4fd66cd23134, type: 3}
+  m_Name: SolarSystemConfig
+  m_EditorClassIdentifier: 
+  galaxyConfig: {fileID: 11400000, guid: ba5f1607c9730de478351617baaa13ae, type: 2}
+  minPlanets: 5
+  maxPlanets: 20
+  minDistanceBetweenPlanets: 1
+  maxDistanceBetweenPlanets: 5
+  minMoons: 0
+  maxMoons: 3
+  starConfigs: []
