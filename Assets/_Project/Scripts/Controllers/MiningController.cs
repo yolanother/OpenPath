@@ -18,6 +18,9 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField, Tooltip("The maximum capacity of this mining controller. Once the mined resource hits" +
             "this capacity mining will stop and cannot be restarted until the mining equipment has been emptied.")]
         float capacity = 1000;
+        [SerializeField, Tooltip("The time between mining extractions in seconds. The longer this is the longer between the addition of " +
+            "resources to the stored quantity.")]
+        float batchDuration = 0.25f;
 
         ShipController shipController;
         private MinedResource resource;
@@ -81,13 +84,15 @@ namespace DoubTech.OpenPath.Controllers
                 yield return new WaitForEndOfFrame();
             }
 
+            yield return new WaitForSeconds(batchDuration);
+
             while (source.ResourceAvailable && capacity - resource.quantity > 0)
             {
                 if (source.ResourceAvailable)
                 {
-                    resource.quantity += source.Mine();
+                    resource.quantity += source.Extract(batchDuration);
                 }
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(batchDuration);
             }
         }
     }
