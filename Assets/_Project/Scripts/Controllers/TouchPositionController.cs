@@ -8,9 +8,6 @@
  */
 
 using DoubTech.ScriptableEvents.BuiltinTypes;
-using Lean.Common;
-using Lean.Touch;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Controllers

@@ -39,13 +39,15 @@ namespace DoubTech.OpenPath.SolarSystemScope
             #endif
 
             var starConfig = solarSystemConfig.GetStarConfig(coordinates);
-            var star = Instantiate(starConfig.StarPrefab).transform;
-            star.parent = transform;
+            var star = Instantiate(starConfig.StarPrefab);
+            star.StarConfig = starConfig;
+            star.transform.parent = transform;
 
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
             for (int i = 0; i < planetPositions.Length; i++)
             {
                 Orbit orbit;
+                #if UNITY_EDITOR
                 if (Application.isPlaying)
                 {
                     orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
@@ -54,6 +56,9 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 {
                     orbit = (Orbit) PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
                 }
+                #else
+                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                #endif
 
                 orbit.transform.parent = transform;
                 var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);

@@ -15,8 +15,8 @@ MonoBehaviour:
   galaxyConfig: {fileID: 11400000, guid: ba5f1607c9730de478351617baaa13ae, type: 2}
   minPlanets: 5
   maxPlanets: 20
-  minDistanceBetweenPlanets: 1
-  maxDistanceBetweenPlanets: 5
+  minDistanceBetweenPlanets: 3
+  maxDistanceBetweenPlanets: 8
   minMoons: 0
   maxMoons: 3
   minStarSize: 1

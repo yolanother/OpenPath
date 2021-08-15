@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using DoubTech.OpenPath.UniverseScope;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Data.SolarSystemScope
@@ -14,8 +15,10 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     [CreateAssetMenu(fileName = "StarConfig", menuName = "OpenPath/Config/Star Config")]
     public class StarConfig : ScriptableObject
     {
-        [SerializeField] private GameObject starPrefab;
+        [SerializeField] private StarAppearenceManager starPrefab;
+        [SerializeField] public Color starColor;
+        [SerializeField] public float hdrMultiplier = 10;
 
-        public GameObject StarPrefab => starPrefab;
+        public StarAppearenceManager StarPrefab => starPrefab;
     }
 }

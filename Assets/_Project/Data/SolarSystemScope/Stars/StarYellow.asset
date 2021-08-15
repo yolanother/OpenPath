@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbd8de66f6989544aa13d6febf2b14f, type: 3}
   m_Name: StarYellow
   m_EditorClassIdentifier: 
-  starPrefab: {fileID: 7540577861092710303, guid: 44694d4ddf2c72445a6f3d8fdd80272f,
+  starPrefab: {fileID: -9066163759155329992, guid: 7fe7ef3ee5a14e549ad94fdb3d1e1a14,
     type: 3}
+  starColor: {r: 0.9137255, g: 0.902961, b: 0.27868629, a: 1}
+  hdrMultiplier: 10
