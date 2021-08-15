@@ -42,10 +42,13 @@ namespace DoubTech.OpenPath.Orbits
         {
             if (!orbitRenderer) orbitRenderer = GetComponentInChildren<OrbitRenderer>();
 
-            var modelTransform = transform.Find("Planet Model");
-            if (modelTransform.childCount > 0)
+            if (!orbitingObjectContainer)
             {
-                orbitingObjectContainer = modelTransform.GetChild(0);
+                var modelTransform = transform.Find("Planet Model");
+                if (modelTransform.childCount > 0)
+                {
+                    orbitingObjectContainer = modelTransform.GetChild(0);
+                }
             }
 
             Update();

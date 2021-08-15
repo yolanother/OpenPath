@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Orbits;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -43,14 +45,19 @@ namespace DoubTech.OpenPath.SolarSystemScope
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
             for (int i = 0; i < planetPositions.Length; i++)
             {
-                var orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                Orbit orbit;
+                if (Application.isPlaying)
+                {
+                    orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                }
+                else
+                {
+                    orbit = (Orbit) PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
+                }
+
                 orbit.transform.parent = transform;
                 var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
                 var planet = Instantiate(config.Prefab);
-                orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
-                planet.transform.parent = orbit.orbitingObjectContainer;
-                planet.transform.localPosition = Vector3.zero;
-                planet.transform.localEulerAngles = Vector3.zero;
                 var lightSource = planet.GetComponent<LightSource>();
                 if(lightSource) lightSource.Sun = star.gameObject;
                 orbit.ellipse.radiusX = planetPositions[i] *
@@ -59,7 +66,11 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
                 orbit.startPosition = Random.Range(0, 1f);
 
+                orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
                 orbit.RefreshOrbits();
+                planet.transform.parent = orbit.orbitingObjectContainer;
+                planet.transform.localPosition = Vector3.zero;
+                planet.transform.localEulerAngles = Vector3.zero;
             }
         }
     }

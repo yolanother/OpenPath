@@ -7,7 +7,9 @@
  * https://opensource.org/licenses/MIT.
  */
 
-using System;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Orbits
@@ -57,18 +59,49 @@ namespace DoubTech.OpenPath.Orbits
 
         private void Update()
         {
-            if(!camera) {
-                camera = Camera.current;
+            UpdateLineWidth();
+
+            if (Application.isPlaying)
+            {
+                orbit.orbitingObjectContainer.transform.RotateAround(
+                    orbit.orbitingObjectContainer.transform.position, Vector3.forward,
+                    Time.deltaTime * orbit.speed * 2);
             }
+        }
+
+        private void UpdateLineWidth()
+        {
+            if (!camera)
+            {
+                camera = Camera.current;
+                if (!camera)
+                {
+                    camera = Camera.main;
+                }
+            }
+
+            #if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                camera = SceneView.lastActiveSceneView.camera;
+            }
+            #endif
 
             if (camera)
             {
-                var linewidth = (camera.orthographicSize / 10000) * width;
-                lineRenderer.startWidth = linewidth;
-                lineRenderer.endWidth = linewidth;
+                if (camera.orthographic)
+                {
+                    var linewidth = (camera.orthographicSize / 10000) * width;
+                    lineRenderer.startWidth = linewidth;
+                    lineRenderer.endWidth = linewidth;
+                }
+                else
+                {
+                    var linewidth = (Vector3.Distance(camera.transform.position, transform.position) / 10000) * width;
+                    lineRenderer.startWidth = linewidth;
+                    lineRenderer.endWidth = linewidth;
+                }
             }
-
-            orbit.orbitingObjectContainer.transform.RotateAround(orbit.orbitingObjectContainer.transform.position, Vector3.forward, Time.deltaTime * orbit.speed * 2);
         }
     }
 }
