@@ -12,6 +12,7 @@ using UnityEngine;
 
 namespace DoubTech.OpenPath.Orbits
 {
+    [ExecuteAlways]
     [RequireComponent(typeof(LineRenderer))]
     public class OrbitRenderer : MonoBehaviour
     {
@@ -50,13 +51,14 @@ namespace DoubTech.OpenPath.Orbits
 
         private void OnEnable()
         {
+            camera = Camera.main;
         }
 
 
         private void Update()
         {
             if(!camera) {
-                camera = Camera.main;
+                camera = Camera.current;
             }
 
             if (camera)

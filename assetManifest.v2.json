@@ -124,15 +124,22 @@
             "name": "Script Inspector 3",
             "id": "3535",
             "versionId": "3.0.29",
-            "versionNumber": 617587,
+            "versionNumber": 614470,
             "url": "https://assetstore.unity.com/packages/slug/3535"
         },
         {
             "name": "Fullscreen Editor",
             "id": "69534",
-            "versionId": "2.2.4",
-            "versionNumber": 617922,
+            "versionId": "2.2.3",
+            "versionNumber": 601130,
             "url": "https://assetstore.unity.com/packages/slug/69534"
+        },
+        {
+            "name": "uContext Pro",
+            "id": "141831",
+            "versionId": "2.6",
+            "versionNumber": 621164,
+            "url": "https://assetstore.unity.com/packages/slug/141831"
         }
     ]
 }
