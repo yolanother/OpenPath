@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 7056495}
   - component: {fileID: 7056494}
   - component: {fileID: 7056499}
+  - component: {fileID: 7056500}
   m_Layer: 0
   m_Name: Iron Rich Planet
   m_TagString: Untagged
@@ -231,7 +232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7056499
 MonoBehaviour:
@@ -248,6 +249,20 @@ MonoBehaviour:
   resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
   resourceAvailable: 1000000
   quantityPerSecond: 1
+--- !u!114 &7056500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7056493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a294ae8f17c3d024e8d81dcb3fe16143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
+  required: 5000
 --- !u!1 &397149976
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +272,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 397149978}
+  - component: {fileID: 397149981}
   - component: {fileID: 397149977}
+  - component: {fileID: 397149979}
+  - component: {fileID: 397149980}
   m_Layer: 0
   m_Name: Debug Commands
   m_TagString: Untagged
@@ -277,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d55efe7c096ad04482c6e062c3e0f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: Testing mining functionality
 --- !u!4 &397149978
 Transform:
   m_ObjectHideFlags: 0
@@ -291,6 +310,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &397149979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397149976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8712839048eb33143a78682386f7a6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Testing trade functionality
+--- !u!114 &397149980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397149976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81df9344a364e6f4fb1bf7bfc2bd5083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Testing cargo management
+--- !u!114 &397149981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397149976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7e6917f139d5b4eb8a9deb109a4072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Testing the ship overview
 --- !u!1 &487789456
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +363,7 @@ GameObject:
   - component: {fileID: 487789458}
   - component: {fileID: 487789457}
   - component: {fileID: 487789462}
+  - component: {fileID: 487789463}
   m_Layer: 0
   m_Name: Gold Rich Planet
   m_TagString: Untagged
@@ -399,7 +458,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &487789462
 MonoBehaviour:
@@ -416,6 +475,20 @@ MonoBehaviour:
   resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   resourceAvailable: 50000
   quantityPerSecond: 0.1
+--- !u!114 &487789463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487789456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a294ae8f17c3d024e8d81dcb3fe16143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+  required: 5000
 --- !u!1 &882931973
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,8 +595,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1126514586}
-  - component: {fileID: 1126514585}
+  - component: {fileID: 1126514590}
   - component: {fileID: 1126514587}
+  - component: {fileID: 1126514585}
+  - component: {fileID: 1126514588}
+  - component: {fileID: 1126514589}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -543,8 +619,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa024b26354e384693481888fde7ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumRange: 10
+  maximumSensorRange: 20
+  maximumMiningRange: 2
   capacity: 1000
+  batchDuration: 0.25
 --- !u!4 &1126514586
 Transform:
   m_ObjectHideFlags: 0
@@ -558,7 +636,7 @@ Transform:
   m_Children:
   - {fileID: 882931974}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1126514587
 MonoBehaviour:
@@ -570,6 +648,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32c9c1ef3287cc94aad14da4f722cc0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1126514588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126514584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5686f3e24a685841bca7c651815a244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumRange: 20
+--- !u!114 &1126514589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126514584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dd1a58bb5af3b49a88e2e77c3f60e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cargoPods:
+  - resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+    quantity: 0
+    capacity: 5000
+  - resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
+    quantity: 0
+    capacity: 2000
+--- !u!114 &1126514590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126514584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53837d8b158742141a6caa06015e1db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1160689220
@@ -794,7 +916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4535303257539462, guid: 945b593f379c81a499114a9afb22a8e3, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4535303257539462, guid: 945b593f379c81a499114a9afb22a8e3, type: 3}
       propertyPath: m_LocalPosition.x

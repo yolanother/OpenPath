@@ -11,10 +11,12 @@ namespace DoubTech.OpenPath.Controllers
     /// <summary>
     /// Controls the ability to mine resource materials from a resource source.
     /// </summary>
-    public class MiningController : MonoBehaviour
+    public class MiningController : AbstractController
     {
-        [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to mine it.")]
-        float maximumRange = 10;
+        [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
+        float maximumSensorRange = 10;
+        [SerializeField, Tooltip("The range a player must be from a source of resources to be able to mine it.")]
+        float maximumMiningRange = 2;
         [SerializeField, Tooltip("The maximum capacity of this mining controller. Once the mined resource hits" +
             "this capacity mining will stop and cannot be restarted until the mining equipment has been emptied.")]
         float capacity = 1000;
@@ -23,63 +25,78 @@ namespace DoubTech.OpenPath.Controllers
         float batchDuration = 0.25f;
 
         ShipController shipController;
-        private MinedResource resource;
+        ShipMovementController shipMovementController;
+        internal MinedResource resource;
+        private Coroutine miningCo;
 
         private void Start()
         {
             shipController = GetComponentInParent<ShipController>();
+            shipMovementController = shipController.MovementController;
         }
 
-        internal string StatusAsString()
+        public override string StatusAsString()
         {
-            return string.Format("Currently have {0} of {1} mined. Capacity is {2}.", resource.quantity, resource.type.name, capacity);
+            if (resource.type == null)
+            {
+                return "No resource type assigned to the mining controller yet.";
+            }
+            else
+            {
+                return string.Format("Currently have {0} of {1} mined. Capacity is {2}.", resource.quantity, resource.type.name, capacity);
+            }
         }
 
         /// <summary>
         /// Find the nearest resource source that has the same type of resource currently in the mining equipment (if any) and attempt to mine it.
         /// If no resource type already present then find the nearest resource of any type and mine it.
+        /// Mined resources will be stored within the mining controller. Once full mining will stop.
         /// </summary>
-        /// <returns>A MinedResource object representing the mined resource if succesful. Null if mining is unsuccessful for any reason.</returns>
         public void Mine()
         {
+            StopMining();
+
             if (resource.type != null && resource.quantity >= capacity) return;
 
             float minDistance = float.MaxValue;
             int maxColliders = 10;
             Collider[] hitColliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maximumRange, hitColliders);
+            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maximumSensorRange, hitColliders);
             float distance;
             ResourceSource source = null;
             ResourceSource candidate;
             for (int i = 0; i < numColliders; i++)
             {
                 candidate = hitColliders[i].GetComponent<ResourceSource>();
-                if (candidate != null && (resource.type == null || candidate.Type == resource.type))
+                if (candidate != null && (resource.type == null || (candidate.ResourceType == resource.type && resource.quantity < capacity)))
                 {
-                    if (candidate != null)
+                    distance = Vector3.Distance(transform.position, candidate.transform.position);
+                    if (distance < minDistance)
                     {
-                        distance = Vector3.Distance(transform.position, candidate.transform.position);
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            source = candidate;
-                        }
+                        minDistance = distance;
+                        source = candidate;
                     }
                 }
             }
 
             if (source != null)
             {
-                StartCoroutine(MineResourceSourceCo(source));
+                miningCo = StartCoroutine(MineResourceSourceCo(source));
             }
         }
 
         IEnumerator MineResourceSourceCo(ResourceSource source)
         {
-            resource = new MinedResource(source.Type, 0);
-
-            shipController.MoveToOrbit(source, 1.5f);
-            while (!shipController.InPosition)
+            if (resource.type == null)
+            {
+                resource = new MinedResource(source.ResourceType, 0);
+            } else
+            {
+                Debug.Log("Converting Mining Equipment to mine " + source.ResourceType + " any exiting resources in the equipment will be jetisoned.");
+                resource = new MinedResource(source.ResourceType, 0);
+            }
+            shipMovementController.MoveToOrbit(source, 1.5f);
+            while (!shipMovementController.InPosition)
             {
                 yield return new WaitForEndOfFrame();
             }
@@ -93,7 +110,24 @@ namespace DoubTech.OpenPath.Controllers
                     resource.quantity += source.Extract(batchDuration);
                 }
                 yield return new WaitForSeconds(batchDuration);
+
+                if (Vector3.SqrMagnitude(transform.position - source.transform.position) > maximumMiningRange * maximumMiningRange)
+                {
+                    StopMining();
+                }
             }
+        }
+
+        /// <summary>
+        /// Stop the current mining process if there is one and move any resource in the quipment into cargo pods if possible.
+        /// </summary>
+        private void StopMining()
+        {
+            if (miningCo != null)
+            {
+                StopCoroutine(miningCo);
+            }
+            resource.quantity = shipController.CargoController.Stow(resource.type, resource.quantity);
         }
     }
 }

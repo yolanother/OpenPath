@@ -1,65 +1,44 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using DoubTech.OpenPath.SolarSystemScope;
-using DoubTech.OpenPath.UniverseScope;
+using System;
 
 namespace DoubTech.OpenPath.Controllers
 {
     /// <summary>
-    /// Ship Controller is responsible for moving the ship through space.
+    /// The Ship Controller is the Bridge of a ship. It is from here all aspects of a Ship can be
+    /// accessed and managed.
     /// </summary>
-    public class ShipController : MonoBehaviour
+    public class ShipController : AbstractController
     {
-        private Transform objectToOrbit;
-        private float orbitingDistance = 1.5f;
+        private float credits;
 
-        private float orbitingDistanceSqr;
+        public ShipMovementController MovementController { get; internal set; }
+        public MiningController MiningController { get; internal set; }
 
-        private void Start()
+        public override string StatusAsString()
         {
-            orbitingDistanceSqr = orbitingDistance * orbitingDistance;
+            return string.Format("{0} Credits", credits);
         }
 
-        public bool InPosition
-        {
-            get
-            {
-                if (objectToOrbit == null) return true;
+        public TradeController TradeController { get; internal set; }
+        public CargoController CargoController { get; internal set; }
 
-                return Mathf.Approximately(orbitingDistanceSqr, Vector3.SqrMagnitude(objectToOrbit.position - transform.position));
-            }
+        private void Awake()
+        {
+            MovementController = GetComponent<ShipMovementController>();
+            MiningController = GetComponent<MiningController>();
+            TradeController = GetComponent<TradeController>();
+            CargoController = GetComponent<CargoController>();
         }
 
         /// <summary>
-        /// Move the ship to a given position and rotation.
+        /// Add a quantity of credits to the available credits to the ship.
         /// </summary>
-        /// <param name="transform">The position to move to.</param>
-        /// <param name="distance">The distance to maintain from the position.</param>
-        public void MoveToOrbit(Transform transform, float distance)
+        /// <param name="credits"></param>
+        public void AddCredits(float credits)
         {
-            objectToOrbit = transform;
-            orbitingDistance = distance;
-            orbitingDistanceSqr = orbitingDistance * orbitingDistance;
-            Debug.LogFormat("TODO: move to orbit around {0}. For now we just teleport there.", transform.gameObject.name);
-        }
-
-        public void MoveToOrbit(ResourceSource source, float distance)
-        {
-            MoveToOrbit(((Component)source).transform, distance);
-        }
-
-        public void MoveToOrbit(PlanetInstance planet, float distance)
-        {
-            MoveToOrbit(planet.transform, distance);
-        }
-
-        private void Update()
-        {
-            if (objectToOrbit != null) {
-                Vector3 direction = (transform.position - objectToOrbit.position).normalized;
-                transform.position = objectToOrbit.position + direction * orbitingDistance; 
-            }
+            this.credits += credits;
         }
     }
 }

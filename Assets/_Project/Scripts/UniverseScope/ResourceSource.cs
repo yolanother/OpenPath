@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2021 Doubling Technolgoies
 
  *
@@ -8,6 +8,7 @@
  */
 
 using DoubTech.OpenPath.Data.Resources;
+using DoubTech.OpenPath.UniverseScope.Resources;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.UniverseScope
@@ -33,7 +34,7 @@ namespace DoubTech.OpenPath.UniverseScope
         /// <summary>
         /// The resource that can be mined.
         /// </summary>
-        public ProductionResource Type { 
+        public ProductionResource ResourceType { 
             get { return resource; } 
         }
 

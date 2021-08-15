@@ -8,6 +8,6 @@ namespace DoubTech.OpenPath.Data.Resources
     public class ProductionResource : ScriptableObject
     {
         [SerializeField, Tooltip("The base value of this resource in the Universe. This will be modified by local factors such as scarcity.")]
-        float baseValue = 100;
+        internal float baseValue = 100;
     }
 }
