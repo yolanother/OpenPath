@@ -1,0 +1,6 @@
+Mining is enabled and managed by the `MiningController` component. 
+
+# Debug Commands
+
+## test.mine
+Simulates a single mining cycle.

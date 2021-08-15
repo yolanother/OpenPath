@@ -7,12 +7,13 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using DoubTech.OpenPath.Data.Resources;
+using DoubTech.OpenPath.UniverseScope;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.SolarSystemScope
 {
     public class PlanetInstance : MonoBehaviour
     {
-    
     }
 }
