@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 7056494}
   - component: {fileID: 7056499}
   - component: {fileID: 7056500}
+  - component: {fileID: 7056501}
   m_Layer: 0
   m_Name: Iron Rich Planet
   m_TagString: Untagged
@@ -263,6 +264,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   required: 5000
+--- !u!114 &7056501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7056493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8166891cc5574084288b415ed183a7e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 11400000, guid: 9727f676da3c93241b931bcd601fdd8e, type: 2}
+  quantityAvailable: 2
+  askMultiplier: 1
+  quantityRequested: 2
+  offerMultiplier: 0.4
 --- !u!1 &397149976
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,9 +637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa024b26354e384693481888fde7ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumSensorRange: 20
+  maximumSensorRange: 25
   maximumMiningRange: 2
-  capacity: 1000
+  capacity: 5
   batchDuration: 0.25
 --- !u!4 &1126514586
 Transform:
@@ -662,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5686f3e24a685841bca7c651815a244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumRange: 20
+  maxSensorRange: 20
 --- !u!114 &1126514589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,13 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43dd1a58bb5af3b49a88e2e77c3f60e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoPods:
-  - resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
-    quantity: 0
-    capacity: 5000
-  - resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
-    quantity: 0
-    capacity: 2000
+  cargoPods: []
 --- !u!114 &1126514590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,6 +706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53837d8b158742141a6caa06015e1db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resources:
+  - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+  - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
 --- !u!1 &1160689220
 GameObject:
   m_ObjectHideFlags: 0

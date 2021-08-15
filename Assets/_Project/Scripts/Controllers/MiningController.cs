@@ -19,7 +19,7 @@ namespace DoubTech.OpenPath.Controllers
         float maximumMiningRange = 2;
         [SerializeField, Tooltip("The maximum capacity of this mining controller. Once the mined resource hits" +
             "this capacity mining will stop and cannot be restarted until the mining equipment has been emptied.")]
-        float capacity = 1000;
+        float capacity = 5;
         [SerializeField, Tooltip("The time between mining extractions in seconds. The longer this is the longer between the addition of " +
             "resources to the stored quantity.")]
         float batchDuration = 0.25f;
@@ -45,6 +45,25 @@ namespace DoubTech.OpenPath.Controllers
             {
                 return string.Format("Currently have {0} of {1} mined. Capacity is {2}.", resource.quantity, resource.type.name, capacity);
             }
+        }
+
+        /// <summary>
+        /// Configure the mining equipment to mine a specific resource type.
+        /// Any resource currently in the mining equipment storage will be stowed
+        /// if possible, any excess will be dumped.
+        /// </summary>
+        /// <param name="desiredResource">The resource we want to mine.</param>
+        public void ConfigureMiningEquipment(ProductionResource desiredResource)
+        {
+            if (resource.quantity > 0)
+            {
+                shipController.CargoController.Stow(resource.type, resource.quantity);
+            }
+
+            resource.type = desiredResource;
+            resource.quantity = 0;
+
+            Debug.Log("Mining equipment is configured for " + resource.type.name);
         }
 
         /// <summary>
@@ -92,8 +111,8 @@ namespace DoubTech.OpenPath.Controllers
                 resource = new MinedResource(source.ResourceType, 0);
             } else
             {
-                Debug.Log("Converting Mining Equipment to mine " + source.ResourceType + " any exiting resources in the equipment will be jetisoned.");
                 resource = new MinedResource(source.ResourceType, 0);
+                Debug.Log("Converting Mining Equipment to mine " + source.ResourceType.name + " any exiting resources in the equipment will be jetisoned.");
             }
             shipMovementController.MoveToOrbit(source, 1.5f);
             while (!shipMovementController.InPosition)
@@ -103,19 +122,20 @@ namespace DoubTech.OpenPath.Controllers
 
             yield return new WaitForSeconds(batchDuration);
 
-            while (source.ResourceAvailable && capacity - resource.quantity > 0)
+            while (source.ResourceAvailable 
+                && capacity - resource.quantity > 0
+                && Vector3.SqrMagnitude(transform.position - source.transform.position) <= maximumMiningRange * maximumMiningRange)
             {
                 if (source.ResourceAvailable)
                 {
-                    resource.quantity += source.Extract(batchDuration);
+                    float amount = source.Extract(batchDuration);
+                    resource.quantity += amount;
+                    Debug.LogFormat("Mined {0} of {1} from {2}.\n\nTotal {1} available is now {3}", amount, resource.type.name, source.name, shipController.CargoController.Quantity(resource.type));
                 }
                 yield return new WaitForSeconds(batchDuration);
-
-                if (Vector3.SqrMagnitude(transform.position - source.transform.position) > maximumMiningRange * maximumMiningRange)
-                {
-                    StopMining();
-                }
             }
+
+            StopMining();
         }
 
         /// <summary>

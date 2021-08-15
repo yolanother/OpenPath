@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.UniverseScope.Resources;
+using System;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -11,7 +13,7 @@ namespace DoubTech.OpenPath.Controllers
     public class TradeController : AbstractController
     {
         [SerializeField, Tooltip("The range a player needs to be from a point of demand in order to be able to initiate a trade.")]
-        float maximumRange = 20;
+        float maxSensorRange = 20;
         
         ShipController shipController;
         ShipMovementController shipMovementController;
@@ -29,12 +31,12 @@ float tradeDuration = 2f;
         /// A short range scan is made to find locations that have demand for resources available to this trade controller.
         /// If a trade opportunity is found then the ship will move to that location and seek to perform a trade.
         /// </summary>
-        public void Trade()
+        public void SellLargestRevenueResource()
         {
-            float maxEstimatedProfit = float.MinValue;
+            float maxEstimatedRevenue = float.MinValue;
             int maxColliders = 10;
             Collider[] hitColliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maximumRange, hitColliders);
+            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
             float distance;
             ResourceDemand demand = null;
             ResourceDemand candidate;
@@ -44,19 +46,19 @@ float tradeDuration = 2f;
                 if (candidate != null && cargoController.Has(candidate.resource))
                 {
                     float available = cargoController.Quantity(candidate.resource);
-                    float estimatedProfit;
+                    float estimatedrevenue;
                     if (available >= candidate.required)
                     {
-                        estimatedProfit = candidate.required * candidate.resource.baseValue;
+                        estimatedrevenue = candidate.required * candidate.resource.baseValue;
                     }
                     else
                     {
-                        estimatedProfit = available * candidate.resource.baseValue;
+                        estimatedrevenue = available * candidate.resource.baseValue;
                     }
 
-                    if (estimatedProfit > maxEstimatedProfit)
+                    if (estimatedrevenue > maxEstimatedRevenue)
                     {
-                        maxEstimatedProfit = estimatedProfit;
+                        maxEstimatedRevenue = estimatedrevenue;
                         demand = candidate;
                     }
                 }
@@ -64,8 +66,68 @@ float tradeDuration = 2f;
 
             if (demand != null)
             {
+                Debug.LogFormat("Decided to trade {0} with {1} at an estimated income of {2}", demand.resource.name, demand.name, maxEstimatedRevenue);
                 StartCoroutine(TradeResourceCo(demand));
             }
+        }
+
+        /// <summary>
+        /// Attempt to purchase a named item. If the item is available and is deemed an acceptable price it
+        /// will be purchased and credits will be deducted.
+        /// </summary>
+        /// <param name="name">The item we want to purchase</param>
+        /// <returns>True if a purchase offer is available and the ship has begun the transaction, otherwise false.</returns>
+        internal bool Buy(string name)
+        {
+            // Find the most suitable seller
+            float minEstimatedCost = float.MaxValue;
+            int maxColliders = 10;
+            Collider[] hitColliders = new Collider[maxColliders];
+            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
+            EquipmentOffer offer = null;
+            EquipmentOffer candidate;
+            for (int i = 0; i < numColliders; i++)
+            {
+                candidate = hitColliders[i].GetComponent<EquipmentOffer>();
+                if (candidate != null)
+                {
+                    float estimatedCost = candidate.AskingPrice;
+
+                    if (estimatedCost < minEstimatedCost)
+                    {
+                        minEstimatedCost = estimatedCost;
+                        offer = candidate;
+                    }
+                }
+            }
+
+            if (offer != null)
+            {
+                Debug.LogFormat("Decided to purchase {0} from {1} at an estimated cost of {2}", offer.equipment.name, offer.name, minEstimatedCost);
+                StartCoroutine(BuyEquipmentCo(offer));
+                return true;
+            } else
+            {
+                Debug.LogFormat("Unable to find a seller of {0}.", name);
+                return false;
+            }
+        }
+
+        IEnumerator BuyEquipmentCo(EquipmentOffer offer)
+        {
+            shipMovementController.MoveToOrbit(offer, 1.5f);
+            while (!shipMovementController.InPosition)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            float cost = offer.AskingPrice;
+            shipController.RemoveCredits(cost);
+            offer.Buy();
+
+            shipController.Equip(offer.equipment);
+
+            Debug.LogFormat("Purchased and equipped {0} from {1} for a cost of {2}.", offer.equipment.name, offer.name, cost);
         }
 
         IEnumerator TradeResourceCo(ResourceDemand demand)
@@ -76,12 +138,18 @@ float tradeDuration = 2f;
                 yield return new WaitForEndOfFrame();
             }
 
+            Debug.Log("Initiating trade");
+
             yield return new WaitForSeconds(tradeDuration);
 
             float quantity = demand.required > cargoController.Quantity(demand.resource) ? cargoController.Quantity(demand.resource) : demand.required;
             cargoController.Remove(demand.resource, quantity);
             demand.required -= quantity;
-            shipController.AddCredits(demand.Price * quantity);
+            float price = demand.Price * quantity;
+            shipController.AddCredits(price);
+            Debug.LogWarning("TODO: when completing resource sale we should deduct credits to the offerer.");
+
+            Debug.LogFormat("Traded {0} of {1} for a price of {2}.", quantity, demand.resource.name, price);
         }
 
         public override string StatusAsString()

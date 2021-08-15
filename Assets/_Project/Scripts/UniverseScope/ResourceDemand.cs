@@ -20,7 +20,7 @@ namespace DoubTech.OpenPath.UniverseScope.Resources
         internal float Price
         {
             get {
-                Debug.Log("TODO: Calculate price to pay for a resource based on local demand and resource scarcity.");
+                Debug.LogWarning("TODO: Calculate price to pay for a resource based on local demand and resource scarcity.");
                 return resource.baseValue; 
             }
         }

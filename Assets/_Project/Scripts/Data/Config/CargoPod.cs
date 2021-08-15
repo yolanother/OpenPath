@@ -3,12 +3,16 @@ using UnityEngine;
 
 namespace DoubTech.OpenPath.Data.Equipment
 {
-    [CreateAssetMenu(fileName = "Cargo Pod", menuName = "OpenPath/Config/Equipment")]
-    public class CargoPod : ScriptableObject
+    [CreateAssetMenu(fileName = "Cargo Pod", menuName = "OpenPath/Config/Cargo Pod")]
+    public class CargoPod : AbstractShipEquipment
     {
+        [SerializeField, Tooltip("The resource this pod is configured to store.")]
         public ProductionResource resource;
-        public float quantity;
+        [SerializeField, Tooltip("The total capacity available in this pod.")]
         public float capacity;
+
+        internal float quantity;
+
 
         public CargoPod(ProductionResource resource, float capacity)
         {

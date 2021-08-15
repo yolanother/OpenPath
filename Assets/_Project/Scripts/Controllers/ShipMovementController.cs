@@ -5,6 +5,7 @@ using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using System;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.Orbits;
 using Lean.Touch;
 
@@ -63,6 +64,9 @@ namespace DoubTech.OpenPath.Controllers
             orbit.ellipse.radiusX = distance;
             orbit.ellipse.radiusY = distance;
             orbitingDistanceSqr = orbitingDistance * orbitingDistance;
+            Debug.LogWarning("TODO: Animate move to orbit. For now we just teleport there.");
+
+            Debug.LogFormat("Moved to orbit around {0}.", transform.gameObject.name);
         }
 
         public void MoveToOrbit(ResourceSource source, float distance)
@@ -73,6 +77,11 @@ namespace DoubTech.OpenPath.Controllers
         public void MoveToOrbit(ResourceDemand demand, float distance)
         {
             MoveToOrbit(((Component)demand).transform, distance);
+        }
+
+        public void MoveToOrbit(EquipmentOffer offer, float distance)
+        {
+            MoveToOrbit(((Component)offer).transform, distance);
         }
 
         public void MoveToOrbit(PlanetInstance planet, float distance)

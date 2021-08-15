@@ -25,6 +25,25 @@ namespace DoubTech.OpenPath.Controllers
             miningController = GetComponent<MiningController>();
         }
 
+        /// <summary>
+        /// Get the total cargo capacity for this ship. This is not available capacity, it includes
+        /// capacity already taken.
+        /// </summary>
+        /// <returns>The total capacity of all storage pods - excluding ancilliary storage such as Mining Equipment</returns>
+        public float TotalCapacity
+        {
+            get
+            {
+                float total = 0;
+                for (int i = 0; i < cargoPods.Count; i++)
+                {
+                    total += cargoPods[i].capacity;
+                }
+
+                return total;
+            }
+        }
+
         public override string StatusAsString()
         {
             StringBuilder sb = new StringBuilder();
@@ -70,6 +89,12 @@ namespace DoubTech.OpenPath.Controllers
                 return false;
             }
 
+            return true;
+        }
+
+        internal bool Equip(CargoPod pod)
+        {
+            cargoPods.Add(pod);
             return true;
         }
 

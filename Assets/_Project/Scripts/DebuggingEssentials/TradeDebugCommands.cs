@@ -19,7 +19,7 @@ namespace DoubTech.OpenPath.Debugging
         {
             Debug.Log("Trading");
 
-            controller.Trade();
+            controller.SellLargestRevenueResource();
         }
     }
 }
