@@ -28,11 +28,6 @@ namespace DoubTech.OpenPath.Orbits
 
         private float position = 0;
 
-        public void OnValidate()
-        {
-            RefreshOrbits();
-        }
-
         public void Update()
         {
             position += Application.isPlaying ? Time.smoothDeltaTime * speed / 1000f : 0;
