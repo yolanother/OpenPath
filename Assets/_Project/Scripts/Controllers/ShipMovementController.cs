@@ -5,6 +5,8 @@ using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using System;
+using DoubTech.OpenPath.Orbits;
+using Lean.Touch;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -13,7 +15,16 @@ namespace DoubTech.OpenPath.Controllers
     /// </summary>
     public class ShipMovementController : AbstractController
     {
-        private Transform objectToOrbit;
+        [SerializeField] private Transform positionTarget;
+        [SerializeField] private Transform lookTarget;
+        [SerializeField] private Transform modelContainer;
+        [SerializeField] private Orbit orbit;
+        [SerializeField] private Camera camera;
+
+        [SerializeField] private float velocity = .5f;
+
+
+        private Transform orbitTarget;
         private float orbitingDistance = 1.5f;
 
         private float orbitingDistanceSqr;
@@ -21,15 +32,16 @@ namespace DoubTech.OpenPath.Controllers
         private void Start()
         {
             orbitingDistanceSqr = orbitingDistance * orbitingDistance;
+            camera = Camera.main;
         }
 
         public bool InPosition
         {
             get
             {
-                if (objectToOrbit == null) return true;
+                if (orbitTarget == null) return true;
 
-                return Mathf.Approximately(orbitingDistanceSqr, Vector3.SqrMagnitude(objectToOrbit.position - transform.position));
+                return Mathf.Approximately(orbitingDistanceSqr, Vector3.SqrMagnitude(orbitTarget.position - transform.position));
             }
         }
 
@@ -40,10 +52,10 @@ namespace DoubTech.OpenPath.Controllers
         /// <param name="distance">The distance to maintain from the position.</param>
         public void MoveToOrbit(Transform transform, float distance)
         {
-            objectToOrbit = transform;
-            orbitingDistance = distance;
+            orbitTarget = transform;
+            orbit.ellipse.radiusX = distance;
+            orbit.ellipse.radiusY = distance;
             orbitingDistanceSqr = orbitingDistance * orbitingDistance;
-            Debug.LogFormat("TODO: move to orbit around {0}. For now we just teleport there.", transform.gameObject.name);
         }
 
         public void MoveToOrbit(ResourceSource source, float distance)
@@ -63,9 +75,27 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            if (objectToOrbit != null) {
-                Vector3 direction = (transform.position - objectToOrbit.position).normalized;
-                transform.position = objectToOrbit.position + direction * orbitingDistance; 
+            modelContainer.LookAt(lookTarget, transform.up);
+
+            if (orbitTarget)
+            {
+                orbit.gameObject.SetActive(true);
+                orbit.directionTarget = lookTarget;
+                orbit.updateDirectionTargetPosition = true;
+                orbit.transform.position = orbitTarget.position;
+                orbit.RefreshOrbits();
+            }
+            else
+            {
+                orbit.gameObject.SetActive(false);
+                modelContainer.position = Vector3.Lerp(modelContainer.position,
+                    positionTarget.position, Time.deltaTime * velocity);
+                lookTarget.position = Vector3.Lerp(lookTarget.position, positionTarget.position,
+                    Time.deltaTime);
+
+                modelContainer.rotation = Quaternion.Slerp(
+                    modelContainer.rotation,
+                    Quaternion.LookRotation(lookTarget.position, transform.up), Time.deltaTime);
             }
         }
 
@@ -78,6 +108,43 @@ namespace DoubTech.OpenPath.Controllers
             {
                 return "Not in position.";
             }
+        }
+
+        public void Orbit(PlanetInstance planetInstance)
+        {
+            if (planetInstance)
+            {
+                orbitTarget = planetInstance.planetTransform;
+            }
+            else
+            {
+                orbitTarget = null;
+            }
+        }
+
+        public void LeaveOrbit()
+        {
+            orbitTarget = null;
+        }
+
+        public void OnEnteredGravitationalField(Collider other)
+        {
+            var planetInstance = other.GetComponentInParent<PlanetInstance>();
+            if (planetInstance && planetInstance.orbit.WithinOrbit(positionTarget.position))
+            {
+                Orbit(planetInstance);
+            }
+        }
+
+        public void MoveTo(Vector3 worldPos)
+        {
+            var pos = new Vector3(worldPos.x, worldPos.y);
+            if (orbitTarget && !orbit.WithinOrbit(pos))
+            {
+                orbitTarget = null;
+            }
+
+            positionTarget.position = pos;
         }
     }
 }

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6803197154288657474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8044572980613636476}
+  - component: {fileID: 7156528852814711035}
+  m_Layer: 0
+  m_Name: GravitationalField
+  m_TagString: GravitationalField
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8044572980613636476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803197154288657474}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7230438062290228078}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7156528852814711035
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803197154288657474}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7230438060452233183
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +191,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 2.3450906
+        value: 3.0626087
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -156,7 +200,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 2.3450906
+        value: 3.0626087
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -271,6 +315,11 @@ MonoBehaviour:
     radiusY: 300
   speed: 1
   startPosition: 0
+  lerp: 0
+  lerpSpeed: 0
+  rotateTowardsOrbit: 0
+  updateDirectionTargetPosition: 0
+  directionTarget: {fileID: 0}
   orbitRenderer: {fileID: 7230438060452233180}
 --- !u!114 &4194991490411159832
 MonoBehaviour:
@@ -284,6 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6be4a4b3be3ce4a946cccabd66085d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetTransform: {fileID: 7230438062290228078}
+  orbit: {fileID: 7230438060499463654}
 --- !u!1 &7230438062290228073
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +364,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2741100401916733293}
+  - {fileID: 8044572980613636476}
   m_Father: {fileID: 7230438060499463655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

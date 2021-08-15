@@ -102,8 +102,8 @@
         {
             "name": "Odin - Inspector and Serializer",
             "id": "89041",
-            "versionId": "3.0.7",
-            "versionNumber": 631625,
+            "versionId": "2.1.10",
+            "versionNumber": 507587,
             "url": "https://assetstore.unity.com/packages/slug/89041"
         },
         {
@@ -140,6 +140,13 @@
             "versionId": "2.6",
             "versionNumber": 621164,
             "url": "https://assetstore.unity.com/packages/slug/141831"
+        },
+        {
+            "name": "Hi-Rez Spaceships Creator Free Sample",
+            "id": "153363",
+            "versionId": "1.3",
+            "versionNumber": 620941,
+            "url": "https://assetstore.unity.com/packages/slug/153363"
         }
     ]
 }
