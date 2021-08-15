@@ -5,6 +5,7 @@ using DoubTech.OpenPath.Data.Resources;
 using System;
 using System.Text;
 using UnityEngine.Serialization;
+using DoubTech.OpenPath.Data.Equipment;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -96,7 +97,7 @@ namespace DoubTech.OpenPath.Controllers
         /// <returns>The amount of the resource that remains unstowed. That is if there is insufficient cargo space to stow the full quantitye the return value will be the unstowed amount, otherwsie it will be zero.</returns>
         internal float Stow(ProductionResource resource, float quantity)
         {
-            for (int i = 0; i <= cargoPods.Count; i++)
+            for (int i = 0; i < cargoPods.Count; i++)
             {
                 quantity = cargoPods[i].Stow(resource, quantity);
                 if (quantity == 0)
@@ -143,74 +144,6 @@ namespace DoubTech.OpenPath.Controllers
                     }
                 }
             }
-        }
-    }
-
-    /// <summary>
-    /// A Cargo Bay stores a quantity of a resource up to a maximum capacity.
-    /// </summary>
-    [Serializable]
-    public class CargoPod
-    {
-        public ProductionResource resource;
-        public float quantity;
-        public float capacity;
-
-        public CargoPod(ProductionResource resource, float capacity)
-        {
-            this.resource = resource;
-            this.capacity = capacity;
-            this.quantity = 0;
-        }
-
-        internal void Empty()
-        {
-            this.quantity = 0;
-        }
-
-        /// <summary>
-        /// The amount of space currently available in this cargo pod.
-        /// </summary>
-        internal float Space
-        {
-            get { return capacity - quantity; }
-        }
-
-        /// <summary>
-        /// Stow an amount of the required resource in this cargo pod,  converting the pod to the
-        /// right resource pod if necessary.
-        /// </summary>
-        /// 
-        /// <param name="quantity"></param>
-        /// <returns></returns>
-        internal float Stow(ProductionResource resource, float quantity)
-        {
-            if (this.resource != resource)
-            {
-                if (this.quantity == 0)
-                {
-                    this.resource = resource;
-                } else
-                {
-                    return quantity;
-                }
-            }
-
-            if (Space > quantity)
-            {
-                this.quantity += quantity;
-                return 0;
-            } else
-            {
-                float excess = quantity - Space;
-                this.quantity = capacity;
-                return excess;
-            }
-        }
-
-        internal void Remove(float quantity)
-        {
-            this.quantity -= quantity;
         }
     }
 }
