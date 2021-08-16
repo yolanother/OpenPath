@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using System;
+using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope.Equipment;
 
 namespace DoubTech.OpenPath.Controllers
@@ -11,7 +12,7 @@ namespace DoubTech.OpenPath.Controllers
     /// The Trade Controller manages trade between entities within the game.
     /// </summary>
     public class TradeController : AbstractController
-    {        
+    {
         ShipMovementController shipMovementController;
         CargoController cargoController;
         float tradeDuration = 2f;
@@ -59,6 +60,16 @@ namespace DoubTech.OpenPath.Controllers
             if (demand != null)
             {
                 Debug.LogFormat("Decided to trade {0} with {1} at an estimated income of {2}", demand.resource.name, demand.name, maxEstimatedRevenue);
+                StartCoroutine(TradeResourceCo(demand));
+            }
+        }
+
+        public void SellAll(PlanetInstance planetInstance)
+        {
+            var demands = planetInstance.GetComponents<ResourceDemand>();
+
+            foreach (var demand in demands)
+            {
                 StartCoroutine(TradeResourceCo(demand));
             }
         }

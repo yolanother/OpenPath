@@ -83,6 +83,8 @@ MonoBehaviour:
   velocity: 5
   acceleration: 1
   stopDistance: 1
+  onEnteredOrbit: {fileID: 0}
+  onLeftOrbit: {fileID: 0}
 --- !u!114 &989584488960964567
 MonoBehaviour:
   m_ObjectHideFlags: 0

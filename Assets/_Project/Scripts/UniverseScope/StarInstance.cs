@@ -29,15 +29,19 @@ namespace DoubTech.OpenPath.UniverseScope
             {
                 starConfig = value;
 
-                star.material.SetColor("_StarColor1", starConfig.starColor);
-                float h, s, v;
-                Color.RGBToHSV(starConfig.starColor, out h, out s, out v);
-                v *= .9f;
-                atmosphereClose.material.SetColor("_Color0", Color.HSVToRGB(h, s, v));
-                v *= .9f;
-                atmosphereFar.material.SetColor("_Color0", Color.HSVToRGB(h, s, v));
-                corona.material.SetColor("_coronacolor", starConfig.starColor * starConfig.hdrMultiplier);
-                selectorColor.SelectedColor = starConfig.starColor;
+                if (starConfig)
+                {
+                    star.material.SetColor("_StarColor1", starConfig.starColor);
+                    float h, s, v;
+                    Color.RGBToHSV(starConfig.starColor, out h, out s, out v);
+                    v *= .9f;
+                    atmosphereClose.material.SetColor("_Color0", Color.HSVToRGB(h, s, v));
+                    v *= .9f;
+                    atmosphereFar.material.SetColor("_Color0", Color.HSVToRGB(h, s, v));
+                    corona.material.SetColor("_coronacolor",
+                        starConfig.starColor * starConfig.hdrMultiplier);
+                    selectorColor.SelectedColor = starConfig.starColor;
+                }
             }
         }
 

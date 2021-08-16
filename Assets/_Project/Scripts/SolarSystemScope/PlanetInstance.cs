@@ -7,7 +7,11 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System.Collections.Generic;
+using System.Linq;
+using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.SolarSystemScope;
+using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.Orbits;
 using UnityEngine;
 
@@ -17,6 +21,12 @@ namespace DoubTech.OpenPath.SolarSystemScope
     {
         public Orbit orbit;
         public Planet planetData = new Planet();
+        private HashSet<ShipController> orbitingShips = new HashSet<ShipController>();
+
+        public ShipController[] OrbitingShips => orbitingShips.ToArray();
+        public bool HasShipInOrbit => orbitingShips.Count > 0;
+
+        public void IsOrbiting(ShipController ship) => orbitingShips.Contains(ship);
 
         float timeOfNextTick;
 
@@ -26,6 +36,16 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 planetData.Tick();
                 timeOfNextTick = Time.timeSinceLevelLoad + planetData.tickFrequency;
             }
+        }
+
+        public void AddOrbitingShip(ShipController shipController)
+        {
+            orbitingShips.Add(shipController);
+        }
+
+        public void RemoveOrbitingObject(ShipController shipController)
+        {
+            orbitingShips.Remove(shipController);
         }
     }
 }

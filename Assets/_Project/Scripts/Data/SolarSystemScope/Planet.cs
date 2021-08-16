@@ -9,7 +9,9 @@
 
 using System;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Factions;
 using SimpleSQL;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +30,7 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         [SerializeField] private float habitability;
         [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
         [SerializeField, Range(0f, 1f)] private float healthcareQuality;
+        [SerializeField] private Faction faction;
 
         internal float tickFrequency = 1f; // how often the planet should tick
 
@@ -76,6 +79,41 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
             get
             {
                 return string.IsNullOrEmpty(Name) ? PlanetId : Name;
+            }
+        }
+
+        public Color FactionColor => faction ? faction.factionColor : Color.gray;
+
+        public string HabitabilityString
+        {
+            get
+            {
+                if (habitability < 0.25)
+                {
+                    return "Inhospitable";
+                }
+                else if (habitability < .33)
+                {
+                    return "Abysmal";
+                }
+                else if (habitability < .50)
+                {
+                    return "Not Great";
+                }
+                else if (habitability < .66)
+                {
+                    return "Barely Livible";
+                }
+                else if (habitability < .75)
+                {
+                    return "Passible";
+                }
+                else if (habitability < .90)
+                {
+                    return "Good";
+                }
+
+                return "Excellent";
             }
         }
 

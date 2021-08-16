@@ -9,6 +9,7 @@ using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.Orbits;
 using Lean.Touch;
 using DoubTech.OpenPath.Data.UniverseScope;
+using DoubTech.OpenPath.Events;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -27,11 +28,15 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField] private float acceleration = 1;
         [SerializeField] private float stopDistance = .5f;
 
+        [SerializeField] public ShipOrbitGameEvent onEnteredOrbit;
+        [SerializeField] public ShipOrbitGameEvent onLeftOrbit;
+
         private Transform orbitTarget;
 
         private float currentSpeed;
         private Vector3 lastPosition;
         private Quaternion nextAngle;
+        private bool movingIntoOrbit;
 
         internal override void Start()
         {
@@ -88,6 +93,17 @@ namespace DoubTech.OpenPath.Controllers
                 orbit.transform.position = orbitTarget.position;
                 orbit.RefreshOrbits();
                 modelPivot.LookAt(orbit.transform);
+
+                if (movingIntoOrbit && orbit.WithinOrbit(transform.position))
+                {
+                    movingIntoOrbit = false;
+                    var planetInstance = orbitTarget.GetComponent<PlanetInstance>();
+                    planetInstance.AddOrbitingShip(shipController);
+                    if (planetInstance)
+                    {
+                        onEnteredOrbit?.Invoke(shipController, planetInstance);
+                    }
+                }
             }
             else
             {
@@ -153,17 +169,36 @@ namespace DoubTech.OpenPath.Controllers
         {
             if (planetInstance)
             {
+                movingIntoOrbit = true;
+                if (orbitTarget && planetInstance.transform != orbitTarget)
+                {
+                    var oldPlanet = orbitTarget.GetComponent<PlanetInstance>();
+                    if(oldPlanet) oldPlanet.RemoveOrbitingObject(shipController);
+                }
                 orbitTarget = planetInstance.transform;
             }
             else
             {
-                orbitTarget = null;
+                OnLeaveOrbit();
             }
         }
 
         public void LeaveOrbit()
         {
+            movingIntoOrbit = false;
             positionTarget.position = transform.position;
+            OnLeaveOrbit();
+        }
+
+        private void OnLeaveOrbit()
+        {
+            if (orbitTarget)
+            {
+                var planetInstance = orbitTarget.GetComponent<PlanetInstance>();
+                planetInstance.RemoveOrbitingObject(shipController);
+                onLeftOrbit.Invoke(shipController, planetInstance);
+            }
+
             orbitTarget = null;
         }
 
@@ -178,6 +213,7 @@ namespace DoubTech.OpenPath.Controllers
 
         public void MoveTo(Vector3 worldPos)
         {
+            movingIntoOrbit = true;
             var pos = new Vector3(worldPos.x, worldPos.y);
             if (orbitTarget && !orbit.WithinOrbit(pos))
             {
