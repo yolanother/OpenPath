@@ -56,7 +56,7 @@ namespace DoubTech.OpenPath.Data
         {
             var seed = GetSeed(coordinates);
             Random.InitState(seed + 2);
-            return starConfigs[Random.Range(0, starConfigs.Length - 1)];
+            return starConfigs[(int) (Random.value * starConfigs.Length)];
         }
 
         public int GetStarSize(Vector2 coordinates)

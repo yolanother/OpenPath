@@ -9,6 +9,7 @@
 
 using System;
 using DoubTech.OpenPath.SolarSystemScope;
+using DoubTech.OpenPath.UniverseScope;
 using DoubTech.ScriptableEvents;
 using UnityEngine;
 using UnityEngine.Events;

@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa44ee782a94154af76ece683ffbd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 43da655108256764ba3ba854005eea8b, type: 2}
+  gameEvent: {fileID: 11400000, guid: d2016034cbbe17c439275031a07c5254, type: 2}
   onEvent:
     m_PersistentCalls:
       m_Calls:
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa44ee782a94154af76ece683ffbd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: baf853416079b7340a833e8e37b45c7d, type: 2}
+  gameEvent: {fileID: 11400000, guid: 30021970c7e63c242bb06e3076841e8e, type: 2}
   onEvent:
     m_PersistentCalls:
       m_Calls:
@@ -792,7 +792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7072153956820997477
 Transform:
   m_ObjectHideFlags: 0

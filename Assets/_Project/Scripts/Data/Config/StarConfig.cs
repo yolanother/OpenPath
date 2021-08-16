@@ -17,12 +17,12 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     [CreateAssetMenu(fileName = "StarConfig", menuName = "OpenPath/Config/Star Config")]
     public class StarConfig : ScriptableObject
     {
-        [SerializeField] private StarAppearenceManager starPrefab;
+        [SerializeField] private StarInstance starPrefab;
         [SerializeField] public Color starColor;
         [SerializeField] public float hdrMultiplier = 10;
         [SerializeField] public ResourceModifier[] resourceModifiers;
 
-        public StarAppearenceManager StarPrefab => starPrefab;
+        public StarInstance StarPrefab => starPrefab;
     }
 
     [Serializable]

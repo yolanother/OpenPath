@@ -14,6 +14,7 @@ namespace DoubTech.OpenPath.Data
     [CreateAssetMenu(fileName = "GalaxyConfig", menuName = "OpenPath/Config/Galaxy Config")]
     public class GalaxyConfig : ScriptableObject
     {
+        [SerializeField] public float starDensity = .25f;
         [SerializeField] public int seed = 0;
         [SerializeField] public int galaxySize = (int) Mathf.Sqrt(int.MaxValue);
     }
