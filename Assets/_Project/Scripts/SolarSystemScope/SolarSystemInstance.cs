@@ -66,6 +66,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
 #endif
 
+                orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
+
                 orbit.transform.parent = transform;
                 var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
                 var planet = Instantiate(config.Prefab);
