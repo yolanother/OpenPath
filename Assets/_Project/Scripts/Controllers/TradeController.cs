@@ -34,31 +34,36 @@ float tradeDuration = 2f;
         public void SellLargestRevenueResource()
         {
             float maxEstimatedRevenue = float.MinValue;
-            int maxColliders = 10;
+            int maxColliders = 100;
             Collider[] hitColliders = new Collider[maxColliders];
             int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
             ResourceDemand demand = null;
+            ResourceDemand[] candidates;
             ResourceDemand candidate;
             for (int i = 0; i < numColliders; i++)
             {
-                candidate = hitColliders[i].GetComponentInParent<ResourceDemand>();
-                if (candidate != null && cargoController.Has(candidate.resource))
+                candidates = hitColliders[i].GetComponentsInParent<ResourceDemand>();
+                for (int c = 0; c < candidates.Length; c++)
                 {
-                    float available = cargoController.Quantity(candidate.resource);
-                    float estimatedrevenue;
-                    if (available >= candidate.required)
+                    candidate = candidates[c];
+                    if (candidate != null && cargoController.Has(candidate.resource))
                     {
-                        estimatedrevenue = candidate.required * candidate.resource.baseValue;
-                    }
-                    else
-                    {
-                        estimatedrevenue = available * candidate.resource.baseValue;
-                    }
+                        float available = cargoController.Quantity(candidate.resource);
+                        float estimatedrevenue;
+                        if (available >= candidate.required)
+                        {
+                            estimatedrevenue = candidate.required * candidate.resource.baseValue;
+                        }
+                        else
+                        {
+                            estimatedrevenue = available * candidate.resource.baseValue;
+                        }
 
-                    if (estimatedrevenue > maxEstimatedRevenue)
-                    {
-                        maxEstimatedRevenue = estimatedrevenue;
-                        demand = candidate;
+                        if (estimatedrevenue > maxEstimatedRevenue)
+                        {
+                            maxEstimatedRevenue = estimatedrevenue;
+                            demand = candidate;
+                        }
                     }
                 }
             }

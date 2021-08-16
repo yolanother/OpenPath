@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Resources;
+using Sirenix.OdinInspector;
 
 namespace DoubTech.OpenPath.UniverseScope.Resources
 {
@@ -20,8 +21,8 @@ namespace DoubTech.OpenPath.UniverseScope.Resources
         internal float Price
         {
             get {
-                Debug.LogWarning("TODO: Calculate price to pay for a resource based on local demand and resource scarcity.");
-                return resource.baseValue; 
+                Debug.LogWarning("TODO: Better calculation price to pay for a resource based on local demand and resource scarcity.");
+                return Mathf.Clamp(resource.baseValue * (required / 10), resource.baseValue / 2, resource.baseValue * 1.5F); 
             }
         }
     }

@@ -139,19 +139,28 @@ namespace DoubTech.OpenPath.SolarSystemScope
                     }
                 }
 
+                ResourceSource source = null;
+                ResourceDemand demand = null;
                 if (chance > 0 && Random.value <= chance)
                 {
-                    ResourceSource source = planetInstance.gameObject.AddComponent<ResourceSource>();
+                    source = planetInstance.gameObject.AddComponent<ResourceSource>();
                     source.resource = solarSystemConfig.resources[r];
                     source.quantityPerSecond = 1; // how easy is it to extract
                     source.resourceAvailable = 50000; // total resource reserves
                 }
-                else
+                
                 if (planetInstance.population > 0)
                 {
-                    ResourceDemand demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
+                    demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
                     demand.resource = solarSystemConfig.resources[r];
-                    demand.required = planetInstance.population / 10000; // total resource demanded at the start of the game
+
+                    if (source == null)
+                    {
+                        demand.required = planetInstance.population / 1000;
+                    } else
+                    {
+                        demand.required = planetInstance.population / 10000;
+                    }
                 }
             }
         }

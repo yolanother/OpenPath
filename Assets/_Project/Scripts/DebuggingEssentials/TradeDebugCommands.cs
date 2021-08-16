@@ -17,8 +17,6 @@ namespace DoubTech.OpenPath.Debugging
         [ConsoleCommand("trade", "Trade mined resources for maximized profit.")]
         public void SellMostProfitableResource()
         {
-            Debug.Log("Trading");
-
             controller.SellLargestRevenueResource();
         }
     }
