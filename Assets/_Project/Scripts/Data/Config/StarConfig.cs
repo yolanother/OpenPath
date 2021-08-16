@@ -29,6 +29,9 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     public class ResourceModifier
     {
         public ProductionResource source;
+        [Tooltip("A modifier to the chance of this resource appearing on this planet. " +
+            "The base chance is set in the ProductionResource scriptable object."),
+         Range(-1f, 1f)]
         public float modificationPercent;
     }
 }
