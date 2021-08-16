@@ -380,6 +380,8 @@ MonoBehaviour:
   planetData:
     playerId: 
     population: 0
+    habitability: 0
+    healthcareQuality: 0
 --- !u!1 &8019244263627443829
 GameObject:
   m_ObjectHideFlags: 0
