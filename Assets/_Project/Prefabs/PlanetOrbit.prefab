@@ -316,9 +316,6 @@ MonoBehaviour:
   startPosition: 0
   lerp: 0
   lerpSpeed: 0
-  rotateTowardsOrbit: 0
-  updateDirectionTargetPosition: 0
-  directionTarget: {fileID: 0}
   orbitRenderer: {fileID: 7230438060452233180}
 --- !u!1 &7230438062290228073
 GameObject:

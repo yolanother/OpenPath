@@ -43,8 +43,6 @@ namespace DoubTech.OpenPath.ShipControls
             if (orbitTarget)
             {
                 orbit.gameObject.SetActive(true);
-                orbit.directionTarget = lookTarget;
-                orbit.updateDirectionTargetPosition = true;
                 orbit.transform.position = orbitTarget.position;
                 orbit.RefreshOrbits();
             }

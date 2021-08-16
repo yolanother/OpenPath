@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -20,43 +21,42 @@ namespace DoubTech.OpenPath.Orbits
         [Range(0, 1)] [SerializeField] public float startPosition;
         [SerializeField] public bool lerp;
         [SerializeField] public float lerpSpeed;
-        [SerializeField] public bool rotateTowardsOrbit;
-        [SerializeField] public bool updateDirectionTargetPosition;
-        [SerializeField] public Transform directionTarget;
 
         [HideInInspector] [SerializeField] private OrbitRenderer orbitRenderer;
 
         private float position = 0;
+        private Vector3 nextOrbitPosition;
+        private Vector3 previousOrbitPosition;
+
+        public Vector3 NextOrbitPosition => nextOrbitPosition;
+
+        public Vector3 PreviousOrbitPosition => previousOrbitPosition;
 
         public void Update()
         {
-            position += Application.isPlaying ? Time.smoothDeltaTime * speed / 1000f : 0;
+            var increment = Application.isPlaying ? Time.smoothDeltaTime * speed / 1000f : 0;
+            position += increment;
             if (position > 1) position -= 1;
             if (orbitingObjectContainer)
             {
+                previousOrbitPosition = OrbitPosition(orbitingObjectContainer,
+                    position + startPosition - increment);
+                nextOrbitPosition = OrbitPosition(orbitingObjectContainer, position + startPosition + increment);
                 SetOrbitPosition(orbitingObjectContainer, position + startPosition);
-
-                if (updateDirectionTargetPosition)
-                {
-                    SetOrbitPosition(directionTarget, position + startPosition + .01f);
-                }
-
-                if (rotateTowardsOrbit)
-                {
-                    if (updateDirectionTargetPosition)
-                    {
-                        orbitingObjectContainer.LookAt(directionTarget, transform.up);
-                    }
-                    else
-                    {
-
-                        var target = ellipse.Evaluate(position + .01f + startPosition);
-                        orbitingObjectContainer.rotation = Quaternion.Slerp(
-                            orbitingObjectContainer.rotation,
-                            Quaternion.LookRotation(target, transform.up), Time.deltaTime);
-                    }
-                }
             }
+        }
+
+        private Vector3 OrbitPosition(Transform orbitingObjectContainer, float t)
+        {
+            Vector3 originalPos = orbitingObjectContainer.position;
+            var parent = orbitingObjectContainer.transform.parent;
+            var orbitPosition = ellipse.Evaluate(t);
+            orbitingObjectContainer.transform.parent = transform;
+            orbitingObjectContainer.localPosition = orbitPosition;
+            var targetPos = orbitingObjectContainer.position;
+            orbitingObjectContainer.position = originalPos;
+            orbitingObjectContainer.transform.parent = parent;
+            return targetPos;
         }
 
         private void SetOrbitPosition(Transform orbitingObjectContainer, float t)

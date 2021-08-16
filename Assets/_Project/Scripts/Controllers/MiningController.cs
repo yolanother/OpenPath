@@ -23,6 +23,7 @@ namespace DoubTech.OpenPath.Controllers
         float batchDuration = 0.25f;
 
         [SerializeField] private Transform miningBeam;
+        [SerializeField] private GameObject miningBeamVisualization;
 
         ShipController shipController;
         ShipMovementController shipMovementController;
@@ -173,6 +174,8 @@ namespace DoubTech.OpenPath.Controllers
             var distance = Mathf.Lerp(miningBeam.transform.localScale.y, Vector3.Distance(
                 miningBeam.transform.position, target) / 2.0f, Time.deltaTime);
             miningBeam.transform.localScale = new Vector3(1, distance, 1);
+
+            miningBeamVisualization.SetActive(miningBeam.transform.localScale.y > .0001f);
         }
     }
 }
