@@ -10,6 +10,7 @@
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.Equipment;
+using DoubTech.OpenPath.Data.Investments;
 using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
@@ -35,6 +36,8 @@ namespace DoubTech.OpenPath.Data
         internal ProductionResource[] resources;
         [SerializeField, Tooltip("The equipment that exist in this solar system and can be traded.")]
         internal AbstractShipEquipment[] equipment;
+        [SerializeField, Tooltip("The investment opportunities that may exist in this solar system.")]
+        internal PlanetInvestment[] investments;
         [SerializeField] public float distanceScale = 10;
         [SerializeField] public Orbit planetOrbitPrefab;
 

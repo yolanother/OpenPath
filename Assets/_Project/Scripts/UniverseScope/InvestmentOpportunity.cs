@@ -31,7 +31,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
                 Destroy(this);
             }
 
-            Debug.LogFormat("Invested {0} in {1} at {3}.", investment.requiredInvestmentAmount, investment.name, gameObject.name);
+            Debug.LogFormat("Invested {0} in {1} at {2}.", investment.requiredInvestmentAmount, investment.name, gameObject.name);
         }
     }
 }

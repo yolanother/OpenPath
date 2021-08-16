@@ -11,6 +11,7 @@ using System;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.SolarSystemScope;
+using DoubTech.OpenPath.Data.UniverseScope;
 using DoubTech.OpenPath.Orbits;
 using DoubTech.OpenPath.Scenes;
 using DoubTech.OpenPath.UniverseScope;
@@ -100,6 +101,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
                 GenerateResourceSupplyAndDemand(config, planetInstance);
                 GenerateTrade(config, planetInstance);
+                GenerateInvestments(config, planetInstance);
 
                 planets[i] = planetInstance;
 
@@ -128,6 +130,20 @@ namespace DoubTech.OpenPath.SolarSystemScope
                     trade.askMultiplier = Random.Range(0.8f, 2f);
                     trade.quantityRequested = Random.Range(0, 5);
                     trade.offerMultiplier = Random.Range(0.2f, 1.1f);
+                }
+            }
+        }
+
+        private void GenerateInvestments(PlanetConfig config, PlanetInstance planetInstance)
+        {
+            float chance = 0;
+            for (int i = 0; i < solarSystemConfig.investments.Length; i++)
+            {
+                chance = solarSystemConfig.investments[i].Chance(planetInstance.planetData);
+                if (chance > 0 && Random.value <= chance)
+                {
+                    InvestmentOpportunity opportunity = planetInstance.gameObject.AddComponent<InvestmentOpportunity>();
+                    opportunity.investment = solarSystemConfig.investments[i];
                 }
             }
         }
