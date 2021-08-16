@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbit: {fileID: 7230438060499463654}
+  population: 0
   planetData:
     playerId: 
 --- !u!1 &8019244263627443829

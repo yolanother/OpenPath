@@ -16,6 +16,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
     public class PlanetInstance : MonoBehaviour
     {
         public Orbit orbit;
+        [SerializeField, Tooltip("The current population of intelligent lifeforms in 10,000's.")]
+        internal int population = 0;
         public Planet planetData = new Planet();
     }
 }

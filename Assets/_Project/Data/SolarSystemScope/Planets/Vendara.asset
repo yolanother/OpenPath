@@ -15,3 +15,5 @@ MonoBehaviour:
   prefab: {fileID: 8667303245676758321, guid: 069ad1774f0cf8e408d707f46a3d8536, type: 3}
   minSpawnDistanceFromSun: 0
   maxSpawnDistanceFromSun: 0
+  habitability: 0.72
+  resourceModifiers: []

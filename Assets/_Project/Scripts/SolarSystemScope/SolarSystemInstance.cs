@@ -15,6 +15,7 @@ using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using DoubTech.OpenPath.UniverseScope;
+using DoubTech.OpenPath.UniverseScope.Resources;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -51,24 +52,24 @@ namespace DoubTech.OpenPath.SolarSystemScope
             for (int i = 0; i < planetPositions.Length; i++)
             {
                 Orbit orbit;
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 if (Application.isPlaying)
                 {
                     orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
                 }
                 else
                 {
-                    orbit = (Orbit) PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
+                    orbit = (Orbit)PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
                 }
-                #else
+#else
                 orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
-                #endif
+#endif
 
                 orbit.transform.parent = transform;
                 var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
                 var planet = Instantiate(config.Prefab);
                 var lightSource = planet.GetComponent<LightSource>();
-                if(lightSource) lightSource.Sun = star.gameObject;
+                if (lightSource) lightSource.Sun = star.gameObject;
                 orbit.ellipse.radiusX = planetPositions[i] *
                                         solarSystemConfig.distanceScale;
                 orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
@@ -84,40 +85,52 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 var planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
                 planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
                 if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
+                if (Random.value <= config.habitability) planetInstance.population = (int)Random.Range(10, 1000000);
                 planetInstance.planetData.PlanetId = planetInstance.name;
                 planetInstance.orbit = orbit;
 
-                // Generate production resources
-                float chance = 0;
-                for (int r = 0; r < solarSystemConfig.resources.Length; r++)
-                {
-                    chance = solarSystemConfig.resources[r].generationChance;
-                    for (int p = 0; p < config.resourceModifiers.Length; p++)
-                    {
-                        if (config.resourceModifiers[p].resource == solarSystemConfig.resources[r])
-                        {
-                            chance += config.resourceModifiers[p].modificationPercent;
-                            break;
-                        }
-                    }
-
-                    if (chance > 0 && Random.value <= chance)
-                    {
-                        ResourceSource source = planetInstance.gameObject.AddComponent<ResourceSource>();
-                        source.resource = solarSystemConfig.resources[r];
-                        source.quantityPerSecond = 1; // how easy is it to extract
-                        source.resourceAvailable = 50000; // total resource reserves
-                    }
-                }
+                GenerateResourceSupplyAndDemand(config, planetInstance);
 
                 planets[i] = planetInstance;
 
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 if (!Application.isPlaying)
                 {
                     EditorUtility.SetDirty(planetInstance);
                 }
-                #endif
+#endif
+            }
+        }
+
+        private void GenerateResourceSupplyAndDemand(PlanetConfig config, PlanetInstance planetInstance)
+        {
+            float chance = 0;
+            for (int r = 0; r < solarSystemConfig.resources.Length; r++)
+            {
+                chance = solarSystemConfig.resources[r].generationChance;
+                for (int p = 0; p < config.resourceModifiers.Length; p++)
+                {
+                    if (config.resourceModifiers[p].resource == solarSystemConfig.resources[r])
+                    {
+                        chance += config.resourceModifiers[p].modificationPercent;
+                        break;
+                    }
+                }
+
+                if (chance > 0 && Random.value <= chance)
+                {
+                    ResourceSource source = planetInstance.gameObject.AddComponent<ResourceSource>();
+                    source.resource = solarSystemConfig.resources[r];
+                    source.quantityPerSecond = 1; // how easy is it to extract
+                    source.resourceAvailable = 50000; // total resource reserves
+                }
+                else
+                if (planetInstance.population > 0)
+                {
+                    ResourceDemand demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
+                    demand.resource = solarSystemConfig.resources[r];
+                    demand.required = planetInstance.population / 10000; // total resource demanded at the start of the game
+                }
             }
         }
     }

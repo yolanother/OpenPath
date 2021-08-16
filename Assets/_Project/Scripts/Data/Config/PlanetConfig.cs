@@ -22,7 +22,10 @@ namespace DoubTech.OpenPath.Data.Config
         [SerializeField] private GameObject prefab;
         [SerializeField] public int minSpawnDistanceFromSun;
         [SerializeField] public int maxSpawnDistanceFromSun;
-        [SerializeField] public ResourceModifier[] resourceModifiers;
+        [SerializeField, Tooltip("How likely intelligent life is to be develop on this planet"), Range(0f, 1f)]
+        internal float habitability = 0;
+        [SerializeField, Tooltip("Modifiers to the likelyhood of any specific resource being available on this planet.")] 
+        public ResourceModifier[] resourceModifiers;
 
         public GameObject Prefab => prefab;
     }
