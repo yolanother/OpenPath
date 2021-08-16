@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53837d8b158742141a6caa06015e1db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSensorRange: 250
   maxInteractionRange: 150
   resources:
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
@@ -71,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c9c1ef3287cc94aad14da4f722cc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSensorRange: 250
   maxInteractionRange: 150
   positionTarget: {fileID: 989584490816625095}
   lookTarget: {fileID: 989584490283401556}
@@ -121,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa024b26354e384693481888fde7ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxInteractionRange: 150
   maxSensorRange: 5000
+  maxInteractionRange: 150
   capacity: 5
   batchDuration: 0.25
   miningBeam: {fileID: 7477902610997336349}
@@ -139,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5686f3e24a685841bca7c651815a244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxInteractionRange: 150
   maxSensorRange: 5000
+  maxInteractionRange: 150
 --- !u!114 &130801314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43dd1a58bb5af3b49a88e2e77c3f60e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSensorRange: 250
   maxInteractionRange: 150
   cargoPods: []
 --- !u!114 &1561849172

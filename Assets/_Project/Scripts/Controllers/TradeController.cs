@@ -11,18 +11,14 @@ namespace DoubTech.OpenPath.Controllers
     /// The Trade Controller manages trade between entities within the game.
     /// </summary>
     public class TradeController : AbstractController
-    {
-        [SerializeField, Tooltip("The range a player needs to be from a point of demand in order to be able to initiate a trade.")]
-        float maxSensorRange = 20;
-        
-        ShipController shipController;
+    {        
         ShipMovementController shipMovementController;
         CargoController cargoController;
-float tradeDuration = 2f;
+        float tradeDuration = 2f;
 
-        private void Start()
+        internal override void Start()
         {
-            shipController = GetComponent<ShipController>();
+            base.Start();
             shipMovementController = shipController.MovementController;
             cargoController = shipController.CargoController;
         }
@@ -33,37 +29,29 @@ float tradeDuration = 2f;
         /// </summary>
         public void SellLargestRevenueResource()
         {
-            float maxEstimatedRevenue = float.MinValue;
-            int maxColliders = 100;
-            Collider[] hitColliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
-            ResourceDemand demand = null;
-            ResourceDemand[] candidates;
-            ResourceDemand candidate;
-            for (int i = 0; i < numColliders; i++)
-            {
-                candidates = hitColliders[i].GetComponentsInParent<ResourceDemand>();
-                for (int c = 0; c < candidates.Length; c++)
-                {
-                    candidate = candidates[c];
-                    if (candidate != null && cargoController.Has(candidate.resource))
-                    {
-                        float available = cargoController.Quantity(candidate.resource);
-                        float estimatedrevenue;
-                        if (available >= candidate.required)
-                        {
-                            estimatedrevenue = candidate.required * candidate.resource.baseValue;
-                        }
-                        else
-                        {
-                            estimatedrevenue = available * candidate.resource.baseValue;
-                        }
+            List<ResourceDemand> candidates = ScanForPlanetsOfType<ResourceDemand>();
 
-                        if (estimatedrevenue > maxEstimatedRevenue)
-                        {
-                            maxEstimatedRevenue = estimatedrevenue;
-                            demand = candidate;
-                        }
+            float maxEstimatedRevenue = float.MinValue;
+            ResourceDemand demand = null;
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                if (candidates[i] != null && cargoController.Has(candidates[i].resource))
+                {
+                    float available = cargoController.Quantity(candidates[i].resource);
+                    float estimatedrevenue;
+                    if (available >= candidates[i].required)
+                    {
+                        estimatedrevenue = candidates[i].required * candidates[i].resource.baseValue;
+                    }
+                    else
+                    {
+                        estimatedrevenue = available * candidates[i].resource.baseValue;
+                    }
+
+                    if (estimatedrevenue > maxEstimatedRevenue)
+                    {
+                        maxEstimatedRevenue = estimatedrevenue;
+                        demand = candidates[i];
                     }
                 }
             }

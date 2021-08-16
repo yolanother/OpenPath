@@ -6,8 +6,24 @@ namespace DoubTech.OpenPath.Controllers
 {
     public abstract class AbstractController : MonoBehaviour
     {
+        [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
+        internal float maxSensorRange = 250;
         [SerializeField, Tooltip("The maximum range for carrying out any interaction controlled by this controller.")]
         float maxInteractionRange = 150;
+
+        internal ShipController shipController;
+        
+        internal virtual void Start()
+        {
+            shipController = GetComponent<ShipController>();
+        }
+
+        /// <summary>
+        /// Get the currently available credits to this ontroller.
+        /// </summary>
+        public float credits { 
+            get => shipController.credits; 
+            set => shipController.credits = value; }
 
         /// <summary>
         /// A string describing the current status of this controller.
@@ -24,6 +40,26 @@ namespace DoubTech.OpenPath.Controllers
         protected bool InPosition(Vector3 position)
         {
             return Vector3.SqrMagnitude(position - transform.position) <= maxInteractionRange * maxInteractionRange;
+        }
+
+        /// <summary>
+        /// Use scanners to scan for planets of a given type.
+        /// </summary>
+        /// <typeparam name="T">A type identifier for the desired planets.</typeparam>
+        /// <returns>A list of all planets that are detected/</returns>
+        internal List<T> ScanForPlanetsOfType<T>()
+        {
+            //OPTIMIZATION put planet on its own layer and filter the scan
+            int maxColliders = 100;
+            Collider[] hitColliders = new Collider[maxColliders];
+            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
+            List<T> candidates = new List<T>();
+            for (int i = 0; i < numColliders; i++)
+            {
+                candidates.AddRange(hitColliders[i].GetComponents<T>());
+            }
+
+            return candidates;
         }
     }
 }

@@ -32,8 +32,9 @@ namespace DoubTech.OpenPath.Controllers
         private Vector3 lastPosition;
         private Quaternion nextAngle;
 
-        private void Start()
+        internal override void Start()
         {
+            base.Start();
             // Move components that will be moved independently out of the main transform
             orbit.transform.parent = null;
             lookTarget.transform.parent = null;

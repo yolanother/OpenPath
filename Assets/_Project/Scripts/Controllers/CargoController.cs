@@ -20,8 +20,9 @@ namespace DoubTech.OpenPath.Controllers
 
         MiningController miningController;
 
-        private void Start()
+        internal override void Start()
         {
+            base.Start();
             miningController = GetComponent<MiningController>();
         }
 

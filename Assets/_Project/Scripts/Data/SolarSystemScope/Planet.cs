@@ -102,8 +102,6 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
 
                 tickFrequency = Mathf.Clamp(population / 1000000, 0.17f, 1);
             }
-
-            Debug.LogFormat("{0} with a population of {1} has ticked at a frequency of {2}.", DisplayName, population, tickFrequency);
         }
     }
 }
