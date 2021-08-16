@@ -67,6 +67,8 @@ MonoBehaviour:
   orbit: {fileID: 989584490597147778}
   camera: {fileID: 0}
   velocity: 0.5
+  acceleration: 1
+  stopDistance: 0.5
 --- !u!114 &989584488960964567
 MonoBehaviour:
   m_ObjectHideFlags: 0

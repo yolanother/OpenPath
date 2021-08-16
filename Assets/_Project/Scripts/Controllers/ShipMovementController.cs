@@ -20,13 +20,16 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField] private Orbit orbit;
         [SerializeField] private Camera camera;
 
-        [SerializeField] private float velocity = .5f;
-
+        [SerializeField] private float velocity = 15f;
+        [SerializeField] private float acceleration = 1;
+        [SerializeField] private float stopDistance = .5f;
 
         private Transform orbitTarget;
         private float orbitingDistance = 1.5f;
 
         private float orbitingDistanceSqr;
+
+        private float currentSpeed;
 
         private void Start()
         {
@@ -92,14 +95,26 @@ namespace DoubTech.OpenPath.Controllers
             else
             {
                 orbit.gameObject.SetActive(false);
-                transform.position = Vector3.Lerp(transform.position,
-                    positionTarget.position, Time.deltaTime * velocity);
-                lookTarget.position = Vector3.Lerp(lookTarget.position, positionTarget.position,
-                    Time.deltaTime);
+                var distance = Vector3.Distance(transform.position, positionTarget.position);
+                if (distance > stopDistance)
+                {
+                    var direction = (positionTarget.position - transform.position).normalized;
 
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(lookTarget.position, transform.up), Time.deltaTime);
+                    transform.position += direction * Mathf.Min(distance, currentSpeed);
+                    lookTarget.position = positionTarget.position;
+
+                    if (distance > velocity)
+                    {
+                        transform.rotation = Quaternion.Slerp(
+                            transform.rotation,
+                            Quaternion.LookRotation(lookTarget.position, transform.up),
+                            Time.deltaTime);
+                    }
+
+                    var accelDirection = distance > stopDistance * velocity ? 1 : -1;
+                    currentSpeed = Mathf.Clamp(velocity + acceleration * accelDirection, 0,
+                        velocity);
+                }
             }
         }
 
