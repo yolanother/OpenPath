@@ -17,6 +17,8 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     public class Planet
     {
         [SerializeField] private string playerId;
+        [Tooltip("The current population of intelligent lifeforms in 10, 000's.")]
+        [SerializeField] private int population;
 
         /// <summary>
         /// Planet id is derived from solarsystem coordinate and planet index
@@ -30,7 +32,16 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         public string Name { get; set; }
         public float xCoord { get; set; }
         public float yCoord { get; set; }
-        public int planetIncex { get; set; }
+        public int PlanetIndex { get; set; }
+
+        /// <summary>
+        /// The current population of intelligent lifeforms in 10,000's.
+        /// </summary>
+        public int Population
+        {
+            get => population;
+            set => population = value;
+        }
 
         public string DisplayName
         {

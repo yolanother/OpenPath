@@ -7,11 +7,8 @@
  * https://opensource.org/licenses/MIT.
  */
 
-using System;
-using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
-using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using DoubTech.OpenPath.UniverseScope;
@@ -88,9 +85,10 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 var planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
                 planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
                 if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
-                if (Random.value <= config.habitability) planetInstance.population = (int)Random.Range(10, 1000000);
+                if (Random.value <= config.habitability) planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
                 planetInstance.planetData.PlanetId = planetInstance.name;
                 planetInstance.orbit = orbit;
+                planetInstance.planetData.PlanetIndex = i;
 
                 GenerateResourceSupplyAndDemand(config, planetInstance);
                 GenerateTrade(config, planetInstance);
@@ -108,12 +106,12 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
         {
-            if (planetInstance.population <= 0) return;
+            if (planetInstance.planetData.Population <= 0) return;
 
             float chance = 0;
             for (int i = 0; i < solarSystemConfig.equipment.Length; i++)
             {
-                chance = 40 + planetInstance.population / 1000;
+                chance = 40 + planetInstance.planetData.Population / 1000;
                 if (chance > 0 && Random.value <= chance)
                 {
                     EquipmentTrade trade = planetInstance.gameObject.AddComponent<EquipmentTrade>();
@@ -150,18 +148,18 @@ namespace DoubTech.OpenPath.SolarSystemScope
                     source.quantityPerSecond = 1; // how easy is it to extract
                     source.resourceAvailable = 50000; // total resource reserves
                 }
-                
-                if (planetInstance.population > 0)
+
+                if (planetInstance.planetData.Population > 0)
                 {
                     demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
                     demand.resource = solarSystemConfig.resources[r];
 
                     if (source == null)
                     {
-                        demand.required = planetInstance.population / 1000;
+                        demand.required = planetInstance.planetData.Population / 1000f;
                     } else
                     {
-                        demand.required = planetInstance.population / 10000;
+                        demand.required = planetInstance.planetData.Population / 10000f;
                     }
                 }
             }
