@@ -97,7 +97,7 @@ namespace DoubTech.OpenPath.UI
             }
         }
 
-        private void UpdateData()
+        public void UpdateData()
         {
             population.text = $"Population: {planetInstance.planetData.Population}";
             habitibility.text = $"Habitibility: {planetInstance.planetData.HabitabilityString}";
