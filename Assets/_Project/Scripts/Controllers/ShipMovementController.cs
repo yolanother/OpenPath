@@ -17,7 +17,6 @@ namespace DoubTech.OpenPath.Controllers
     {
         [SerializeField] private Transform positionTarget;
         [SerializeField] private Transform lookTarget;
-        [SerializeField] private Transform modelContainer;
         [SerializeField] private Orbit orbit;
         [SerializeField] private Camera camera;
 
@@ -31,6 +30,11 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Start()
         {
+            // Move components that will be moved independently out of the main transform
+            orbit.transform.parent = null;
+            lookTarget.transform.parent = null;
+            positionTarget.transform.parent = null;
+
             orbitingDistanceSqr = orbitingDistance * orbitingDistance;
             camera = Camera.main;
         }
@@ -75,7 +79,7 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            modelContainer.LookAt(lookTarget, transform.up);
+            transform.LookAt(lookTarget, transform.up);
 
             if (orbitTarget)
             {
@@ -88,13 +92,13 @@ namespace DoubTech.OpenPath.Controllers
             else
             {
                 orbit.gameObject.SetActive(false);
-                modelContainer.position = Vector3.Lerp(modelContainer.position,
+                transform.position = Vector3.Lerp(transform.position,
                     positionTarget.position, Time.deltaTime * velocity);
                 lookTarget.position = Vector3.Lerp(lookTarget.position, positionTarget.position,
                     Time.deltaTime);
 
-                modelContainer.rotation = Quaternion.Slerp(
-                    modelContainer.rotation,
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
                     Quaternion.LookRotation(lookTarget.position, transform.up), Time.deltaTime);
             }
         }

@@ -64,7 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionTarget: {fileID: 989584490816625095}
   lookTarget: {fileID: 989584490283401556}
-  modelContainer: {fileID: 989584490458962514}
   orbit: {fileID: 989584490597147778}
   camera: {fileID: 0}
   velocity: 0.5
