@@ -7,6 +7,8 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System;
+using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.UniverseScope;
 using UnityEngine;
 
@@ -18,7 +20,15 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         [SerializeField] private StarAppearenceManager starPrefab;
         [SerializeField] public Color starColor;
         [SerializeField] public float hdrMultiplier = 10;
+        [SerializeField] public ResourceModifier[] resourceModifiers;
 
         public StarAppearenceManager StarPrefab => starPrefab;
+    }
+
+    [Serializable]
+    public class ResourceModifier
+    {
+        public ProductionResource source;
+        public float modificationPercent;
     }
 }
