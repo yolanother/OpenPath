@@ -19,10 +19,14 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private bool interactable;
         [SerializeField] private bool blocksRaycasts;
         [SerializeField] private bool visible;
+        [SerializeField] private bool visibleOnStart;
         [SerializeField] private float fadeSpeed = 4;
 
         [SerializeField] private UnityEvent onVisible = new UnityEvent();
         [SerializeField] private UnityEvent onInvisible = new UnityEvent();
+
+        public UnityEvent OnVisible => onVisible;
+        public UnityEvent OnInvisible => onInvisible;
 
         private bool isVisible;
 
@@ -32,10 +36,16 @@ namespace DoubTech.OpenPath.UI
             set => visible = value;
         }
 
-        private void Start()
+        public void InstantlySetVisibility(bool visible)
         {
             canvasGroup.alpha = visible ? 1 : 0;
             isVisible = visible;
+        }
+
+        private void Start()
+        {
+            InstantlySetVisibility(visibleOnStart);
+            Visible = visible;
         }
 
         private void Update()
