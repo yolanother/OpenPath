@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Equipment;
@@ -11,18 +11,18 @@ namespace DoubTech.OpenPath.UniverseScope.Equipment
     /// Players and NPCs will be able to buy and sell equipment here if they can come to agreement
     /// on price.
     /// </summary>
-    public class EquipmentOffer : MonoBehaviour
+    public class EquipmentTrade : MonoBehaviour
     {
         [SerializeField, Tooltip("Equipment that is offered at this location.")]
         internal AbstractShipEquipment equipment;
         [SerializeField, Tooltip("The remaining quantity available.")]
         internal float quantityAvailable = 2;
         [SerializeField, Tooltip("The multiplier to apply to the base price when calculating the asking price.")]
-        float askMultiplier = 1f;
+        internal float askMultiplier = 1f;
         [SerializeField, Tooltip("The quantity this location is willing to purchase.")]
         internal float quantityRequested = 2;
         [SerializeField, Tooltip("The multiplier to apply to the base price when calculating the offered price.")]
-        float offerMultiplier = 0.4f;
+        internal float offerMultiplier = 0.4f;
 
         internal float AskingPrice
         {

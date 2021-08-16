@@ -37,7 +37,6 @@ float tradeDuration = 2f;
             int maxColliders = 10;
             Collider[] hitColliders = new Collider[maxColliders];
             int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
-            float distance;
             ResourceDemand demand = null;
             ResourceDemand candidate;
             for (int i = 0; i < numColliders; i++)
@@ -84,11 +83,11 @@ float tradeDuration = 2f;
             int maxColliders = 100;
             Collider[] hitColliders = new Collider[maxColliders];
             int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
-            EquipmentOffer offer = null;
-            EquipmentOffer candidate;
+            EquipmentTrade offer = null;
+            EquipmentTrade candidate;
             for (int i = 0; i < numColliders; i++)
             {
-                candidate = hitColliders[i].GetComponentInParent<EquipmentOffer>();
+                candidate = hitColliders[i].GetComponentInParent<EquipmentTrade>();
                 if (candidate != null)
                 {
                     float estimatedCost = candidate.AskingPrice;
@@ -113,7 +112,7 @@ float tradeDuration = 2f;
             }
         }
 
-        IEnumerator BuyEquipmentCo(EquipmentOffer offer)
+        IEnumerator BuyEquipmentCo(EquipmentTrade offer)
         {
             shipMovementController.MoveToOrbit(offer);
             while (!InPosition(offer.transform.position))

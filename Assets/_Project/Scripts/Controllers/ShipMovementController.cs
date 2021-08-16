@@ -60,7 +60,7 @@ namespace DoubTech.OpenPath.Controllers
             MoveToOrbit(((Component)demand).transform);
         }
 
-        public void MoveToOrbit(EquipmentOffer offer)
+        public void MoveToOrbit(EquipmentTrade offer)
         {
             MoveToOrbit(((Component)offer).transform);
         }

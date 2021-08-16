@@ -15,6 +15,7 @@ using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using DoubTech.OpenPath.UniverseScope;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -90,6 +91,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 planetInstance.orbit = orbit;
 
                 GenerateResourceSupplyAndDemand(config, planetInstance);
+                GenerateTrade(config, planetInstance);
 
                 planets[i] = planetInstance;
 
@@ -99,6 +101,26 @@ namespace DoubTech.OpenPath.SolarSystemScope
                     EditorUtility.SetDirty(planetInstance);
                 }
 #endif
+            }
+        }
+
+        private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
+        {
+            if (planetInstance.population <= 0) return;
+
+            float chance = 0;
+            for (int i = 0; i < solarSystemConfig.equipment.Length; i++)
+            {
+                chance = 40 + planetInstance.population / 1000;
+                if (chance > 0 && Random.value <= chance)
+                {
+                    EquipmentTrade trade = planetInstance.gameObject.AddComponent<EquipmentTrade>();
+                    trade.equipment = solarSystemConfig.equipment[i];
+                    trade.quantityAvailable = Random.Range(0, 5);
+                    trade.askMultiplier = Random.Range(0.8f, 2f);
+                    trade.quantityRequested = Random.Range(0, 5);
+                    trade.offerMultiplier = Random.Range(0.2f, 1.1f);
+                }
             }
         }
 
