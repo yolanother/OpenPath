@@ -16,4 +16,6 @@ MonoBehaviour:
   minSpawnDistanceFromSun: 0
   maxSpawnDistanceFromSun: 0
   habitability: 0.028
-  resourceModifiers: []
+  resourceModifiers:
+  - resource: {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
+    modificationPercent: 1
