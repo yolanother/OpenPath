@@ -7,7 +7,7 @@ namespace DoubTech.OpenPath.Controllers
     public abstract class AbstractController : MonoBehaviour
     {
         [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
-        internal float maxSensorRange = 250;
+        internal float maxSensorRange = 5000;
         [SerializeField, Tooltip("The maximum range for carrying out any interaction controlled by this controller.")]
         float maxInteractionRange = 150;
 
@@ -21,9 +21,10 @@ namespace DoubTech.OpenPath.Controllers
         /// <summary>
         /// Get the currently available credits to this ontroller.
         /// </summary>
-        public float credits { 
-            get => shipController.credits; 
-            set => shipController.credits = value; }
+        public virtual float Credits { 
+            get => shipController.Credits; 
+            set => shipController.Credits = value; 
+        }
 
         /// <summary>
         /// A string describing the current status of this controller.

@@ -18,6 +18,10 @@ namespace DoubTech.OpenPath.Controllers
 
         private float credits;
 
+        public override float Credits { 
+            get => credits; 
+            set => credits = value; }
+
         public ShipMovementController MovementController { get; internal set; }
 
         /// <summary>

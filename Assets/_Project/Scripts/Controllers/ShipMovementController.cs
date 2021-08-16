@@ -8,6 +8,7 @@ using System;
 using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.Orbits;
 using Lean.Touch;
+using DoubTech.OpenPath.Data.UniverseScope;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -52,6 +53,11 @@ namespace DoubTech.OpenPath.Controllers
             orbitTarget = transform;
 
             Debug.LogFormat("Moved to orbit around {0}.", transform.gameObject.name);
+        }
+
+        public void MoveToOrbit(InvestmentOpportunity opportunity)
+        {
+            MoveToOrbit(((Component)opportunity).transform);
         }
 
         public void MoveToOrbit(ResourceSource source)

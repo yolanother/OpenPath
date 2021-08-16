@@ -809,12 +809,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -1029,6 +1029,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 53604720}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &73820881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 989584488960964521, guid: a2447c8193740dd4e8429782fd2c50a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 989584489362738199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &73820891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73820881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8806fe64521f40f4ebede56cda454f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSensorRange: 5000
+  maxInteractionRange: 150
 --- !u!1 &201494635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,6 +1438,7 @@ GameObject:
   - component: {fileID: 397149977}
   - component: {fileID: 397149979}
   - component: {fileID: 397149980}
+  - component: {fileID: 397149982}
   m_Layer: 0
   m_Name: Debug Commands
   m_TagString: Untagged
@@ -1491,6 +1512,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Testing the ship overview
+--- !u!114 &397149982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397149976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90214f620af69a14c8ff888b06b60c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Testing investment within the solar system.
 --- !u!1 &483848800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,12 +2810,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -5545,12 +5579,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -6315,12 +6349,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -6491,6 +6525,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
   required: 174.64
+--- !u!114 &1499004999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499004993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef1197c4acc2a841921c71cc9d952a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  investment: {fileID: 11400000, guid: 12ec5101d2ec93144ba49fef07e10c0d, type: 2}
+  numberOfOpportunities: 15
 --- !u!1001 &1532901833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7146,12 +7194,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -8239,12 +8287,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -9838,12 +9886,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -9974,7 +10022,7 @@ MonoBehaviour:
   resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
   resourceAvailable: 50000
   quantityPerSecond: 1
---- !u!114 &1868537444
+--- !u!114 &1868537446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11022,12 +11070,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -11813,12 +11861,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 6.883847
+      value: 6.067498
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}

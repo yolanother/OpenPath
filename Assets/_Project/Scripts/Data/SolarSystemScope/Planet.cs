@@ -66,6 +66,11 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         /// </summary>
         public float Habitability { get => habitability; set => habitability = value; }
 
+        /// <summary>
+        /// The level of healthcare on this planet. 0 is no healthcare, 1 is almost perfect healthcare.
+        /// </summary>
+        public float HealthcareQuality { get => healthcareQuality; set => healthcareQuality= value; }
+
         public string DisplayName
         {
             get
