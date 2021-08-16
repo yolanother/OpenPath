@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
 {
     public class PlanetInstance : MonoBehaviour
     {
-        public Transform planetTransform;
         public Orbit orbit;
+        public Planet planetData = new Planet();
     }
 }

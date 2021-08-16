@@ -118,7 +118,7 @@ namespace DoubTech.OpenPath.Controllers
         {
             if (planetInstance)
             {
-                orbitTarget = planetInstance.planetTransform;
+                orbitTarget = planetInstance.transform;
             }
             else
             {

@@ -72,7 +72,7 @@ namespace DoubTech.OpenPath.ShipControls
         {
             if (planetInstance)
             {
-                orbitTarget = planetInstance.planetTransform;
+                orbitTarget = planetInstance.transform;
             }
             else
             {

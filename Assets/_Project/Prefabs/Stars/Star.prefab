@@ -17,6 +17,20 @@ MonoBehaviour:
   corona: {fileID: 3027301946451548318}
   atmosphereClose: {fileID: 3392224417751430383}
   atmosphereFar: {fileID: 3392224418527457609}
+--- !u!114 &8050695302685386655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3392224419212154550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bba83a071ad4304b9d860d7585a2262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1, z: 0}
+  angularSpeed: 3
 --- !u!1001 &194764659709974245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,6 +108,12 @@ PrefabInstance:
 --- !u!1 &7644423801203786106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7540577861092710303, guid: 44694d4ddf2c72445a6f3d8fdd80272f,
+    type: 3}
+  m_PrefabInstance: {fileID: 194764659709974245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3392224419212154550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3287745718875045971, guid: 44694d4ddf2c72445a6f3d8fdd80272f,
     type: 3}
   m_PrefabInstance: {fileID: 194764659709974245}
   m_PrefabAsset: {fileID: 0}

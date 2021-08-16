@@ -191,7 +191,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 3.0626087
+        value: 0.11487256
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -200,7 +200,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 3.0626087
+        value: 0.11487256
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -273,7 +273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7230438060499463655}
   - component: {fileID: 7230438060499463654}
-  - component: {fileID: 4194991490411159832}
   m_Layer: 0
   m_Name: PlanetOrbit
   m_TagString: Untagged
@@ -321,20 +320,6 @@ MonoBehaviour:
   updateDirectionTargetPosition: 0
   directionTarget: {fileID: 0}
   orbitRenderer: {fileID: 7230438060452233180}
---- !u!114 &4194991490411159832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7230438060499463649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6be4a4b3be3ce4a946cccabd66085d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetTransform: {fileID: 7230438062290228078}
-  orbit: {fileID: 7230438060499463654}
 --- !u!1 &7230438062290228073
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,8 +330,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7230438062290228078}
   - component: {fileID: 1014573387938874624}
+  - component: {fileID: 8842677548262948106}
   m_Layer: 0
-  m_Name: Planet Model
+  m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,6 +367,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8842677548262948106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7230438062290228073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6be4a4b3be3ce4a946cccabd66085d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbit: {fileID: 7230438060499463654}
+  planetData:
+    playerId: 
 --- !u!1 &8019244263627443829
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +502,7 @@ MonoBehaviour:
         m_MethodName: Invoke
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4194991490411159832}
+          m_ObjectArgument: {fileID: 8842677548262948106}
           m_ObjectArgumentAssemblyTypeName: DoubTech.OpenPath.SolarSystemScope.PlanetInstance,
             Assembly-CSharp
           m_IntArgument: 0
@@ -518,7 +519,7 @@ MonoBehaviour:
         m_MethodName: Invoke
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4194991490411159832}
+          m_ObjectArgument: {fileID: 8842677548262948106}
           m_ObjectArgumentAssemblyTypeName: DoubTech.OpenPath.SolarSystemScope.PlanetInstance,
             Assembly-CSharp
           m_IntArgument: 0

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -44,6 +45,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
             star.transform.parent = transform;
 
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
+            planets = new PlanetInstance[planetPositions.Length];
             for (int i = 0; i < planetPositions.Length; i++)
             {
                 Orbit orbit;
@@ -76,6 +78,20 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 planet.transform.parent = orbit.orbitingObjectContainer;
                 planet.transform.localPosition = Vector3.zero;
                 planet.transform.localEulerAngles = Vector3.zero;
+
+                var planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
+                planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
+                if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
+                planetInstance.planetData.PlanetId = planetInstance.name;
+                planetInstance.orbit = orbit;
+                planets[i] = planetInstance;
+
+                #if UNITY_EDITOR
+                if (!Application.isPlaying)
+                {
+                    EditorUtility.SetDirty(planetInstance);
+                }
+                #endif
             }
         }
     }
