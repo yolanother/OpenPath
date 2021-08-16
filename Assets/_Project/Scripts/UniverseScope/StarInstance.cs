@@ -18,6 +18,7 @@ namespace DoubTech.OpenPath.UniverseScope
     {
         [SerializeField]
         private StarConfig starConfig;
+        public StarData starData = new StarData();
 
         [SerializeField] private LeanSelectableRendererColor selectorColor;
 

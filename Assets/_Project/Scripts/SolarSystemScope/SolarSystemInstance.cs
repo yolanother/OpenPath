@@ -7,10 +7,12 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
+using DoubTech.OpenPath.Scenes;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.UniverseScope.Resources;
@@ -27,6 +29,11 @@ namespace DoubTech.OpenPath.SolarSystemScope
         [SerializeField] private Vector2 coordinates;
 
         private PlanetInstance[] planets;
+
+        private void Start()
+        {
+            BuildSolarSystem(SceneConfiguration.currentCoordinates);
+        }
 
         [Button]
         public void BuildSolarSystem(Vector2 coordinates)

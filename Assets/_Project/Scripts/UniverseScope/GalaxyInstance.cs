@@ -8,8 +8,10 @@
  */
 
 using System;
+using System.Collections;
 using System.Numerics;
 using DoubTech.OpenPath.Data;
+using DoubTech.OpenPath.Data.SolarSystemScope;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -24,9 +26,18 @@ namespace DoubTech.OpenPath.UniverseScope
         [SerializeField] private GalaxyConfig galaxyConfig;
         [SerializeField] private SolarSystemConfig solarSystemConfig;
 
+        private void Start()
+        {
+            Generate();
+        }
 
         [Button]
         public void Generate()
+        {
+            StartCoroutine(AsyncGenerate());
+        }
+
+        public IEnumerator AsyncGenerate()
         {
             float verticalSeen = Camera.main.orthographicSize * 2.0f;
             float horizontalSeen = verticalSeen * Screen.height / Screen.width;
@@ -53,6 +64,7 @@ namespace DoubTech.OpenPath.UniverseScope
                     if (Random.value < galaxyConfig.starDensity)
                     {
                         SpawnStar(coord);
+                        yield return null;
                     }
                 }
             }
@@ -81,6 +93,7 @@ namespace DoubTech.OpenPath.UniverseScope
             star.name = $"S{coordinates.x}.{coordinates.y}";
             star.transform.localPosition = new Vector3(coordinates.x, coordinates.y);
             star.transform.localScale = Vector3.one * .00125f;
+            star.starData.Coordinates = coordinates;
         }
     }
 }
