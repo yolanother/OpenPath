@@ -42,7 +42,7 @@ float tradeDuration = 2f;
             ResourceDemand candidate;
             for (int i = 0; i < numColliders; i++)
             {
-                candidate = hitColliders[i].GetComponent<ResourceDemand>();
+                candidate = hitColliders[i].GetComponentInParent<ResourceDemand>();
                 if (candidate != null && cargoController.Has(candidate.resource))
                 {
                     float available = cargoController.Quantity(candidate.resource);
@@ -81,14 +81,14 @@ float tradeDuration = 2f;
         {
             // Find the most suitable seller
             float minEstimatedCost = float.MaxValue;
-            int maxColliders = 10;
+            int maxColliders = 100;
             Collider[] hitColliders = new Collider[maxColliders];
             int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
             EquipmentOffer offer = null;
             EquipmentOffer candidate;
             for (int i = 0; i < numColliders; i++)
             {
-                candidate = hitColliders[i].GetComponent<EquipmentOffer>();
+                candidate = hitColliders[i].GetComponentInParent<EquipmentOffer>();
                 if (candidate != null)
                 {
                     float estimatedCost = candidate.AskingPrice;
@@ -115,8 +115,8 @@ float tradeDuration = 2f;
 
         IEnumerator BuyEquipmentCo(EquipmentOffer offer)
         {
-            shipMovementController.MoveToOrbit(offer, 1.5f);
-            while (!shipMovementController.InPosition)
+            shipMovementController.MoveToOrbit(offer);
+            while (!InPosition(offer.transform.position))
             {
                 yield return new WaitForEndOfFrame();
             }
@@ -132,8 +132,8 @@ float tradeDuration = 2f;
 
         IEnumerator TradeResourceCo(ResourceDemand demand)
         {
-            shipMovementController.MoveToOrbit(demand, 1.5f);
-            while (!shipMovementController.InPosition)
+            shipMovementController.MoveToOrbit(demand);
+            while (!InPosition(demand.transform.position))
             {
                 yield return new WaitForEndOfFrame();
             }
@@ -155,6 +155,13 @@ float tradeDuration = 2f;
         public override string StatusAsString()
         {
             return "N/A";
+        }
+
+        Color sensorCoverageGizmoColor = new Color(0, 255, 0, 128);
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = sensorCoverageGizmoColor;
+            Gizmos.DrawWireSphere(transform.position, maxSensorRange);
         }
     }
 }

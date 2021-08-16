@@ -26,9 +26,6 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField] private float stopDistance = .5f;
 
         private Transform orbitTarget;
-        private float orbitingDistance = 1.5f;
-
-        private float orbitingDistanceSqr;
 
         private float currentSpeed;
 
@@ -39,54 +36,38 @@ namespace DoubTech.OpenPath.Controllers
             lookTarget.transform.parent = null;
             positionTarget.transform.parent = null;
 
-            orbitingDistanceSqr = orbitingDistance * orbitingDistance;
             camera = Camera.main;
-        }
-
-        public bool InPosition
-        {
-            get
-            {
-                if (orbitTarget == null) return true;
-
-                return Mathf.Approximately(orbitingDistanceSqr, Vector3.SqrMagnitude(orbitTarget.position - transform.position));
-            }
         }
 
         /// <summary>
         /// Move the ship to a given position and rotation.
         /// </summary>
         /// <param name="transform">The position to move to.</param>
-        /// <param name="distance">The distance to maintain from the position.</param>
-        public void MoveToOrbit(Transform transform, float distance)
+        public void MoveToOrbit(Transform transform)
         {
             orbitTarget = transform;
-            orbit.ellipse.radiusX = distance;
-            orbit.ellipse.radiusY = distance;
-            orbitingDistanceSqr = orbitingDistance * orbitingDistance;
-            Debug.LogWarning("TODO: Animate move to orbit. For now we just teleport there.");
 
             Debug.LogFormat("Moved to orbit around {0}.", transform.gameObject.name);
         }
 
-        public void MoveToOrbit(ResourceSource source, float distance)
+        public void MoveToOrbit(ResourceSource source)
         {
-            MoveToOrbit(((Component)source).transform, distance);
+            MoveToOrbit(((Component)source).transform);
         }
 
-        public void MoveToOrbit(ResourceDemand demand, float distance)
+        public void MoveToOrbit(ResourceDemand demand)
         {
-            MoveToOrbit(((Component)demand).transform, distance);
+            MoveToOrbit(((Component)demand).transform);
         }
 
-        public void MoveToOrbit(EquipmentOffer offer, float distance)
+        public void MoveToOrbit(EquipmentOffer offer)
         {
-            MoveToOrbit(((Component)offer).transform, distance);
+            MoveToOrbit(((Component)offer).transform);
         }
 
-        public void MoveToOrbit(PlanetInstance planet, float distance)
+        public void MoveToOrbit(PlanetInstance planet)
         {
-            MoveToOrbit(planet.transform, distance);
+            MoveToOrbit(planet.transform);
         }
 
         private void Update()
@@ -129,12 +110,12 @@ namespace DoubTech.OpenPath.Controllers
 
         public override string StatusAsString()
         {
-            if (InPosition)
+            if (orbitTarget)
             {
-                return "Currently in position.";
+                return "Moving to, or currently in, orbit around " + orbitTarget.name;
             } else
             {
-                return "Not in position.";
+                return "No orbit target set.";
             }
         }
 

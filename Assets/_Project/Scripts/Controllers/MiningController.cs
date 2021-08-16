@@ -14,9 +14,7 @@ namespace DoubTech.OpenPath.Controllers
     public class MiningController : AbstractController
     {
         [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
-        float maximumSensorRange = 10;
-        [SerializeField, Tooltip("The range a player must be from a source of resources to be able to mine it.")]
-        float maximumMiningRange = 2;
+        float maxSensorRange = 10;
         [SerializeField, Tooltip("The maximum capacity of this mining controller. Once the mined resource hits" +
             "this capacity mining will stop and cannot be restarted until the mining equipment has been emptied.")]
         float capacity = 5;
@@ -78,15 +76,15 @@ namespace DoubTech.OpenPath.Controllers
             if (resource.type != null && resource.quantity >= capacity) return;
 
             float minDistance = float.MaxValue;
-            int maxColliders = 10;
+            int maxColliders = 100;
             Collider[] hitColliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maximumSensorRange, hitColliders);
+            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
             float distance;
             ResourceSource source = null;
             ResourceSource candidate;
             for (int i = 0; i < numColliders; i++)
             {
-                candidate = hitColliders[i].GetComponent<ResourceSource>();
+                candidate = hitColliders[i].GetComponentInParent<ResourceSource>();
                 if (candidate != null && (resource.type == null || (candidate.ResourceType == resource.type && resource.quantity < capacity)))
                 {
                     distance = Vector3.Distance(transform.position, candidate.transform.position);
@@ -114,8 +112,8 @@ namespace DoubTech.OpenPath.Controllers
                 resource = new MinedResource(source.ResourceType, 0);
                 Debug.Log("Converting Mining Equipment to mine " + source.ResourceType.name + " any exiting resources in the equipment will be jetisoned.");
             }
-            shipMovementController.MoveToOrbit(source, 1.5f);
-            while (!shipMovementController.InPosition)
+            shipMovementController.MoveToOrbit(source);
+            while (!InPosition(source.transform.position))
             {
                 yield return new WaitForEndOfFrame();
             }
@@ -124,7 +122,7 @@ namespace DoubTech.OpenPath.Controllers
 
             while (source.ResourceAvailable 
                 && capacity - resource.quantity > 0
-                && Vector3.SqrMagnitude(transform.position - source.transform.position) <= maximumMiningRange * maximumMiningRange)
+                && InPosition(source.transform.position))
             {
                 if (source.ResourceAvailable)
                 {
@@ -148,6 +146,13 @@ namespace DoubTech.OpenPath.Controllers
                 StopCoroutine(miningCo);
             }
             resource.quantity = shipController.CargoController.Stow(resource.type, resource.quantity);
+        }
+
+        Color sensorCoverageGizmoColor = new Color(0, 0, 255, 50);
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = sensorCoverageGizmoColor;
+            Gizmos.DrawWireSphere(transform.position, maxSensorRange);
         }
     }
 }

@@ -20,8 +20,6 @@ namespace DoubTech.OpenPath.Debugging
         [ConsoleCommand(description = "Mine the nearest resource that is within range.")]
         public void MineNearestResource()
         {
-            Debug.Log("Mining");
-
             controller.Mine();
         }
     }

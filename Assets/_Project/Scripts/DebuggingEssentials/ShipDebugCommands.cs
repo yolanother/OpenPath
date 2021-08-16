@@ -22,7 +22,7 @@ namespace DoubTech.OpenPath.Debugging
 
         private IEnumerator MineTradeEquip(string firstResourceName, string secondResourceName)
         {
-            // Mine Iron
+            // Mine first resource
             ProductionResource resource = controller.GetResource(firstResourceName);
             if (resource != null)
             {
@@ -38,7 +38,12 @@ namespace DoubTech.OpenPath.Debugging
             float timeout = Time.realtimeSinceStartup + 10;
             yield return new WaitUntil(() => Time.realtimeSinceStartup > timeout || controller.CargoController.Quantity(resource) > 3);
 
-            // Sell Iron
+            if (controller.CargoController.Quantity(resource) < 3)
+            {
+                Debug.LogError("Was unable to mine sufficient iron in the time allowed");
+            }
+
+            // Sell resource
             controller.TradeController.SellLargestRevenueResource();
             timeout = Time.realtimeSinceStartup + 10;
             yield return new WaitUntil(() => Time.realtimeSinceStartup > timeout || controller.CargoController.Quantity(resource) == 0);
