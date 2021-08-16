@@ -87,6 +87,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
                 if (Random.value <= config.habitability) planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
                 planetInstance.planetData.PlanetId = planetInstance.name;
+                planetInstance.planetData.Habitability = config.habitability;
                 planetInstance.orbit = orbit;
                 planetInstance.planetData.PlanetIndex = i;
 

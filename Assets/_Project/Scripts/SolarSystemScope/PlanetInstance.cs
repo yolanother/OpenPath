@@ -17,5 +17,15 @@ namespace DoubTech.OpenPath.SolarSystemScope
     {
         public Orbit orbit;
         public Planet planetData = new Planet();
+
+        float timeOfNextTick;
+
+        private void Update()
+        {
+            if (Time.timeSinceLevelLoad >= timeOfNextTick) {
+                planetData.Tick();
+                timeOfNextTick = Time.timeSinceLevelLoad + planetData.tickFrequency;
+            }
+        }
     }
 }
