@@ -22,6 +22,8 @@ namespace DoubTech.OpenPath.Controllers
             "resources to the stored quantity.")]
         float batchDuration = 0.25f;
 
+        [SerializeField] private Transform miningBeam;
+
         ShipController shipController;
         ShipMovementController shipMovementController;
         internal MinedResource resource;
@@ -120,7 +122,9 @@ namespace DoubTech.OpenPath.Controllers
 
             yield return new WaitForSeconds(batchDuration);
 
-            while (source.ResourceAvailable 
+            currentMinedSource = source;
+            isMining = true;
+            while (source.ResourceAvailable
                 && capacity - resource.quantity > 0
                 && InPosition(source.transform.position))
             {
@@ -132,6 +136,9 @@ namespace DoubTech.OpenPath.Controllers
                 }
                 yield return new WaitForSeconds(batchDuration);
             }
+
+            currentMinedSource = null;
+            isMining = false;
 
             StopMining();
         }
@@ -149,10 +156,23 @@ namespace DoubTech.OpenPath.Controllers
         }
 
         Color sensorCoverageGizmoColor = new Color(0, 0, 255, 50);
+        private bool isMining;
+        private ResourceSource currentMinedSource;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = sensorCoverageGizmoColor;
             Gizmos.DrawWireSphere(transform.position, maxSensorRange);
+        }
+
+        private void Update()
+        {
+            var target = currentMinedSource
+                ? currentMinedSource.transform.position
+                : miningBeam.transform.position;
+            var distance = Mathf.Lerp(miningBeam.transform.localScale.y, Vector3.Distance(
+                miningBeam.transform.position, target) / 2.0f, Time.deltaTime);
+            miningBeam.transform.localScale = new Vector3(1, distance, 1);
         }
     }
 }

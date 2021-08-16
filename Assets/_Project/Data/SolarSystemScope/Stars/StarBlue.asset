@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 3}
   starColor: {r: 0.14391243, g: 0.61687255, b: 0.9245283, a: 1}
   hdrMultiplier: 10
+  resourceModifiers: []

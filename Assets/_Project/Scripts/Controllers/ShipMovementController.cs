@@ -133,6 +133,7 @@ namespace DoubTech.OpenPath.Controllers
 
         public void LeaveOrbit()
         {
+            positionTarget.position = transform.position;
             orbitTarget = null;
         }
 
