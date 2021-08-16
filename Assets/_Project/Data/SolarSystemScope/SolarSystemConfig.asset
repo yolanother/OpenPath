@@ -48,6 +48,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7806e6e354bfb0948ae24325cad98f97, type: 2}
   - {fileID: 11400000, guid: e1809b8f2a4a0f744824c508becb7033, type: 2}
   - {fileID: 11400000, guid: dc5460e1e7bb4ee4b8b2771752ffa894, type: 2}
+  resources:
+  - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+  - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   distanceScale: 100
   planetOrbitPrefab: {fileID: 7230438060499463654, guid: c061009002f1bce40b494c7ef284b8ae,
     type: 3}

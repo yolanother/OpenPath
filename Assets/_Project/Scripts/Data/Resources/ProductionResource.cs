@@ -11,6 +11,6 @@ namespace DoubTech.OpenPath.Data.Resources
         internal float baseValue = 100;
         [SerializeField, Tooltip("The chance of this resource being found on any given planet. This may be modified on a per planet basis."),
          Range(0, 1f)]
-        float generationChance = 0.2f;
+        internal float generationChance = 0.2f;
     }
 }

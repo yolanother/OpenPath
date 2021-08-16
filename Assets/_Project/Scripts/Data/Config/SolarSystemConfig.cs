@@ -9,6 +9,7 @@
 
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace DoubTech.OpenPath.Data
         [SerializeField] public int maxStarSize = 10;
         [SerializeField] public StarConfig[] starConfigs;
         [SerializeField] public PlanetConfig[] planetConfigs;
+        [SerializeField, Tooltip("The production resources that exist in this solar system.")]
+        internal ProductionResource[] resources;
         [SerializeField] public float distanceScale = 10;
         [SerializeField] public Orbit planetOrbitPrefab;
 

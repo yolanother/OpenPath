@@ -16,11 +16,11 @@ namespace DoubTech.OpenPath.UniverseScope
     public class ResourceSource : MonoBehaviour
     {
         [SerializeField, Tooltip("A resource that can be mined from this planet.")]
-        ProductionResource resource;
+        internal ProductionResource resource;
         [SerializeField, Tooltip("The remaining resource quantity that can be mined.")]
-        float resourceAvailable = 1000000;
+        internal float resourceAvailable = 1000000;
         [SerializeField, Tooltip("The quantity of this resource that is mined per second when using standard mining equipment.")]
-        float quantityPerSecond = 1;
+        internal float quantityPerSecond = 1;
 
         float timeOflastExtraction = 0;
 

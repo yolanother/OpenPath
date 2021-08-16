@@ -11,8 +11,10 @@ using System;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Orbits;
+using DoubTech.OpenPath.UniverseScope;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -84,6 +86,30 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
                 planetInstance.planetData.PlanetId = planetInstance.name;
                 planetInstance.orbit = orbit;
+
+                // Generate production resources
+                float chance = 0;
+                for (int r = 0; r < solarSystemConfig.resources.Length; r++)
+                {
+                    chance = solarSystemConfig.resources[r].generationChance;
+                    for (int p = 0; p < config.resourceModifiers.Length; p++)
+                    {
+                        if (config.resourceModifiers[p].resource == solarSystemConfig.resources[r])
+                        {
+                            chance += config.resourceModifiers[p].modificationPercent;
+                            break;
+                        }
+                    }
+
+                    if (chance > 0 && Random.value <= chance)
+                    {
+                        ResourceSource source = planetInstance.gameObject.AddComponent<ResourceSource>();
+                        source.resource = solarSystemConfig.resources[r];
+                        source.quantityPerSecond = 1; // how easy is it to extract
+                        source.resourceAvailable = 50000; // total resource reserves
+                    }
+                }
+
                 planets[i] = planetInstance;
 
                 #if UNITY_EDITOR
