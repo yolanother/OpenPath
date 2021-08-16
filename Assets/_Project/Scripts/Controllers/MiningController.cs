@@ -102,6 +102,9 @@ namespace DoubTech.OpenPath.Controllers
             if (source != null)
             {
                 miningCo = StartCoroutine(MineResourceSourceCo(source));
+            } else
+            {
+                Debug.LogErrorFormat("Unable to find a mining source for {0} within scanning distance of {1}.", resource.type.name, transform.position);
             }
         }
 
