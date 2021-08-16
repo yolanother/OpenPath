@@ -1029,26 +1029,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 53604720}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &73820881 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 989584488960964521, guid: a2447c8193740dd4e8429782fd2c50a1,
-    type: 3}
-  m_PrefabInstance: {fileID: 989584489362738199}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &73820891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73820881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8806fe64521f40f4ebede56cda454f79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSensorRange: 5000
-  maxInteractionRange: 150
 --- !u!1 &201494635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,6 +4000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starConfig: {fileID: 11400000, guid: 58b713a6cd881cc408f72c17e87625e9, type: 2}
+  selectorColor: {fileID: 0}
   star: {fileID: 788276854}
   corona: {fileID: 1661700298}
   atmosphereClose: {fileID: 1344896001}

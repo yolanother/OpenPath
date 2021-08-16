@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 130801314}
   - component: {fileID: 1561849172}
   - component: {fileID: 1561849174}
+  - component: {fileID: 73820891}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -222,6 +223,20 @@ MonoBehaviour:
   onTransformEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &73820891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584488960964521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8806fe64521f40f4ebede56cda454f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSensorRange: 5000
+  maxInteractionRange: 150
 --- !u!1 &989584490283401557
 GameObject:
   m_ObjectHideFlags: 0
