@@ -11,6 +11,7 @@ using System;
 using DoubTech.OpenPath.Data.Config;
 using SimpleSQL;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DoubTech.OpenPath.Data.SolarSystemScope
 {
@@ -25,6 +26,8 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         [SerializeField] private int population;
         [Tooltip("How likely is intelligent life to survive on this planet.")]
         [SerializeField] private float habitability;
+        [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
+        [SerializeField, Range(0f, 1f)] private float healthcareQuality;
 
         internal float tickFrequency = 1f; // how often the planet should tick
 
@@ -48,7 +51,14 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         public int Population
         {
             get => population;
-            set => population = value;
+            set
+            {
+                if (population == 0)
+                {
+                    healthcareQuality = Random.Range(0f, 0.5f);
+                }
+                population = value;
+            }
         }
 
         /// <summary>
@@ -64,7 +74,8 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
             }
         }
 
-        float births;
+        float births = 0;
+        float deaths = 0;
         /// <summary>
         /// Called every tick to allow the planet to update its statistics.
         /// </summary>
@@ -72,10 +83,21 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         {
             if (population > 0)
             {
-                births = (population * ((habitability / 100) * tickFrequency)) / 100;
+                births += (population * ((habitability / 100) * tickFrequency)) / 100;
                 if (births > 1)
                 {
                     population += (int)births;
+                    births = 0;
+                }
+
+                // deaths from illness
+                deaths += (population * (((1-healthcareQuality) / 100) * tickFrequency)) / 100;
+                // deaths from age
+                deaths += (population * ((habitability / 100) * tickFrequency)) / 300;
+                if (deaths > 1)
+                {
+                    population -= (int)deaths;
+                    deaths = 0;
                 }
 
                 tickFrequency = Mathf.Clamp(population / 1000000, 0.17f, 1);
