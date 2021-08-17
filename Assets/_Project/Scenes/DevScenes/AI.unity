@@ -7306,25 +7306,6 @@ Material:
     - _SunsetColor: {r: 1, g: 0.14699996, b: 0.7156962, a: 0}
     - _WaterColor: {r: 0.203, g: 0.203, b: 0.203, a: 0}
   m_BuildTextureStacks: []
---- !u!1 &1412364563 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3950482616213758506, guid: d8269afd8fae44046864283cd5409f71,
-    type: 3}
-  m_PrefabInstance: {fileID: 53604720}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1412364565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412364563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20e6e1584d834c4197d7b1e92738f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faction: {fileID: 11400000, guid: 731a632b4089d1044864b5efb1f0752a, type: 2}
 --- !u!1 &1464041844
 GameObject:
   m_ObjectHideFlags: 0
