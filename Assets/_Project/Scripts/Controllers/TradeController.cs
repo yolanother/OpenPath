@@ -12,7 +12,7 @@ namespace DoubTech.OpenPath.Controllers
     /// <summary>
     /// The Trade Controller manages trade between entities within the game.
     /// </summary>
-    public class TradeController : AbstractController
+    public class TradeController : AbstractActionController
     {
         [SerializeField] private FloatGameEvent onTradedResources;
 

@@ -13,7 +13,7 @@ namespace DoubTech.OpenPath.Controllers
     /// The Cargo Controller manages all cargo carried within the ship. It is through this controller
     /// that cargo is added and removed from the ship.
     /// </summary>
-    public class CargoController : AbstractController
+    public class CargoController : AbstractActionController
     {
         [SerializeField, Tooltip("The Cargo Bays available.")]
         List<CargoPod> cargoPods = new List<CargoPod>();
@@ -43,6 +43,34 @@ namespace DoubTech.OpenPath.Controllers
 
                 return total;
             }
+        }
+
+        /// <summary>
+        /// Return the amount of available space for a resource. This will include any spare
+        /// capacity in a pod configured for this resource and empty pods. It does not include space in mining equipment.
+        /// </summary>
+        /// <param name="resource">The resource we are interested in</param>
+        /// <returns>The capacity available</returns>
+        internal float SpaceFor(ProductionResource resource)
+        {
+            float space = 0;
+            for (int i = 0; i < cargoPods.Count; i++)
+            {
+                if (cargoPods[i].quantity == 0)
+                {
+                    space += cargoPods[i].capacity;
+                } else if (cargoPods[i].resource == resource)
+                {
+                    space += cargoPods[i].capacity - cargoPods[i].quantity;
+                }
+            }
+
+            if (miningController != null)
+            {
+                space += miningController.capacity;
+            }
+
+            return space;
         }
 
         public override string StatusAsString()

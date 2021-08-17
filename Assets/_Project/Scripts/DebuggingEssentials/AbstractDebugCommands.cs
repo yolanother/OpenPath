@@ -7,7 +7,7 @@ using DoubTech.OpenPath.Controllers;
 
 namespace DoubTech.OpenPath.Debugging
 {
-    public abstract class AbstractDebugCommands<T> : MonoBehaviour where T : AbstractController
+    public abstract class AbstractDebugCommands<T> : MonoBehaviour where T : AbstractActionController
     {
         protected T controller;
 

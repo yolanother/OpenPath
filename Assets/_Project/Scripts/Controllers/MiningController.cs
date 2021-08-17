@@ -13,11 +13,11 @@ namespace DoubTech.OpenPath.Controllers
     /// <summary>
     /// Controls the ability to mine resource materials from a resource source.
     /// </summary>
-    public class MiningController : AbstractController
+    public class MiningController : AbstractActionController
     {
         [SerializeField, Tooltip("The maximum capacity of this mining controller. Once the mined resource hits" +
             "this capacity mining will stop and cannot be restarted until the mining equipment has been emptied.")]
-        float capacity = 5;
+        internal float capacity = 5;
         [SerializeField, Tooltip("The time between mining extractions in seconds. The longer this is the longer between the addition of " +
             "resources to the stored quantity.")]
         float batchDuration = 0.25f;

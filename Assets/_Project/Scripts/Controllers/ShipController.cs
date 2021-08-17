@@ -11,10 +11,10 @@ namespace DoubTech.OpenPath.Controllers
     /// The Ship Controller is the Bridge of a ship. It is from here all aspects of a Ship can be
     /// accessed and managed.
     /// </summary>
-    public class ShipController : AbstractController
+    public class ShipController : AbstractActionController
     {
         [SerializeField, Tooltip("A list of resources this ship is interested in.")]
-        List<ProductionResource> resources;
+        internal List<ProductionResource> resources;
 
         private float credits;
 
@@ -53,8 +53,9 @@ namespace DoubTech.OpenPath.Controllers
         public TradeController TradeController { get; internal set; }
         public CargoController CargoController { get; internal set; }
 
-        private void Awake()
+        internal override void Start()
         {
+            base.Start();
             MovementController = GetComponent<ShipMovementController>();
             MiningController = GetComponent<MiningController>();
             TradeController = GetComponent<TradeController>();

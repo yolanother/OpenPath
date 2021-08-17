@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DoubTech.OpenPath.Controllers
 {
-    public abstract class AbstractController : MonoBehaviour
+    public abstract class AbstractActionController : MonoBehaviour
     {
         [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
         internal float maxSensorRange = 5000;

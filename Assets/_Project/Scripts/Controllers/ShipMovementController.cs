@@ -16,7 +16,7 @@ namespace DoubTech.OpenPath.Controllers
     /// <summary>
     /// Ship Movement Controller is responsible for moving the ship through space.
     /// </summary>
-    public class ShipMovementController : AbstractController
+    public class ShipMovementController : AbstractActionController
     {
         [SerializeField] private Transform positionTarget;
         [SerializeField] private Transform lookTarget;
