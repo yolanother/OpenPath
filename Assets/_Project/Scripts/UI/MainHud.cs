@@ -9,28 +9,51 @@
 
 using System;
 using DoubTech.OpenPath.Controllers;
+using DoubTech.OpenPath.Data.Resources;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DoubTech.OpenPath.UI
 {
     public class MainHud : MonoBehaviour
     {
         [SerializeField] private ShipController playerShip;
-        [SerializeField] private TextMeshProUGUI credits;
-
-        [SerializeField] private RectTransform rectTransform;
+        [SerializeField] private RectTransform resourceContainer;
+        [SerializeField] private Resource resourcePrefab;
+        [SerializeField] private ProductionResource[] trackedResources;
+        [SerializeField] private Sprite currencyIcon;
+        private Resource[] resourceeValues;
+        private Resource currency;
 
         private void Start()
         {
-            rectTransform = GetComponent<RectTransform>();
+            resourceeValues = new Resource[trackedResources.Length];
+            for (int i = 0; i < trackedResources.Length; i++)
+            {
+                resourceeValues[i] = Instantiate(resourcePrefab, resourceContainer);
+                resourceeValues[i].icon.sprite = trackedResources[i].icon;
+            }
+
+            currency = Instantiate(resourcePrefab, resourceContainer);
+            currency.icon.sprite = currencyIcon;
         }
 
         public void UpdateData()
         {
-            credits.text = playerShip.Credits.ToString("F2");
-            credits.SetLayoutDirty();
-            rectTransform.ForceUpdateRectTransforms();
+            currency.quantity.text = playerShip.Credits.ToString("F2");
+
+            for (int i = 0; i < trackedResources.Length; i++)
+            {
+                resourceeValues[i].quantity.text = playerShip.CargoController
+                    .Quantity(trackedResources[i]).ToString("F");
+                LayoutRebuilder.MarkLayoutForRebuild(resourceeValues[i].quantity.rectTransform);
+            }
+
+
+            resourceContainer.ForceUpdateRectTransforms();
+            LayoutRebuilder.MarkLayoutForRebuild(resourceContainer);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(resourceContainer);
         }
 
         private void OnEnable()

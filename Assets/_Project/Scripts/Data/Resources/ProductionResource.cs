@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 namespace DoubTech.OpenPath.Data.Resources
 {
@@ -12,5 +13,8 @@ namespace DoubTech.OpenPath.Data.Resources
         [SerializeField, Tooltip("The chance of this resource being found on any given planet. This may be modified on a per planet basis."),
          Range(0, 1f)]
         internal float generationChance = 0.2f;
+
+        [PreviewField(200, ObjectFieldAlignment.Right)]
+        [SerializeField] public Sprite icon;
     }
 }

@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Iron
   m_EditorClassIdentifier: 
   baseValue: 100
+  generationChance: 0.2
+  icon: {fileID: -1652751776793858931, guid: 2c0b7b928e67bbd4e9b7ce24a7be97ad, type: 3}

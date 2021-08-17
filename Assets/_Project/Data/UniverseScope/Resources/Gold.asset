@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Gold
   m_EditorClassIdentifier: 
   baseValue: 1000
+  generationChance: 0.2
+  icon: {fileID: -5088089171300584151, guid: 2c0b7b928e67bbd4e9b7ce24a7be97ad, type: 3}
