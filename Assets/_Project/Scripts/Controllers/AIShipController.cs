@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Resources;
+using DoubTech.OpenPath.Data.Factions;
+using Sirenix.OdinInspector;
 
 namespace DoubTech.OpenPath.Data.UniverseScope
 {
     public class AIShipController : ShipController
     {
+        [ShowInInspector, ReadOnly]
+        internal Faction faction;
+
         internal override void Start()
         {
             base.Start();

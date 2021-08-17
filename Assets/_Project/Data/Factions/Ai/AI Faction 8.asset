@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   factionColor: {r: 0.6375, g: 0.75, b: 0.1875, a: 1}
   factionEmblem: {fileID: 2800000, guid: 48b8ebfc430f29f46b0359997e90379b, type: 3}
+  shipPrefabs:
+  - {fileID: 7544308137336364724, guid: ad29359178abb9a40b3454a23fba70c0, type: 3}
