@@ -1679,7 +1679,7 @@ GameObject:
   - component: {fileID: 784920903}
   - component: {fileID: 784920902}
   m_Layer: 5
-  m_Name: SystemInfoList
+  m_Name: ShipInfoList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,16 +1716,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 784920900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa44ee782a94154af76ece683ffbd75, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c073cbe57dd90742a0eb6c9227da43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 1de3ed87d75f4a84dbbfcbb89434050f, type: 2}
+  shipInfoPrefab: {fileID: 2660020536243565039, guid: 65ad53a246591164690010469e972dc8,
+    type: 3}
+  container: {fileID: 1480009468}
+--- !u!114 &784920903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784920900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604b52d00db245446a5a8bbad85cebd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 52cbacaf36600414dbdec199a8daa481, type: 2}
   onEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 784920903}
-        m_TargetAssemblyTypeName: DoubTech.OpenPath.UI.SystemInfoList, Assembly-CSharp
-        m_MethodName: UpdatePlanet
+      - m_Target: {fileID: 784920902}
+        m_TargetAssemblyTypeName: DoubTech.OpenPath.UI.ShipInfoList, Assembly-CSharp
+        m_MethodName: UpdateShip
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1738,21 +1753,6 @@ MonoBehaviour:
   onTransformEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &784920903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784920900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7cdf6aac7f89cc46a994f89704a86c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceInformationPrefab: {fileID: 3245111183677058603, guid: 93de9bc9e66018443a8072b6ba532b13,
-    type: 3}
-  container: {fileID: 1480009468}
 --- !u!114 &784920904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4701,6 +4701,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8912640441606682756, guid: d8269afd8fae44046864283cd5409f71,
+        type: 3}
+      propertyPath: onShipChanged
+      value: 
+      objectReference: {fileID: 11400000, guid: 52cbacaf36600414dbdec199a8daa481,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8269afd8fae44046864283cd5409f71, type: 3}
 --- !u!1001 &7679768071924924146
@@ -4906,7 +4912,7 @@ PrefabInstance:
     - target: {fileID: 7679768072136246376, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 75.5246
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7679768072427182461, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}

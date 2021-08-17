@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Resources;
-using DoubTech.OpenPath.Data.Factions;
-using Sirenix.OdinInspector;
 using DoubTech.OpenPath.Data.Equipment;
 
 namespace DoubTech.OpenPath.Data.UniverseScope

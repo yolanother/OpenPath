@@ -1,11 +1,10 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.Data.Factions;
-using Random = UnityEngine.Random;
+using DoubTech.OpenPath.Events;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -20,16 +19,29 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField, Tooltip("A list of resources this ship is interested in.")]
         internal List<ProductionResource> resources;
 
+        [SerializeField] public ShipGameEvent onShipInfoChanged;
+
         private float credits;
 
-        public override float Credits { 
-            get => credits; 
-            set => credits = value; }
+        public override float Credits
+        {
+            get => credits;
+            set
+            {
+                if (value != credits)
+                {
+                    credits = value;
+                    onShipInfoChanged?.Invoke(this);
+                }
+            }
+        }
 
         public ShipMovementController MovementController { get; internal set; }
 
+        public DamageController DamageController { get; internal set; }
+
         /// <summary>
-        /// Search through the resources this ship cares about and, if found, 
+        /// Search through the resources this ship cares about and, if found,
         /// return a resource to represent it.
         /// </summary>
         /// <param name="name">The name of the resource we are looking for.</param>
@@ -66,6 +78,7 @@ namespace DoubTech.OpenPath.Controllers
             TradeController = GetComponent<TradeController>();
             CargoController = GetComponent<CargoController>();
             WeaponController = GetComponent<ShipWeaponController>();
+            DamageController = GetComponent<DamageController>();
         }
 
         /// <summary>
@@ -75,6 +88,7 @@ namespace DoubTech.OpenPath.Controllers
         public void AddCredits(float amount)
         {
             this.credits += amount;
+            onShipInfoChanged?.Invoke(this);
         }
 
         /// <summary>
@@ -88,6 +102,7 @@ namespace DoubTech.OpenPath.Controllers
                 throw new ArgumentException("Attempted to remove more credits from ship account than exist in the account.");
             }
             this.credits -= amount;
+            onShipInfoChanged?.Invoke(this);
         }
 
         /// <summary>
@@ -97,18 +112,25 @@ namespace DoubTech.OpenPath.Controllers
         /// <returns>True if succesfully equipped otherwise false.</returns>
         internal bool Equip(AbstractShipEquipment equipment)
         {
+            bool success = false;
             if (equipment is CargoPod)
             {
                 equipment.owner = this;
-                return CargoController.Equip((CargoPod)equipment);
+                success = CargoController.Equip((CargoPod)equipment);
             } else if (equipment is AbstractShipWeapon)
             {
                 equipment.owner = this;
-                return WeaponController.Equip((AbstractShipWeapon)equipment);
+                success = WeaponController.Equip((AbstractShipWeapon)equipment);
             }
 
-            Debug.LogError($"Ship Controller doesn't know how to equip a {equipment.name}");
-            return false;
+            if(!success) Debug.LogError($"Ship Controller doesn't know how to equip a {equipment.name}");
+            else onShipInfoChanged?.Invoke(this);
+            return success;
+        }
+
+        private void OnEnable()
+        {
+            onShipInfoChanged?.Invoke(this);
         }
     }
 }

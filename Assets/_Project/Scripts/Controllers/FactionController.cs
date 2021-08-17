@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.UniverseScope;
+using DoubTech.OpenPath.Events;
 using Sirenix.OdinInspector;
 
 namespace DoubTech.OpenPath.Controllers
@@ -18,12 +19,15 @@ namespace DoubTech.OpenPath.Controllers
         [ShowInInspector, ReadOnly]
         internal List<AIShipController> activeShips = new List<AIShipController>();
 
+        [SerializeField] private ShipGameEvent onShipChanged;
+
         private void Update()
         {
             if (activeShips.Count < 3)
             {
                 AIShipController ship = faction.SpawnShip();
                 activeShips.Add(ship);
+                onShipChanged?.Invoke(ship);
             }
         }
     }

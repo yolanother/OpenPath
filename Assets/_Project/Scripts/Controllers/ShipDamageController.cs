@@ -16,6 +16,8 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField, Tooltip("The current hit points. If this goes to zero the object is destroyed.")]
         float currentHitPoints;
 
+        public float PercentHitPoints => currentHitPoints / maxHitPoints;
+
         internal override void Start()
         {
             base.Start();

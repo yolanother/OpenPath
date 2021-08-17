@@ -19,7 +19,7 @@ namespace DoubTech.OpenPath.Data.Factions
     [CreateAssetMenu(fileName = "AiFactions", menuName = "OpenPath/Factions/Faction Configuration")]
     public class FactionConfiguration : ScriptableObject
     {
-        [SerializeField] public Texture2D[] emblems;
+        [SerializeField] public Sprite[] emblems;
         [SerializeField] public Faction[] aiFactions;
     }
 
