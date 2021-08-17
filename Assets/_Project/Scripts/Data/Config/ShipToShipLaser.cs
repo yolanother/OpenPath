@@ -16,7 +16,7 @@ namespace DoubTech.OpenPath.Data.Equipment
         {
             Debug.LogFormat("{0} is firing upon {1} with {2}", owner.name, currentTarget.gameObject.name, name);
 
-            DamageController dc = currentTarget.GetComponent<DamageController>();
+            ShipDamageController dc = currentTarget.GetComponent<ShipDamageController>();
             if (dc == null) return;
 
             dc.AddDamage(this, baseDamage);

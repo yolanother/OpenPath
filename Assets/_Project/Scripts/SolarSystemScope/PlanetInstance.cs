@@ -10,6 +10,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DoubTech.OpenPath.Controllers;
+using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.Orbits;
@@ -17,7 +18,7 @@ using UnityEngine;
 
 namespace DoubTech.OpenPath.SolarSystemScope
 {
-    public class PlanetInstance : MonoBehaviour
+    public class PlanetInstance : MonoBehaviour, IDamageController
     {
         public Orbit orbit;
         public Planet planetData = new Planet();
@@ -47,6 +48,16 @@ namespace DoubTech.OpenPath.SolarSystemScope
         public void RemoveOrbitingObject(ShipController shipController)
         {
             orbitingShips.Remove(shipController);
+        }
+
+        public void AddDamage(AbstractShipWeapon weapon, float damageAmount)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Die()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

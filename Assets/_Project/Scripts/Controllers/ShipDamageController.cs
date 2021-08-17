@@ -9,7 +9,7 @@ namespace DoubTech.OpenPath.Controllers
     /// The Damage Controller manages damage and repairs of something in the universe. Drop this controller onto
     /// any object that can be attacked.
     /// </summary>
-    public class DamageController : AbstractActionController
+    public class ShipDamageController : AbstractActionController, IDamageController
     {
         [SerializeField, Tooltip("The maximum hit points for this object.")]
         float maxHitPoints = 100;
