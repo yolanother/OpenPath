@@ -15,6 +15,7 @@ using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.OpenPath.UniverseScope.Resources;
+using Lean.Common;
 using Michsky.UI.ModernUIPack;
 using TMPro;
 using UnityEngine;
@@ -70,6 +71,7 @@ namespace DoubTech.OpenPath.UI
                 bg.color = alpha;
                 headerBg.color = alpha;
 
+
                 if (null == buttons) buttons = GetComponentsInChildren<UIGradient>();
 
                 float h, s, v;
@@ -93,6 +95,10 @@ namespace DoubTech.OpenPath.UI
                 {
                     orbitingShip = planetInstance.OrbitingShips.First();
                 }
+
+                // TODO: We will need to set this from planet data. Hacking it here for now
+                var selectColor = planetInstance.GetComponentInChildren<LeanSelectableRendererColor>();
+                selectColor.SelectedColor = planetData.FactionColor;
 
                 UpdateData();
             }

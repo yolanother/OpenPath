@@ -70,5 +70,10 @@ namespace DoubTech.OpenPath.UI
             canvasGroup.interactable = visible && interactable;
             canvasGroup.blocksRaycasts = visible && blocksRaycasts;
         }
+
+        public void Toggle()
+        {
+            Visible = !Visible;
+        }
     }
 }
