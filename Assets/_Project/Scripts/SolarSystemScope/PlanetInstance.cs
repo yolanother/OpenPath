@@ -52,12 +52,27 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         public void AddDamage(AbstractShipWeapon weapon, float damageAmount)
         {
-            throw new System.NotImplementedException();
+            if (planetData.Population > 0)
+            {
+                float percentKills = (damageAmount / 10000) * Random.Range(0.5f, 1.5f); ;
+                int kills = (int)(percentKills * planetData.Population);
+                planetData.Population -= kills;
+
+                if (planetData.Population > 0)
+                {
+                    Debug.Log($"{weapon.owner} killed {kills} inhabitants of {planetData.DisplayName}, there are {planetData.Population} inhabitants remaining.");
+                } else
+                {
+                    Debug.Log($"{weapon.owner} killed the last inhabitants of {planetData.DisplayName}, it is now avialble for resource stripping or colonization.");
+                    planetData.Population = 0;
+                    Die();
+                }
+            }
         }
 
         public void Die()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

@@ -28,6 +28,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
     {
         [SerializeField] public SolarSystemConfig solarSystemConfig;
         [SerializeField] private Vector2 coordinates;
+        [SerializeField] private bool runtimeBuild = true;
 
         private PlanetInstance[] planets;
 
@@ -35,7 +36,10 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         private void Start()
         {
-            BuildSolarSystem(SceneConfiguration.currentCoordinates);
+            if (runtimeBuild)
+            {
+                BuildSolarSystem(SceneConfiguration.currentCoordinates);
+            }
         }
 
         [Button]

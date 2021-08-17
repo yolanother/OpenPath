@@ -119,7 +119,7 @@ namespace DoubTech.OpenPath.Controllers
             }
             else
             {
-                Debug.Log($"{gameObject.name} unable to find a seller of {requiredEquipment.name} at a max unity price of {maxUnitPrice}.");
+                Debug.Log($"{gameObject.name} unable to find a seller of {requiredEquipment.name} at a max unit price of {maxUnitPrice}.");
                 Status = State.Inactive;
                 return false;
             }
