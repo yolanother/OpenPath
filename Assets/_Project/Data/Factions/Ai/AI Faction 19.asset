@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AI Faction 19
   m_EditorClassIdentifier: 
   factionColor: {r: 0.1875, g: 0.75, b: 0.665625, a: 1}
-  factionEmblem: {fileID: 2800000, guid: 1406083e1a685734897e0200bb997845, type: 3}
+  factionEmblem: {fileID: 21300000, guid: 1406083e1a685734897e0200bb997845, type: 3}
+  aggression: 0.3
   shipPrefabs:
   - {fileID: 7544308137336364724, guid: ad29359178abb9a40b3454a23fba70c0, type: 3}

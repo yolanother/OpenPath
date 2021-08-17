@@ -10,6 +10,7 @@
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.SolarSystemScope;
+using DoubTech.OpenPath.UI.PreviewCamera;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using TMPro;
@@ -53,6 +54,11 @@ namespace DoubTech.OpenPath.UI
             }
 
             shield.fillAmount = shipController.DamageController.PercentHitPoints;
+
+            if (!shipIcon.sprite)
+            {
+                PreviewCameraController.Instance.TakeScreenshot(shipController, (s) => shipIcon.sprite = s);
+            }
         }
 
         public void SelectShip()

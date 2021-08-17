@@ -9,6 +9,7 @@
 
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.SolarSystemScope;
+using DoubTech.OpenPath.UI.PreviewCamera;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.OpenPath.UniverseScope.Resources;
 using TMPro;
@@ -93,6 +94,12 @@ namespace DoubTech.OpenPath.UI
             }
 
             population.text = "Population: " + planetInstance.planetData.Population;
+
+            if (!planetIcon.sprite)
+            {
+                PreviewCameraController.Instance.TakeScreenshot(planetInstance,
+                    (s) => planetIcon.sprite = s);
+            }
         }
 
         public void SelectPlanet()

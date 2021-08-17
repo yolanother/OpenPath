@@ -47,6 +47,8 @@ namespace DoubTech.OpenPath.UI
         public void UpdateData()
         {
             if (!playerShip) return;
+            if (!playerShip.CargoController) return;
+            if (!playerShip.MiningController) return;
 
             var current = playerShip.CargoController.AvailableCapacity +
                           (playerShip.MiningController.capacity - playerShip.MiningController.resource.quantity);

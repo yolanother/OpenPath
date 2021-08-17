@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3647732964588243084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3501145813328059554}
+  m_Layer: 0
+  m_Name: PreviewCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3501145813328059554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647732964588243084}
+  m_LocalRotation: {x: 0.58852136, y: 0.56716985, z: -0.5691038, w: 0.08990007}
+  m_LocalPosition: {x: 81.2, y: 92.8, z: 43.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6029433269443762353}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 48.709, y: -120.617, z: 121.062}
+--- !u!1 &5697171929393042669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6029433269443762353}
+  m_Layer: 0
+  m_Name: PreviewCameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6029433269443762353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697171929393042669}
+  m_LocalRotation: {x: 0.85354424, y: 0.49655196, z: 0.09621802, w: 0.12506188}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3501145813328059554}
+  m_Father: {fileID: 7230438062290228078}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 6.773, y: -196.887, z: 478.616}
 --- !u!1 &6803197154288657474
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +252,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.11487256
+        value: 0.4148313
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -200,7 +261,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.11487256
+        value: 0.4148313
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -328,6 +389,7 @@ GameObject:
   - component: {fileID: 7230438062290228078}
   - component: {fileID: 1014573387938874624}
   - component: {fileID: 8842677548262948106}
+  - component: {fileID: 7106578027331033396}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -348,6 +410,7 @@ Transform:
   m_Children:
   - {fileID: 2741100401916733293}
   - {fileID: 8044572980613636476}
+  - {fileID: 6029433269443762353}
   m_Father: {fileID: 7230438060499463655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -383,6 +446,20 @@ MonoBehaviour:
     habitability: 0
     healthcareQuality: 0
     faction: {fileID: 0}
+--- !u!114 &7106578027331033396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7230438062290228073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2e4c690bfc49f42ac121d914de15f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 0}
+  cameraContainer: {fileID: 0}
 --- !u!1 &8019244263627443829
 GameObject:
   m_ObjectHideFlags: 0
