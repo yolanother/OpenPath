@@ -19,6 +19,11 @@ namespace DoubTech.OpenPath.Controllers
         public ShipController shipController;
         public static PlayerShip Instance => playerShip;
 
+        public static Transform Transform => Instance.shipController.transform;
+
+        public static ShipMovementController MovementController =>
+            Instance.shipController.MovementController;
+
         private void OnEnable()
         {
             playerShip = this;

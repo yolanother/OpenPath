@@ -52,8 +52,7 @@ namespace DoubTech.OpenPath.UI
         private ResourceDemand[] resourceDemands;
         private EquipmentTrade[] equipmentTrades;
         private ResourceSource[] resourceSources;
-
-        private ShipController orbitingShip;
+        private bool orbitingShip;
 
         public PlanetInstance PlanetInstance
         {
@@ -96,11 +95,6 @@ namespace DoubTech.OpenPath.UI
                 equipmentTrades = planetInstance.GetComponents<EquipmentTrade>();
                 resourceSources = planetInstance.GetComponents<ResourceSource>();
 
-                if (planetInstance.OrbitingShips.Length > 0)
-                {
-                    orbitingShip = planetInstance.OrbitingShips.First();
-                }
-
                 // TODO: We will need to set this from planet data. Hacking it here for now
                 var selectColor = planetInstance.GetComponentInChildren<LeanSelectableRendererColor>();
                 selectColor.SelectedColor = planetData.FactionColor;
@@ -122,11 +116,11 @@ namespace DoubTech.OpenPath.UI
             bool hasCargo = false;
             bool hasSpace = false;
 
-            if (orbitingShip)
+            if (planetInstance.IsPlayerOrbiting)
             {
                 foreach (var res in resourceSources)
                 {
-                    if (orbitingShip.CargoController.SpaceFor(res.resource) > 0)
+                    if (PlayerShip.Instance.shipController.CargoController.SpaceFor(res.resource) > 0)
                     {
                         hasSpace = true;
                         break;
@@ -135,13 +129,18 @@ namespace DoubTech.OpenPath.UI
 
                 foreach (var res in resourceDemands)
                 {
-                    if (orbitingShip.CargoController.Has(res.resource))
+                    if (PlayerShip.Instance.shipController.CargoController.Has(res.resource))
                     {
                         hasCargo = true;
                         break;
                     }
                 }
                 visitButton.buttonText = "DEPART";
+                visitButton.UpdateUI();
+            }
+            else if (PlayerInTransitToPlanet)
+            {
+                visitButton.buttonText = "Abort Visit";
                 visitButton.UpdateUI();
             }
             else
@@ -200,15 +199,25 @@ namespace DoubTech.OpenPath.UI
 
         public void Visit()
         {
-            if (orbitingShip)
+            if (!planetInstance) return;
+
+            if (planetInstance.IsPlayerOrbiting)
             {
-                orbitingShip.MovementController.LeaveOrbit();
+                PlayerShip.Instance.shipController.MovementController.LeaveOrbit();
+            }
+            else if (PlayerInTransitToPlanet)
+            {
+                PlayerShip.MovementController.Stop();
             }
             else
             {
                 PlayerShip.Instance.shipController.MovementController.Orbit(planetInstance);
             }
         }
+
+        public bool PlayerInTransitToPlanet => planetInstance && !orbitingShip && !planetInstance.IsPlayerOrbiting &&
+                                               PlayerShip.MovementController.OrbitPlanetTarget ==
+                                               planetInstance;
 
         public void DeselectPlanet()
         {
@@ -217,14 +226,14 @@ namespace DoubTech.OpenPath.UI
 
         public void Mine()
         {
-            if (orbitingShip && orbitingShip.MiningController && planetInstance.planetData.Population == 0)
+            if (planetInstance && planetInstance.IsPlayerOrbiting && planetInstance.planetData.Population == 0)
             {
                 for (int i = 0; i < resourceSources.Length; i++)
                 {
                     var resource = resourceSources[i];
                     if (resource.ResourceAvailable)
                     {
-                        orbitingShip.MiningController.Mine(resource);
+                        PlayerShip.Instance.shipController.MiningController.Mine(resource);
                         break;
                     }
                 }
@@ -233,9 +242,9 @@ namespace DoubTech.OpenPath.UI
 
         public void SellAll()
         {
-            if (orbitingShip && orbitingShip.TradeController && resourceDemands.Length > 0)
+            if (planetInstance && PlayerShip.Instance.shipController.TradeController && resourceDemands.Length > 0)
             {
-                orbitingShip.TradeController.SellAll(planetInstance);
+                PlayerShip.Instance.shipController.TradeController.SellAll(planetInstance);
             }
         }
 
@@ -243,26 +252,42 @@ namespace DoubTech.OpenPath.UI
         {
             if (planet == planetInstance)
             {
-                orbitingShip = ship;
                 UpdateData();
             }
         }
 
         private void Update()
         {
-            if (planetInstance && !orbitingShip && planetInstance.HasShipInOrbit)
+            if (!planetInstance) return;
+
+            if (!orbitingShip && planetInstance.IsPlayerOrbiting)
             {
-                orbitingShip = planetInstance.OrbitingShips.First();
+                orbitingShip = true;
                 UpdateData();
             }
-            else if (planetInstance && orbitingShip && !planetInstance.HasShipInOrbit)
+            else if (orbitingShip && !planetInstance.IsPlayerOrbiting)
             {
-                orbitingShip = null;
+                orbitingShip = false;
                 UpdateData();
             }
 
-            distance.text = "Distance: " + Vector3.Distance(PlayerShip.Instance.shipController.transform.position,
+            var d = Vector3.Distance(PlayerShip.Transform.position,
                 planetInstance.transform.position).ToString("0");
+            if (PlayerInTransitToPlanet)
+            {
+                if (visitButton.buttonText != "Abort Visit")
+                {
+                    visitButton.buttonText = "Abort Visit";
+                    visitButton.UpdateUI();
+                }
+
+
+                distance.text = "Remaining Distance: " + d;
+            }
+            else
+            {
+                distance.text = "Distance: " + d;
+            }
         }
     }
 }

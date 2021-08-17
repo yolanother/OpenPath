@@ -25,6 +25,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         public ShipController[] OrbitingShips => orbitingShips.ToArray();
         public bool HasShipInOrbit => orbitingShips.Count > 0;
+        public bool IsPlayerOrbiting => orbitingShips.Contains(PlayerShip.Instance.shipController);
 
         public void IsOrbiting(ShipController ship) => orbitingShips.Contains(ship);
 

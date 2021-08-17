@@ -38,6 +38,20 @@ namespace DoubTech.OpenPath.Controllers
         private Quaternion nextAngle;
         private bool movingIntoOrbit;
 
+        private PlanetInstance orbitPlanetTarget;
+        /// <summary>
+        /// The transform that this ship is currently targeting for orbit.
+        ///
+        /// This can be anything that supports orbits. Ex: Planet, Star
+        /// </summary>
+        public Transform OrbitTarget => orbitTarget;
+
+        /// <summary>
+        /// Returns the targeted planet that the ship is attempting to orbit
+        /// </summary>
+        public PlanetInstance OrbitPlanetTarget => orbitPlanetTarget;
+
+
         internal override void Start()
         {
             base.Start();
@@ -56,6 +70,7 @@ namespace DoubTech.OpenPath.Controllers
         public void MoveToOrbit(Transform transform)
         {
             orbitTarget = transform;
+            orbitPlanetTarget = transform.GetComponent<PlanetInstance>();
 
             Debug.LogFormat("Moved to orbit around {0}.", transform.gameObject.name);
         }
@@ -180,6 +195,7 @@ namespace DoubTech.OpenPath.Controllers
                     if(oldPlanet) oldPlanet.RemoveOrbitingObject(shipController);
                 }
                 orbitTarget = planetInstance.transform;
+                orbitPlanetTarget = planetInstance;
             }
             else
             {
@@ -201,6 +217,7 @@ namespace DoubTech.OpenPath.Controllers
                 var planetInstance = orbitTarget.GetComponent<PlanetInstance>();
                 planetInstance.RemoveOrbitingObject(shipController);
                 onLeftOrbit.Invoke(shipController, planetInstance);
+                orbitPlanetTarget = null;
             }
 
             orbitTarget = null;
@@ -222,9 +239,15 @@ namespace DoubTech.OpenPath.Controllers
             if (orbitTarget && !orbit.WithinOrbit(pos))
             {
                 orbitTarget = null;
+                orbitPlanetTarget = null;
             }
 
             positionTarget.position = pos;
+        }
+
+        public void Stop()
+        {
+            MoveTo(transform.position);
         }
     }
 }
