@@ -16,15 +16,11 @@ namespace DoubTech.OpenPath.Controllers
     {
         [SerializeField] private FloatGameEvent onTradedResources;
 
-        ShipMovementController shipMovementController;
-        CargoController cargoController;
         float tradeDuration = 2f;
 
         internal override void Start()
         {
             base.Start();
-            shipMovementController = shipController.MovementController;
-            cargoController = shipController.CargoController;
         }
 
         /// <summary>
@@ -39,9 +35,9 @@ namespace DoubTech.OpenPath.Controllers
             ResourceDemand demand = null;
             for (int i = 0; i < candidates.Count; i++)
             {
-                if (candidates[i] != null && cargoController.Has(candidates[i].resource))
+                if (candidates[i] != null && shipController.CargoController.Has(candidates[i].resource))
                 {
-                    float available = cargoController.Quantity(candidates[i].resource);
+                    float available = shipController.CargoController.Quantity(candidates[i].resource);
                     float estimatedrevenue;
                     if (available >= candidates[i].required)
                     {
@@ -121,7 +117,7 @@ namespace DoubTech.OpenPath.Controllers
 
         IEnumerator BuyEquipmentCo(EquipmentTrade offer)
         {
-            shipMovementController.MoveToOrbit(offer);
+            shipController.MovementController.MoveToOrbit(offer);
             while (!InPosition(offer.transform.position))
             {
                 yield return new WaitForEndOfFrame();
@@ -138,7 +134,7 @@ namespace DoubTech.OpenPath.Controllers
 
         IEnumerator TradeResourceCo(ResourceDemand demand)
         {
-            shipMovementController.MoveToOrbit(demand);
+            shipController.MovementController.MoveToOrbit(demand);
             while (!InPosition(demand.transform.position))
             {
                 yield return new WaitForEndOfFrame();
@@ -148,8 +144,8 @@ namespace DoubTech.OpenPath.Controllers
 
             yield return new WaitForSeconds(tradeDuration);
 
-            float quantity = demand.required > cargoController.Quantity(demand.resource) ? cargoController.Quantity(demand.resource) : demand.required;
-            cargoController.Remove(demand.resource, quantity);
+            float quantity = demand.required > shipController.CargoController.Quantity(demand.resource) ? shipController.CargoController.Quantity(demand.resource) : demand.required;
+            shipController.CargoController.Remove(demand.resource, quantity);
             demand.required -= quantity;
             float price = demand.Price * quantity;
             shipController.AddCredits(price);

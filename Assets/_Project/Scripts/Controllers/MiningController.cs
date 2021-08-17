@@ -26,14 +26,12 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField] private GameObject miningBeamVisualization;
         [SerializeField] private FloatGameEvent onMinedResources;
 
-        ShipMovementController shipMovementController;
         internal MinedResource resource;
         private Coroutine miningCo;
 
         internal override void Start()
         {
             base.Start();
-            shipMovementController = shipController.MovementController;
         }
 
         public override string StatusAsString()
@@ -87,6 +85,8 @@ namespace DoubTech.OpenPath.Controllers
             {
                 if (candidates[i] != null && (resource.type == null || (candidates[i].ResourceType == resource.type && resource.quantity < capacity)))
                 {
+                    if (candidates[i].GetComponent<PlanetInstance>().planetData.Population > 0) continue;
+
                     distance = Vector3.Distance(transform.position, candidates[i].transform.position);
                     if (distance < minDistance)
                     {
@@ -115,6 +115,8 @@ namespace DoubTech.OpenPath.Controllers
 
         IEnumerator MineResourceSourceCo(ResourceSource source)
         {
+            yield return null;
+
             if (resource.type == null)
             {
                 resource = new MinedResource(source.ResourceType, 0);
@@ -123,7 +125,7 @@ namespace DoubTech.OpenPath.Controllers
                 resource = new MinedResource(source.ResourceType, 0);
                 Debug.Log("Converting Mining Equipment to mine " + source.ResourceType.name + " any exiting resources in the equipment will be jetisoned.");
             }
-            shipMovementController.MoveToOrbit(source);
+            shipController.MovementController.MoveToOrbit(source);
             while (!InPosition(source.transform.position))
             {
                 yield return new WaitForEndOfFrame();
