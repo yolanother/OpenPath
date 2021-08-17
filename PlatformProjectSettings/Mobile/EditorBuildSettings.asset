@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Galaxy.unity
     guid: 4a03a8d83235f974abfeb28fa2ab105f
   - enabled: 1
-    path: Assets/_Project/Scenes/DevScenes/BaseSolarSystem.unity
-    guid: 2348c62b1edb4264c80c2b6c072dd3dd
+    path: Assets/_Project/Scenes/SolarSystem.unity
+    guid: 7072f6edbeebd8a4b95be25db0ceb2fb
   m_configObjects: {}

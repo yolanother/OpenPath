@@ -7,10 +7,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
-using System;
-using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Events;
-using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.ScriptableEvents.BuiltinTypes;
 using Michsky.UI.ModernUIPack;
