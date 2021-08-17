@@ -87,7 +87,7 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            if (orbitTarget)
+            if (orbitTarget && orbit.WithinOrbit(transform.position))
             {
                 orbit.gameObject.SetActive(true);
                 orbit.transform.position = orbitTarget.position;

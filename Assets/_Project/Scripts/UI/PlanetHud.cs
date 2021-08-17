@@ -206,7 +206,7 @@ namespace DoubTech.OpenPath.UI
             }
             else
             {
-                onVisitPlanet.Invoke(planetInstance);
+                PlayerShip.Instance.shipController.MovementController.Orbit(planetInstance);
             }
         }
 

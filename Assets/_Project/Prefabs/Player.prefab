@@ -59,8 +59,6 @@ GameObject:
   - component: {fileID: 130801312}
   - component: {fileID: 130801313}
   - component: {fileID: 130801314}
-  - component: {fileID: 1561849172}
-  - component: {fileID: 1561849174}
   - component: {fileID: 73820891}
   m_Layer: 0
   m_Name: Player
@@ -208,70 +206,6 @@ MonoBehaviour:
   maxSensorRange: 250
   maxInteractionRange: 150
   cargoPods: []
---- !u!114 &1561849172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989584488960964521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa44ee782a94154af76ece683ffbd75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: d2016034cbbe17c439275031a07c5254, type: 2}
-  onEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 989584488960964566}
-        m_TargetAssemblyTypeName: DoubTech.OpenPath.Controllers.ShipMovementController,
-          Assembly-CSharp
-        m_MethodName: Orbit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTransformEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1561849174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989584488960964521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa44ee782a94154af76ece683ffbd75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 30021970c7e63c242bb06e3076841e8e, type: 2}
-  onEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 989584488960964566}
-        m_TargetAssemblyTypeName: DoubTech.OpenPath.Controllers.ShipMovementController,
-          Assembly-CSharp
-        m_MethodName: LeaveOrbit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTransformEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &73820891
 MonoBehaviour:
   m_ObjectHideFlags: 0
