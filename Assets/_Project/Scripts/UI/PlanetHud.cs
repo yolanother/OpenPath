@@ -31,10 +31,8 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private PlanetSelectionGameEvent onLeavePlanetEvent;
         [SerializeField] private PlanetSelectionGameEvent onDeselectPlanet;
 
-        [SerializeField] private Image bgOverlay;
-        [SerializeField] private Image bg;
-        [SerializeField] private Image headerBg;
-        [SerializeField] private Image headerOverlay;
+        [SerializeField] private Image[] tintedUIBackgrounds;
+        [SerializeField] private Image[] tintedUIOverlay;
 
         [SerializeField] private TextMeshProUGUI population;
         [SerializeField] private TextMeshProUGUI habitibility;
@@ -65,12 +63,18 @@ namespace DoubTech.OpenPath.UI
                 planetInstance = value;
                 var planetData = value.planetData;
                 title.text = value.planetData.DisplayName;
-                bgOverlay.color = planetData.FactionColor;
-                headerOverlay.color = planetData.FactionColor;
                 var alpha = planetData.FactionColor;
                 alpha.a = .5f;
-                bg.color = alpha;
-                headerBg.color = alpha;
+
+                foreach (var bg in tintedUIBackgrounds)
+                {
+                    bg.color = alpha;
+                }
+
+                foreach (var overlay in tintedUIOverlay)
+                {
+                    overlay.color = planetData.FactionColor;
+                }
 
 
                 if (null == buttons) buttons = GetComponentsInChildren<UIGradient>();
