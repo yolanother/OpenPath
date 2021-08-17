@@ -40,6 +40,7 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private TextMeshProUGUI habitibility;
         [SerializeField] private TextMeshProUGUI mineableResources;
         [SerializeField] private TextMeshProUGUI desiredResources;
+        [SerializeField] private TextMeshProUGUI distance;
 
         [SerializeField] private ButtonManagerBasic visitButton;
         [SerializeField] private ButtonManagerBasic actionButtonMine;
@@ -256,6 +257,8 @@ namespace DoubTech.OpenPath.UI
                 UpdateData();
             }
 
+            distance.text = "Distance: " + Vector3.Distance(PlayerShip.Instance.shipController.transform.position,
+                planetInstance.transform.position).ToString("0");
         }
     }
 }
