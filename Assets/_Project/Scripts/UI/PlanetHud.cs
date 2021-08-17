@@ -112,13 +112,22 @@ namespace DoubTech.OpenPath.UI
             habitibility.text = $"Habitibility: {planetInstance.planetData.HabitabilityString}";
 
             bool inhabited = planetInstance.planetData.Population != 0;
-            actionButtonMine.gameObject.SetActive(!inhabited);
             actionButtonNuke.gameObject.SetActive(false);
 
             bool hasCargo = false;
+            bool hasSpace = false;
 
             if (orbitingShip)
             {
+                foreach (var res in resourceSources)
+                {
+                    if (orbitingShip.CargoController.SpaceFor(res.resource) > 0)
+                    {
+                        hasSpace = true;
+                        break;
+                    }
+                }
+
                 foreach (var res in resourceDemands)
                 {
                     if (orbitingShip.CargoController.Has(res.resource))
@@ -136,6 +145,7 @@ namespace DoubTech.OpenPath.UI
                 visitButton.UpdateUI();
             }
 
+            actionButtonMine.gameObject.SetActive(!inhabited && hasSpace);
             actionButtonTrade.gameObject.SetActive(inhabited && hasCargo);
             actionButtonSellAll.gameObject.SetActive(inhabited && hasCargo);
 

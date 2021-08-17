@@ -23,11 +23,16 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private Resource resourcePrefab;
         [SerializeField] private ProductionResource[] trackedResources;
         [SerializeField] private Sprite currencyIcon;
+        [SerializeField] private Sprite capacityIcon;
         private Resource[] resourceeValues;
         private Resource currency;
+        private Resource capacity;
 
         private void Start()
         {
+            capacity = Instantiate(resourcePrefab, resourceContainer);
+            capacity.icon.sprite = capacityIcon;
+
             resourceeValues = new Resource[trackedResources.Length];
             for (int i = 0; i < trackedResources.Length; i++)
             {
@@ -41,6 +46,13 @@ namespace DoubTech.OpenPath.UI
 
         public void UpdateData()
         {
+            var current = playerShip.CargoController.AvailableCapacity +
+                          (playerShip.MiningController.capacity - playerShip.MiningController.resource.quantity);
+            var total = playerShip.CargoController.TotalCapacity +
+                        playerShip.MiningController.capacity;
+            capacity.quantity.text =
+                (total - current).ToString("0") + "/" +
+                total.ToString("0");
             currency.quantity.text = playerShip.Credits.ToString("F2");
 
             for (int i = 0; i < trackedResources.Length; i++)

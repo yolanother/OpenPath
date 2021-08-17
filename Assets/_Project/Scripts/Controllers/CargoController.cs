@@ -46,6 +46,24 @@ namespace DoubTech.OpenPath.Controllers
         }
 
         /// <summary>
+        /// Get the total available cargo capacity for this ship.
+        /// </summary>
+        /// <returns>The total available capacity of all storage pods - excluding ancilliary storage such as Mining Equipment</returns>
+        public float AvailableCapacity
+        {
+            get
+            {
+                float total = 0;
+                for (int i = 0; i < cargoPods.Count; i++)
+                {
+                    total += cargoPods[i].capacity - cargoPods[i].quantity;
+                }
+
+                return total;
+            }
+        }
+
+        /// <summary>
         /// Return the amount of available space for a resource. This will include any spare
         /// capacity in a pod configured for this resource and empty pods. It does not include space in mining equipment.
         /// </summary>
