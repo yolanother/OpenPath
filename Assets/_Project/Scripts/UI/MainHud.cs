@@ -46,6 +46,8 @@ namespace DoubTech.OpenPath.UI
 
         public void UpdateData()
         {
+            if (!playerShip) return;
+
             var current = playerShip.CargoController.AvailableCapacity +
                           (playerShip.MiningController.capacity - playerShip.MiningController.resource.quantity);
             var total = playerShip.CargoController.TotalCapacity +
@@ -58,7 +60,7 @@ namespace DoubTech.OpenPath.UI
             for (int i = 0; i < trackedResources.Length; i++)
             {
                 resourceeValues[i].quantity.text = playerShip.CargoController
-                    .Quantity(trackedResources[i]).ToString("F");
+                    .Quantity(trackedResources[i]).ToString("0");
                 LayoutRebuilder.MarkLayoutForRebuild(resourceeValues[i].quantity.rectTransform);
             }
 

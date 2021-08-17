@@ -31,6 +31,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         private PlanetInstance[] planets;
 
+        public PlanetInstance[] Planets => planets;
+
         private void Start()
         {
             BuildSolarSystem(SceneConfiguration.currentCoordinates);
@@ -54,7 +56,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
             star.transform.parent = transform;
 
             var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
-            planets = new PlanetInstance[planetPositions.Length];
+            var planets = new PlanetInstance[planetPositions.Length];
             for (int i = 0; i < planetPositions.Length; i++)
             {
                 Orbit orbit;
@@ -112,6 +114,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 }
 #endif
             }
+
+            this.planets = planets;
         }
 
         private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
