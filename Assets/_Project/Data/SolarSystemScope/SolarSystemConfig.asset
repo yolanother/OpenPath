@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   equipment:
   - {fileID: 11400000, guid: 9727f676da3c93241b931bcd601fdd8e, type: 2}
+  - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
   investments:
   - {fileID: 11400000, guid: 12ec5101d2ec93144ba49fef07e10c0d, type: 2}
   distanceScale: 100

@@ -5,7 +5,7 @@ using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.UniverseScope;
 using Sirenix.OdinInspector;
 
-namespace DoubTech.OpenPath.Data.SolarSystemScope
+namespace DoubTech.OpenPath.Controllers
 {
     /// <summary>
     /// The Faction Controller is responsible for managing faction activities within the solarsystem.

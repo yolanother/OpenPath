@@ -5,22 +5,26 @@ using DoubTech.OpenPath.Controllers;
 using Sirenix.OdinInspector;
 using DebuggingEssentials;
 using DoubTech.OpenPath.Data.Resources;
+using DoubTech.OpenPath.UniverseScope.Equipment;
+using DoubTech.OpenPath.Data.Equipment;
 
 namespace DoubTech.OpenPath.Debugging
 {
     [ConsoleAlias("test.ship")]
     public class ShipDebugCommands : AbstractDebugCommands<ShipController>
     {
+        public AbstractShipEquipment requiredEquipment;
+
         [HideInEditorMode, Button()]
         [ConsoleCommand("Mine Iron, Sell Iron, Buy Cargo Pod, Mine Gold, Sell Gold")]
         public void MineTradeEquipLoop()
         {
             string firstResourceName = "Iron";
             string secondResourceName = "Gold";
-            StartCoroutine(MineTradeEquip(firstResourceName, secondResourceName));
+            StartCoroutine(MineTradeEquip(firstResourceName, secondResourceName, requiredEquipment));
         }
 
-        private IEnumerator MineTradeEquip(string firstResourceName, string secondResourceName)
+        private IEnumerator MineTradeEquip(string firstResourceName, string secondResourceName, AbstractShipEquipment requiredEquipment)
         {
             // Mine first resource
             ProductionResource resource = controller.GetResource(firstResourceName);
@@ -50,8 +54,7 @@ namespace DoubTech.OpenPath.Debugging
 
             // Buy Cargo Pod
             float originalCapacity = controller.CargoController.TotalCapacity;
-            string cargoPod = "Cargo Pod";
-            if (controller.TradeController.Buy(cargoPod))
+            if (controller.TradeController.Buy(requiredEquipment, 1000))
             {
                 timeout = Time.realtimeSinceStartup + 10;
                 yield return new WaitUntil(() => Time.realtimeSinceStartup > timeout || controller.CargoController.TotalCapacity > originalCapacity);

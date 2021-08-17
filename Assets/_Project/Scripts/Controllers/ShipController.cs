@@ -52,6 +52,7 @@ namespace DoubTech.OpenPath.Controllers
 
         public TradeController TradeController { get; internal set; }
         public CargoController CargoController { get; internal set; }
+        public ShipWeaponController WeaponController { get; internal set; }
 
         internal override void Start()
         {
@@ -60,6 +61,7 @@ namespace DoubTech.OpenPath.Controllers
             MiningController = GetComponent<MiningController>();
             TradeController = GetComponent<TradeController>();
             CargoController = GetComponent<CargoController>();
+            WeaponController = GetComponent<ShipWeaponController>();
         }
 
         /// <summary>
@@ -94,8 +96,12 @@ namespace DoubTech.OpenPath.Controllers
             if (equipment is CargoPod)
             {
                 return CargoController.Equip((CargoPod)equipment);
+            } else if (equipment is AbstractShipWeapon)
+            {
+                return WeaponController.Equip((AbstractShipWeapon)equipment);
             }
 
+            Debug.LogError($"Ship Controller doesn't know how to equip a {equipment.name}");
             return false;
         }
     }

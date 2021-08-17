@@ -6,6 +6,7 @@ using System;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope.Equipment;
 using DoubTech.ScriptableEvents.BuiltinTypes;
+using DoubTech.OpenPath.Data.Equipment;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -79,26 +80,26 @@ namespace DoubTech.OpenPath.Controllers
         /// </summary>
         /// <param name="name">The item we want to purchase</param>
         /// <returns>True if a purchase offer is available and the ship has begun the transaction, otherwise false.</returns>
-        internal bool Buy(string name)
+        internal bool Buy(AbstractShipEquipment requiredEquipment, float maxUnitPrice, int quantity = 1)
         {
             // Find the most suitable seller
             float minEstimatedCost = float.MaxValue;
-            int maxColliders = 100;
-            Collider[] hitColliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(transform.position, maxSensorRange, hitColliders);
+            List<EquipmentTrade> candidates = ScanForPlanetsOfType<EquipmentTrade>();
+
             EquipmentTrade offer = null;
-            EquipmentTrade candidate;
-            for (int i = 0; i < numColliders; i++)
+            for (int i = 0; i < candidates.Count; i++)
             {
-                candidate = hitColliders[i].GetComponentInParent<EquipmentTrade>();
-                if (candidate != null)
+                if (candidates[i] != null 
+                    && requiredEquipment == candidates[i].equipment
+                    && candidates[i].quantityAvailable > quantity
+                    && candidates[i].AskingPrice <= maxUnitPrice)
                 {
-                    float estimatedCost = candidate.AskingPrice;
+                    float estimatedCost = candidates[i].AskingPrice;
 
                     if (estimatedCost < minEstimatedCost)
                     {
                         minEstimatedCost = estimatedCost;
-                        offer = candidate;
+                        offer = candidates[i];
                     }
                 }
             }
@@ -108,9 +109,10 @@ namespace DoubTech.OpenPath.Controllers
                 Debug.LogFormat("Decided to purchase {0} from {1} at an estimated cost of {2}", offer.equipment.name, offer.name, minEstimatedCost);
                 StartCoroutine(BuyEquipmentCo(offer));
                 return true;
-            } else
+            }
+            else
             {
-                Debug.LogFormat("Unable to find a seller of {0}.", name);
+                Debug.LogFormat("Unable to find a seller of {0} at a max unity price of {1}.", requiredEquipment.name, maxUnitPrice);
                 return false;
             }
         }
@@ -125,9 +127,9 @@ namespace DoubTech.OpenPath.Controllers
 
             float cost = offer.AskingPrice;
             shipController.RemoveCredits(cost);
-            offer.Buy();
+            AbstractShipEquipment equipment = offer.Buy();
 
-            shipController.Equip(offer.equipment);
+            shipController.Equip(equipment);
 
             Debug.LogFormat("Purchased and equipped {0} from {1} for a cost of {2}.", offer.equipment.name, offer.name, cost);
         }
