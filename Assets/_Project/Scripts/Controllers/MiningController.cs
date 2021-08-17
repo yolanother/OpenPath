@@ -62,7 +62,7 @@ namespace DoubTech.OpenPath.Controllers
             resource.type = desiredResource;
             resource.quantity = 0;
 
-            Debug.Log("Mining equipment is configured for " + resource.type.name);
+            Debug.Log($"{gameObject.name}'s mining equipment is configured for {resource.type.name}");
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace DoubTech.OpenPath.Controllers
 
             if (resource.type != null && resource.quantity >= capacity) return;
 
-            List<ResourceSource> candidates = ScanForPlanetsOfType<ResourceSource>();
+            List<ResourceSource> candidates = ScanForObjectsOfType<ResourceSource>();
 
             float minDistance = float.MaxValue;
             float distance;
@@ -123,7 +123,6 @@ namespace DoubTech.OpenPath.Controllers
             } else
             {
                 resource = new MinedResource(source.ResourceType, 0);
-                Debug.Log("Converting Mining Equipment to mine " + source.ResourceType.name + " any exiting resources in the equipment will be jetisoned.");
             }
             shipController.MovementController.MoveToOrbit(source);
             while (!InPosition(source.transform.position))

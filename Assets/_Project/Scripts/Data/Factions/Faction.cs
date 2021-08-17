@@ -22,8 +22,10 @@ namespace DoubTech.OpenPath.Data.Factions
         [SerializeField] public Color factionColor;
         [PreviewField(200, ObjectFieldAlignment.Right)]
         [SerializeField] public Texture2D factionEmblem;
-        [Tooltip("The ship prefabs to use for this faction.")]
-        [SerializeField] AIShipController[] shipPrefabs;
+        [SerializeField, Tooltip("A normalized level of aggression. This controls the likelyhood of AIs in this faction taking agressive action, such as attacking other ships and planets.")]
+        float aggression = 0.3f;
+        [SerializeField, Tooltip("The ship prefabs to use for this faction.")]
+        AIShipController[] shipPrefabs;
 
         /// <summary>
         /// Spawn a faction ship at random.

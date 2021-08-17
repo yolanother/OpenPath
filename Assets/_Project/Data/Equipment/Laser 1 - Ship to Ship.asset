@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Laser 1 - Ship to Ship
   m_EditorClassIdentifier: 
   baseValue: 1000
+  owner: {fileID: 0}
+  baseDamage: 10
+  cooldown: 2

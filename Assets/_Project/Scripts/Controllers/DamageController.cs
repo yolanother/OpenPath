@@ -36,6 +36,9 @@ namespace DoubTech.OpenPath.Controllers
             currentHitPoints -= damageAmount;
             Debug.Log($"{weapon.owner.name} attacked {gameObject.name} with {weapon.name} for {damageAmount} damage. Current Hit Points: {currentHitPoints}");
 
+            shipController.WeaponController.OnAlert = true;
+            shipController.WeaponController.SetTarget(weapon.owner);
+
             if (currentHitPoints <= 0) Die();
         }
 

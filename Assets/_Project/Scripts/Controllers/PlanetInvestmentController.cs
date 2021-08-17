@@ -33,7 +33,7 @@ namespace DoubTech.OpenPath.Controllers
         {
             if (this.Credits < credits) return;
 
-            List<InvestmentOpportunity> candidates = ScanForPlanetsOfType<InvestmentOpportunity>();
+            List<InvestmentOpportunity> candidates = ScanForObjectsOfType<InvestmentOpportunity>();
 
             InvestmentOpportunity investment = null;
             for (int i = 0; i < candidates.Count; i++)

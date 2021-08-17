@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.Equipment;
+using DoubTech.OpenPath.Data.Factions;
+using Random = UnityEngine.Random;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -13,6 +15,8 @@ namespace DoubTech.OpenPath.Controllers
     /// </summary>
     public class ShipController : AbstractActionController
     {
+        [SerializeField, Tooltip("The faction this ship belongs to. This will be used to decide relations between this ship and other ships and planets.")]
+        internal Faction faction;
         [SerializeField, Tooltip("A list of resources this ship is interested in.")]
         internal List<ProductionResource> resources;
 

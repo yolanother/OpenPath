@@ -30,7 +30,9 @@ namespace DoubTech.OpenPath.Controllers
         /// </summary>
         public void SellLargestRevenueResource()
         {
-            List<ResourceDemand> candidates = ScanForPlanetsOfType<ResourceDemand>();
+            Status = State.Preparing;
+
+            List<ResourceDemand> candidates = ScanForObjectsOfType<ResourceDemand>();
 
             float maxEstimatedRevenue = float.MinValue;
             ResourceDemand demand = null;
@@ -61,12 +63,15 @@ namespace DoubTech.OpenPath.Controllers
             {
                 Debug.LogFormat("Decided to trade {0} with {1} at an estimated income of {2}", demand.resource.name, demand.name, maxEstimatedRevenue);
                 StartCoroutine(TradeResourceCo(demand));
+            } else
+            {
+                Status = State.Inactive;
             }
         }
 
         public void SellAll(PlanetInstance planetInstance)
         {
-            var demands = planetInstance.GetComponents<ResourceDemand>();
+            ResourceDemand[] demands = planetInstance.GetComponents<ResourceDemand>();
 
             foreach (var demand in demands)
             {
@@ -82,9 +87,11 @@ namespace DoubTech.OpenPath.Controllers
         /// <returns>True if a purchase offer is available and the ship has begun the transaction, otherwise false.</returns>
         internal bool Buy(AbstractShipEquipment requiredEquipment, float maxUnitPrice, int quantity = 1)
         {
+            Status = State.Preparing;
+
             // Find the most suitable seller
             float minEstimatedCost = float.MaxValue;
-            List<EquipmentTrade> candidates = ScanForPlanetsOfType<EquipmentTrade>();
+            List<EquipmentTrade> candidates = ScanForObjectsOfType<EquipmentTrade>();
 
             EquipmentTrade offer = null;
             for (int i = 0; i < candidates.Count; i++)
@@ -106,19 +113,22 @@ namespace DoubTech.OpenPath.Controllers
 
             if (offer != null)
             {
-                Debug.LogFormat("Decided to purchase {0} from {1} at an estimated cost of {2}", offer.equipment.name, offer.name, minEstimatedCost);
+                Debug.Log($"{gameObject.name} decided to purchase {offer.equipment.name} from {offer.name} at an estimated cost of {minEstimatedCost}");
                 StartCoroutine(BuyEquipmentCo(offer));
                 return true;
             }
             else
             {
-                Debug.LogFormat("Unable to find a seller of {0} at a max unity price of {1}.", requiredEquipment.name, maxUnitPrice);
+                Debug.Log($"{gameObject.name} unable to find a seller of {requiredEquipment.name} at a max unity price of {maxUnitPrice}.");
+                Status = State.Inactive;
                 return false;
             }
         }
 
         IEnumerator BuyEquipmentCo(EquipmentTrade offer)
         {
+            Status = State.InProgress;
+
             shipController.MovementController.MoveToOrbit(offer);
             while (!InPosition(offer.transform.position))
             {
@@ -131,18 +141,21 @@ namespace DoubTech.OpenPath.Controllers
 
             shipController.Equip(equipment);
 
-            Debug.LogFormat("Purchased and equipped {0} from {1} for a cost of {2}.", offer.equipment.name, offer.name, cost);
+            Debug.Log($"{gameObject.name} purchased and equipped {offer.equipment.name} from {offer.name} for a cost of {cost}.");
+
+            Status = State.Inactive;
         }
 
         IEnumerator TradeResourceCo(ResourceDemand demand)
         {
+
+            Status = State.InProgress;
+
             shipController.MovementController.MoveToOrbit(demand);
             while (!InPosition(demand.transform.position))
             {
                 yield return new WaitForEndOfFrame();
             }
-
-            Debug.Log("Initiating trade");
 
             yield return new WaitForSeconds(tradeDuration);
 
@@ -153,7 +166,9 @@ namespace DoubTech.OpenPath.Controllers
             shipController.AddCredits(price);
             Debug.LogWarning("TODO: when completing resource sale we should deduct credits to the offerer.");
 
-            Debug.LogFormat("Traded {0} of {1} for a price of {2}.", quantity, demand.resource.name, price);
+            Debug.Log($"{gameObject.name} traded {quantity} of {demand.resource.name} for a price of {price}.");
+
+            Status = State.Inactive;
             onTradedResources?.Invoke(quantity);
         }
 

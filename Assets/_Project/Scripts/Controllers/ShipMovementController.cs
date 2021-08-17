@@ -66,13 +66,13 @@ namespace DoubTech.OpenPath.Controllers
         /// <summary>
         /// Move the ship to a given position and rotation.
         /// </summary>
-        /// <param name="transform">The position to move to.</param>
-        public void MoveToOrbit(Transform transform)
+        /// <param name="target">The position to move to.</param>
+        public void MoveToOrbit(Transform target)
         {
-            orbitTarget = transform;
-            orbitPlanetTarget = transform.GetComponent<PlanetInstance>();
+            orbitTarget = target;
+            orbitPlanetTarget = orbitTarget.GetComponent<PlanetInstance>();
 
-            Debug.LogFormat("Moved to orbit around {0}.", transform.gameObject.name);
+            Debug.LogFormat($"{gameObject.name} is moving to orbit around {orbitTarget.gameObject.name}");
         }
 
         public void MoveToOrbit(InvestmentOpportunity opportunity)

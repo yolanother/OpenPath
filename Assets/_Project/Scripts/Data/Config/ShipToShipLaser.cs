@@ -12,11 +12,11 @@ namespace DoubTech.OpenPath.Data.Equipment
     [CreateAssetMenu(fileName = "Laser - Ship to Ship", menuName = "OpenPath/Config/Laser - Ship to Ship")]
     public class ShipToShipLaser : AbstractShipWeapon
     {
-        internal override void Fire(Transform target)
+        internal override void PullTrigger()
         {
-            Debug.LogFormat("{0} is firing upon {1} with {2}", owner.name, target.gameObject.name, name);
+            Debug.LogFormat("{0} is firing upon {1} with {2}", owner.name, currentTarget.gameObject.name, name);
 
-            DamageController dc = target.GetComponent<DamageController>();
+            DamageController dc = currentTarget.GetComponent<DamageController>();
             if (dc == null) return;
 
             dc.AddDamage(this, baseDamage);

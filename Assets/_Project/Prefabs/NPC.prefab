@@ -9,12 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 989584488960964520}
+  - component: {fileID: 3409720241147526183}
   - component: {fileID: 7544308137336364724}
   - component: {fileID: 989584488960964566}
   - component: {fileID: 130801312}
   - component: {fileID: 130801313}
   - component: {fileID: 130801314}
   - component: {fileID: 73820891}
+  - component: {fileID: 1691445753}
+  - component: {fileID: 1691445754}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -41,6 +44,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!135 &3409720241147526183
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584488960964521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7544308137336364724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,9 +71,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
+  faction: {fileID: 0}
   resources:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+  desiredEquipment:
+  - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
+  - {fileID: 11400000, guid: 9727f676da3c93241b931bcd601fdd8e, type: 2}
 --- !u!114 &989584488960964566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +165,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
+--- !u!114 &1691445753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584488960964521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226b03056c5136c4aa773658cb4565ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSensorRange: 50
+  maxInteractionRange: 150
+  maxHitPoints: 100
+  currentHitPoints: 100
+--- !u!114 &1691445754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584488960964521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3912d68b949f41b4652b7b4fba4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSensorRange: 2000
+  maxInteractionRange: 150
+  weapon: {fileID: 0}
+  scanFrequency: 2
 --- !u!1 &989584490283401557
 GameObject:
   m_ObjectHideFlags: 0

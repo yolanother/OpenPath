@@ -9,12 +9,14 @@ namespace DoubTech.OpenPath.Debugging
 {
     public abstract class AbstractDebugCommands<T> : MonoBehaviour where T : AbstractActionController
     {
+        public Transform player;
+
         protected T controller;
 
         private void Awake()
         {
             RuntimeConsole.Register(this);
-            controller = GameObject.FindObjectOfType<T>();
+            controller = player.GetComponent<T>();
         }
 
         [InfoBox("$Status")]

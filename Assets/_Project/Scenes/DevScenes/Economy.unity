@@ -902,12 +902,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -1041,6 +1041,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starConfig: {fileID: 11400000, guid: 5b544f2c47a332a40b3bb3c392e67d9c, type: 2}
+  starData:
+    starId: 
+    coordinates: {x: 0, y: 0}
+    name: 
   selectorColor: {fileID: 1739696770}
   star: {fileID: 164497402}
   corona: {fileID: 327188337}
@@ -1929,12 +1933,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -2483,6 +2487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d55efe7c096ad04482c6e062c3e0f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738200}
   description: Testing mining functionality
 --- !u!4 &397149978
 Transform:
@@ -2510,6 +2515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8712839048eb33143a78682386f7a6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738200}
   description: Testing trade functionality
 --- !u!114 &397149980
 MonoBehaviour:
@@ -2523,6 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81df9344a364e6f4fb1bf7bfc2bd5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738200}
   description: Testing cargo management
 --- !u!114 &397149981
 MonoBehaviour:
@@ -2536,7 +2543,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7e6917f139d5b4eb8a9deb109a4072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738200}
   description: Testing the ship overview
+  requiredEquipment: {fileID: 0}
 --- !u!114 &397149982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2549,6 +2558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90214f620af69a14c8ff888b06b60c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738200}
   description: Testing investment within the solar system.
 --- !u!1 &405389763
 GameObject:
@@ -3262,12 +3272,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -4172,12 +4182,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -5291,12 +5301,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -6219,12 +6229,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -9359,12 +9369,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -10150,12 +10160,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -11431,12 +11441,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 1.3930187
+      value: 3.1807435
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -13098,6 +13108,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2447c8193740dd4e8429782fd2c50a1, type: 3}
+--- !u!4 &989584489362738200 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 989584488960964520, guid: a2447c8193740dd4e8429782fd2c50a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 989584489362738199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3292433127791103099
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ namespace DoubTech.OpenPath.Controllers
 {
     public abstract class AbstractActionController : MonoBehaviour
     {
+        public enum State { Inactive, Preparing, InProgress }
+
         [SerializeField, Tooltip("The range a player needs to be from a source in order to be able to use sensors to detect available resources.")]
         internal float maxSensorRange = 5000;
         [SerializeField, Tooltip("The maximum range for carrying out any interaction controlled by this controller.")]
@@ -13,9 +15,12 @@ namespace DoubTech.OpenPath.Controllers
 
         internal ShipController shipController;
         
+        public State Status { get; set; }
+
         internal virtual void Start()
         {
             shipController = GetComponent<ShipController>();
+            Status = State.Inactive;
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace DoubTech.OpenPath.Controllers
         /// </summary>
         /// <typeparam name="T">A type identifier for the desired planets.</typeparam>
         /// <returns>A list of all planets that are detected/</returns>
-        internal List<T> ScanForPlanetsOfType<T>()
+        internal List<T> ScanForObjectsOfType<T>()
         {
             //OPTIMIZATION put planet on its own layer and filter the scan
             int maxColliders = 100;

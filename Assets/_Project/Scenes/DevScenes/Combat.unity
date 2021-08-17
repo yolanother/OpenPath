@@ -1339,12 +1339,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -2283,12 +2283,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -2407,11 +2407,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 397149978}
-  - component: {fileID: 397149981}
-  - component: {fileID: 397149977}
-  - component: {fileID: 397149979}
-  - component: {fileID: 397149980}
-  - component: {fileID: 397149982}
   - component: {fileID: 397149983}
   m_Layer: 0
   m_Name: Debug Commands
@@ -2420,19 +2415,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &397149977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397149976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d55efe7c096ad04482c6e062c3e0f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Testing mining functionality
 --- !u!4 &397149978
 Transform:
   m_ObjectHideFlags: 0
@@ -2447,59 +2429,6 @@ Transform:
   m_Father: {fileID: 639895580}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &397149979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397149976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8712839048eb33143a78682386f7a6f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Testing trade functionality
---- !u!114 &397149980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397149976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81df9344a364e6f4fb1bf7bfc2bd5083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Testing cargo management
---- !u!114 &397149981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397149976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7e6917f139d5b4eb8a9deb109a4072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Testing the ship overview
-  requiredEquipment: {fileID: 11400000, guid: 9727f676da3c93241b931bcd601fdd8e, type: 2}
---- !u!114 &397149982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397149976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90214f620af69a14c8ff888b06b60c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: Testing investment within the solar system.
 --- !u!114 &397149983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2512,6 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1e0eb8880682244b1f01436f08f6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 989584489362738209}
   description: 
   target: {fileID: 699568706}
   weapon: {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
@@ -3322,6 +3252,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 7544308137336364724, guid: ad29359178abb9a40b3454a23fba70c0,
+        type: 3}
+      propertyPath: faction
+      value: 
+      objectReference: {fileID: 11400000, guid: 1759b184cf6adda4f9837cd414e9e951,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad29359178abb9a40b3454a23fba70c0, type: 3}
 --- !u!4 &699568706 stripped
@@ -4224,12 +4160,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -5830,12 +5766,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -7018,12 +6954,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -8846,12 +8782,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -8961,28 +8897,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1688736666}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1691445746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 989584488960964521, guid: ad29359178abb9a40b3454a23fba70c0,
-    type: 3}
-  m_PrefabInstance: {fileID: 699568705}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1691445753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691445746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226b03056c5136c4aa773658cb4565ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSensorRange: 50
-  maxInteractionRange: 150
-  maxHitPoints: 100
-  currentHitPoints: 100
 --- !u!1001 &1700882528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9638,12 +9552,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -10694,12 +10608,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -12125,12 +12039,12 @@ PrefabInstance:
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060452233181, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 3.1807435
+      value: 0.79340905
       objectReference: {fileID: 0}
     - target: {fileID: 7230438060499463649, guid: c061009002f1bce40b494c7ef284b8ae,
         type: 3}
@@ -13261,7 +13175,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 989584489362738199}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &989584489362738201
+--- !u!4 &989584489362738209 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 989584488960964520, guid: a2447c8193740dd4e8429782fd2c50a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 989584489362738199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &989584489362738211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13270,12 +13190,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 989584489362738200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b3912d68b949f41b4652b7b4fba4a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 226b03056c5136c4aa773658cb4565ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
-  weapon: {fileID: 0}
+  maxHitPoints: 300
+  currentHitPoints: 0
 --- !u!1001 &3292433127791103099
 PrefabInstance:
   m_ObjectHideFlags: 0
