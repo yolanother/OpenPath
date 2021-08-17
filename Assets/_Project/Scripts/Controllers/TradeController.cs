@@ -5,6 +5,7 @@ using DoubTech.OpenPath.UniverseScope.Resources;
 using System;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UniverseScope.Equipment;
+using DoubTech.ScriptableEvents.BuiltinTypes;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -13,6 +14,8 @@ namespace DoubTech.OpenPath.Controllers
     /// </summary>
     public class TradeController : AbstractController
     {
+        [SerializeField] private FloatGameEvent onTradedResources;
+
         ShipMovementController shipMovementController;
         CargoController cargoController;
         float tradeDuration = 2f;
@@ -153,6 +156,7 @@ namespace DoubTech.OpenPath.Controllers
             Debug.LogWarning("TODO: when completing resource sale we should deduct credits to the offerer.");
 
             Debug.LogFormat("Traded {0} of {1} for a price of {2}.", quantity, demand.resource.name, price);
+            onTradedResources?.Invoke(quantity);
         }
 
         public override string StatusAsString()

@@ -83,8 +83,8 @@ MonoBehaviour:
   velocity: 5
   acceleration: 1
   stopDistance: 1
-  onEnteredOrbit: {fileID: 0}
-  onLeftOrbit: {fileID: 0}
+  onEnteredOrbit: {fileID: 11400000, guid: fac17060fff3a734db748da7129a283b, type: 2}
+  onLeftOrbit: {fileID: 11400000, guid: 9658e399cceb6aa4e979d1a74032f3cb, type: 2}
 --- !u!114 &989584488960964567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   batchDuration: 0.25
   miningBeam: {fileID: 7477902610997336349}
   miningBeamVisualization: {fileID: 3312921920826308741}
+  onMinedResources: {fileID: 11400000, guid: 3e7aea1dfb5ccfc4c9bbdaebd88b38a6, type: 2}
 --- !u!114 &130801313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
+  onTradedResources: {fileID: 11400000, guid: 268854f6211fbe74498db5848beb0075, type: 2}
 --- !u!114 &130801314
 MonoBehaviour:
   m_ObjectHideFlags: 0
