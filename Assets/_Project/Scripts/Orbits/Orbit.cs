@@ -99,7 +99,7 @@ namespace DoubTech.OpenPath.Orbits
         public bool WithinOrbit(Vector3 positionTargetPosition)
         {
             var distance = Vector3.Distance(positionTargetPosition, orbitingObjectContainer.position);
-            return distance < ellipse.radiusX && distance < ellipse.radiusY;
+            return distance < ellipse.radiusX * 1.1f && distance < ellipse.radiusY * 1.1f;
         }
     }
 }

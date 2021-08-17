@@ -77,7 +77,7 @@ MonoBehaviour:
   orbit: {fileID: 989584490597147778}
   camera: {fileID: 0}
   modelPivot: {fileID: 7214476390332582241}
-  velocity: 5
+  velocity: 1
   acceleration: 1
   stopDistance: 1
   onEnteredOrbit: {fileID: 11400000, guid: fac17060fff3a734db748da7129a283b, type: 2}
