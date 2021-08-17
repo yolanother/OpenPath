@@ -38,7 +38,7 @@ namespace DoubTech.OpenPath.Controllers
 
         public ShipMovementController MovementController { get; internal set; }
 
-        public DamageController DamageController { get; internal set; }
+        public ShipDamageController DamageController { get; internal set; }
 
         /// <summary>
         /// Search through the resources this ship cares about and, if found,
@@ -78,7 +78,7 @@ namespace DoubTech.OpenPath.Controllers
             TradeController = GetComponent<TradeController>();
             CargoController = GetComponent<CargoController>();
             WeaponController = GetComponent<ShipWeaponController>();
-            DamageController = GetComponent<DamageController>();
+            DamageController = GetComponent<ShipDamageController>();
         }
 
         /// <summary>

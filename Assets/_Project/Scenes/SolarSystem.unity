@@ -3896,6 +3896,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 989584488960964565, guid: a2447c8193740dd4e8429782fd2c50a1,
+        type: 3}
+      propertyPath: faction
+      value: 
+      objectReference: {fileID: 11400000, guid: 4fa23ff986cd15c4daf630c63e56d1bb,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2447c8193740dd4e8429782fd2c50a1, type: 3}
 --- !u!1 &1977531169
@@ -4912,7 +4918,7 @@ PrefabInstance:
     - target: {fileID: 7679768072136246376, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75.5246
       objectReference: {fileID: 0}
     - target: {fileID: 7679768072427182461, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
