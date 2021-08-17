@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DoubTech.OpenPath.Controllers;
 
 namespace DoubTech.OpenPath.Data.Equipment
 {
@@ -13,7 +14,10 @@ namespace DoubTech.OpenPath.Data.Equipment
     {
         internal override void Fire(Transform target)
         {
-            Debug.Log("Bang!!!");
+            DamageController dc = target.GetComponent<DamageController>();
+            if (dc == null) return;
+
+            dc.AddDamage(baseDamage);
         }
     }
 }
