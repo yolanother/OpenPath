@@ -3252,12 +3252,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
-    - target: {fileID: 7544308137336364724, guid: ad29359178abb9a40b3454a23fba70c0,
-        type: 3}
-      propertyPath: faction
-      value: 
-      objectReference: {fileID: 11400000, guid: 1759b184cf6adda4f9837cd414e9e951,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad29359178abb9a40b3454a23fba70c0, type: 3}
 --- !u!4 &699568706 stripped
@@ -13169,34 +13163,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2447c8193740dd4e8429782fd2c50a1, type: 3}
---- !u!1 &989584489362738200 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 989584488960964521, guid: a2447c8193740dd4e8429782fd2c50a1,
-    type: 3}
-  m_PrefabInstance: {fileID: 989584489362738199}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &989584489362738209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 989584488960964520, guid: a2447c8193740dd4e8429782fd2c50a1,
     type: 3}
   m_PrefabInstance: {fileID: 989584489362738199}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &989584489362738211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989584489362738200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226b03056c5136c4aa773658cb4565ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSensorRange: 5000
-  maxInteractionRange: 150
-  maxHitPoints: 300
-  currentHitPoints: 0
 --- !u!1001 &3292433127791103099
 PrefabInstance:
   m_ObjectHideFlags: 0

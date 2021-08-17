@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
-  faction: {fileID: 0}
+  faction: {fileID: 11400000, guid: 1759b184cf6adda4f9837cd414e9e951, type: 2}
   resources:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
