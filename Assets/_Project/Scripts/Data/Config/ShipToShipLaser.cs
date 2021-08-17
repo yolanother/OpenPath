@@ -14,10 +14,12 @@ namespace DoubTech.OpenPath.Data.Equipment
     {
         internal override void Fire(Transform target)
         {
+            Debug.LogFormat("{0} is firing upon {1} with {2}", owner.name, target.gameObject.name, name);
+
             DamageController dc = target.GetComponent<DamageController>();
             if (dc == null) return;
 
-            dc.AddDamage(baseDamage);
+            dc.AddDamage(this, baseDamage);
         }
     }
 }

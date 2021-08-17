@@ -95,9 +95,11 @@ namespace DoubTech.OpenPath.Controllers
         {
             if (equipment is CargoPod)
             {
+                equipment.owner = this;
                 return CargoController.Equip((CargoPod)equipment);
             } else if (equipment is AbstractShipWeapon)
             {
+                equipment.owner = this;
                 return WeaponController.Equip((AbstractShipWeapon)equipment);
             }
 

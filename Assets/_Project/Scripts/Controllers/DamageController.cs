@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DoubTech.OpenPath.Data.Equipment;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -25,9 +26,16 @@ namespace DoubTech.OpenPath.Controllers
             }
         }
 
-        public void AddDamage(float damageAmount)
+        /// <summary>
+        /// Add damage to this object.
+        /// </summary>
+        /// <param name="attacker">The source of the damage.</param>
+        /// <param name="damageAmount">The amount of the damage.</param>
+        public void AddDamage(AbstractShipWeapon weapon, float damageAmount)
         {
             currentHitPoints -= damageAmount;
+            Debug.Log($"{weapon.owner.name} attacked {gameObject.name} with {weapon.name} for {damageAmount} damage. Current Hit Points: {currentHitPoints}");
+
             if (currentHitPoints <= 0) Die();
         }
 
