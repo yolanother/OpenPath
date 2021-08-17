@@ -38,6 +38,7 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private TextMeshProUGUI population;
         [SerializeField] private TextMeshProUGUI habitibility;
         [SerializeField] private TextMeshProUGUI mineableResources;
+        [SerializeField] private TextMeshProUGUI desiredResources;
 
         [SerializeField] private ButtonManagerBasic visitButton;
         [SerializeField] private ButtonManagerBasic actionButtonMine;
@@ -119,6 +120,12 @@ namespace DoubTech.OpenPath.UI
                 visitButton.UpdateUI();
             }
 
+            UpdateMineableResources();
+            UpdateDesiredResources();
+        }
+
+        private void UpdateMineableResources()
+        {
             string mineableSources = "";
             if (resourceSources.Length > 0)
             {
@@ -135,6 +142,26 @@ namespace DoubTech.OpenPath.UI
             }
 
             mineableResources.text = mineableSources;
+        }
+
+        private void UpdateDesiredResources()
+        {
+            string desiredSources = "";
+            if (resourceDemands.Length > 0)
+            {
+                foreach (var resourceSource in resourceDemands)
+                {
+                    if (desiredSources.Length > 0) desiredSources += "\n";
+                    desiredSources +=
+                        $"{resourceSource.resource.name}: {resourceSource.Price.ToString("F2")}";
+                }
+            }
+            else
+            {
+                desiredSources = "None";
+            }
+
+            desiredResources.text = desiredSources;
         }
 
         public void Visit()
