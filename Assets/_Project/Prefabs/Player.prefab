@@ -80,8 +80,8 @@ MonoBehaviour:
   orbit: {fileID: 989584490597147778}
   camera: {fileID: 0}
   modelPivot: {fileID: 7214476390332582241}
-  velocity: 5
-  acceleration: 1
+  velocity: 1
+  acceleration: 0.15
   stopDistance: 1
   onEnteredOrbit: {fileID: 11400000, guid: fac17060fff3a734db748da7129a283b, type: 2}
   onLeftOrbit: {fileID: 11400000, guid: 9658e399cceb6aa4e979d1a74032f3cb, type: 2}

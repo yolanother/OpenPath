@@ -31,17 +31,32 @@ namespace DoubTech.OpenPath.CameraControls
         [Header("Offsets")]
         [SerializeField] Vector2 offset = Vector2.zero;
         [SerializeField] private float orthographicSize = 1000;
+        private float preTargetZoom;
+        private Vector3 preTargetPosition;
+        private bool hasPreviousPositionData;
 
         public Transform Target
         {
             get => target;
             set
             {
+                if (!hasPreviousPositionData)
+                {
+                    preTargetZoom = pinchCamera.Zoom;
+                    preTargetPosition = pinchCamera.transform.position;
+                    hasPreviousPositionData = true;
+                }
+
                 target = value;
                 var orbit = target.GetComponentInChildren<Orbit>();
                 if (orbit)
                 {
                     target = orbit.orbitingObjectContainer;
+                }
+
+                if (!target)
+                {
+
                 }
             }
         }
@@ -58,16 +73,37 @@ namespace DoubTech.OpenPath.CameraControls
         {
             if (target)
             {
-                dragCamera.enabled = false;
-                camera.transform.position = Vector3.Lerp(camera.transform.position,
-                    new Vector3(
+                var targetPosition = new Vector3(
                     target.transform.position.x + offset.x,
                     target.transform.position.y + offset.y,
-                    camera.transform.position.z),
+                    camera.transform.position.z);
+                dragCamera.enabled = false;
+                camera.transform.position = Vector3.Lerp(
+                    camera.transform.position,
+                    targetPosition,
                     Time.deltaTime * transformSpeed);
 
                 pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, orthographicSize,
                     Time.deltaTime * zoomSpeed);
+
+                if (Vector3.Distance(camera.transform.position, targetPosition) < .001f)
+                {
+                    camera.transform.position = targetPosition;
+                }
+            }
+            else if (hasPreviousPositionData)
+            {
+                camera.transform.position = Vector3.Lerp(camera.transform.position,
+                    preTargetPosition,
+                    Time.deltaTime * transformSpeed);
+
+                pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, preTargetZoom,
+                    Time.deltaTime * zoomSpeed);
+
+                if (Vector3.Distance(camera.transform.position, preTargetPosition) < .05f)
+                {
+                    hasPreviousPositionData = false;
+                }
             }
             else
             {

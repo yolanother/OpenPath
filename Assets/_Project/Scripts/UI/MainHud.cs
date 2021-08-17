@@ -19,7 +19,7 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private ShipController playerShip;
         [SerializeField] private TextMeshProUGUI credits;
 
-        private RectTransform rectTransform;
+        [SerializeField] private RectTransform rectTransform;
 
         private void Start()
         {
