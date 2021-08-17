@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.UniverseScope;
 using DoubTech.OpenPath.Events;
+using DoubTech.OpenPath.Scenes;
+using DoubTech.OpenPath.SolarSystemScope;
 using Sirenix.OdinInspector;
 using Random = UnityEngine.Random;
 
@@ -26,6 +28,8 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Start()
         {
+            SolarSystemInstance solarSystemInstance = GetComponent<SolarSystemInstance>();
+            Random.InitState(solarSystemInstance.solarSystemConfig.GetSeed(SceneConfiguration.currentCoordinates));
             faction = factionConfiguration.aiFactions[
                 Random.Range(0, factionConfiguration.aiFactions.Length - 1)];
         }
