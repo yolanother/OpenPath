@@ -33,6 +33,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
             get => equipment;
             set
             {
+                equipment = value;
                 if (equipment)
                 {
                     slotIcon.sprite = equipment.icon;
@@ -41,8 +42,6 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 {
                     slotIcon.sprite = null;
                 }
-
-                equipment = value;
             }
         }
 
