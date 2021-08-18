@@ -12,9 +12,11 @@ using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UI.PreviewCamera;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 using Lean.Common.Editor;
 using Michsky.UI.ModernUIPack;
 using TMPro;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +40,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         private PlanetInstance tradePlanet;
         private SlotUI purchaseItemSlot;
         private SlotUI inventoryItemSlot;
+        private EquipmentTrade activePurchasable;
 
         private void OnEnable()
         {
@@ -79,6 +82,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 var slot = Instantiate(slotPrefab, purchasableItemsGrid);
                 slot.type = equipmentName;
                 slot.Equipment = weapon.equipment;
+                slot.EquipmentTrade = weapon;
                 slot.onSlotClicked += OnPurchasableWeaponClicked;
             }
         }
@@ -93,7 +97,6 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 slot.type = "Weapon Slot";
                 slot.Count = 0;
                 slot.Equipment = weaponSlot.weapon;
-
                 slot.onSlotClicked += OnEquippedWeaponSlotCliked;
             }
         }
@@ -105,6 +108,16 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 ? selectedEquipment.name
                 : $"Empty {selectedSlot.type}";
 
+            if (selectedSlot.EquipmentTrade)
+            {
+                selectedEquipmentName.text +=
+                    " Asking $" + selectedSlot.EquipmentTrade.AskingPrice.ToString("F");
+            }
+
+            buy.gameObject.SetActive(true);
+            buy.buttonText = "Buy";
+            buy.UpdateUI();
+            activePurchasable = selectedSlot.EquipmentTrade;
 
             if (purchaseItemSlot) purchaseItemSlot.Selected = false;
             purchaseItemSlot = selectedSlot;
@@ -117,6 +130,15 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
             if (inventoryItemSlot) inventoryItemSlot.Selected = false;
             inventoryItemSlot = selectedSlot;
             selectedSlot.Selected = true;
+
+            bool sellable = selectedEquipment;
+            buy.gameObject.SetActive(sellable);
+            if(sellable) {
+                buy.buttonText = "Sell";
+                buy.UpdateUI();
+            }
+
+            activePurchasable = null;
         }
 
         public void StartTrading(PlanetInstance instance)
@@ -126,12 +148,10 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         public void Buy()
         {
-
-        }
-
-        public void Sell()
-        {
-
+            if (activePurchasable)
+            {
+                activePurchasable.Buy();
+            }
         }
     }
 }
