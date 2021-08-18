@@ -183,6 +183,7 @@ MonoBehaviour:
   maxInteractionRange: 150
   maxHitPoints: 100
   currentHitPoints: 100
+  shields: {fileID: 0}
 --- !u!114 &1691445754
 MonoBehaviour:
   m_ObjectHideFlags: 0

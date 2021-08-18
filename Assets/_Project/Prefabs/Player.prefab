@@ -302,6 +302,7 @@ MonoBehaviour:
   maxInteractionRange: 150
   maxHitPoints: 300
   currentHitPoints: 0
+  shields: {fileID: 0}
 --- !u!1 &989584490283401557
 GameObject:
   m_ObjectHideFlags: 0

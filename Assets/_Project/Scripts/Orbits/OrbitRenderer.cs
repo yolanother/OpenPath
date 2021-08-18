@@ -61,7 +61,7 @@ namespace DoubTech.OpenPath.Orbits
         {
             UpdateLineWidth();
 
-            if (Application.isPlaying)
+            if (Application.isPlaying & orbit != null)
             {
                 orbit.orbitingObjectContainer.transform.RotateAround(
                     orbit.orbitingObjectContainer.transform.position, Vector3.forward,
