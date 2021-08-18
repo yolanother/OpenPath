@@ -105,6 +105,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 planetInstance.orbit = orbit;
                 planetInstance.planetData.PlanetIndex = i;
 
+                // Generate player interactions
                 GenerateResourceSupplyAndDemand(config, planetInstance);
                 GenerateTrade(config, planetInstance);
                 GenerateInvestments(config, planetInstance);

@@ -8,8 +8,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Equipment;
+using DoubTech.OpenPath.Eqipment;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UI.PreviewCamera;
 using DoubTech.OpenPath.UniverseScope.Equipment;
@@ -77,7 +79,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                     ShowWeaponSlots();
                     break;
                 case 2:
-
+                    ShowSlots<ShipShieldEquipment>("Cargo Bay");
                     break;
             }
 
@@ -86,14 +88,14 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         private void ShowSlots<TYPE>(string equipmentName) where TYPE : AbstractShipEquipment
         {
-            var tradeSlots = tradePlanet.GetForSale<TYPE>();
+            List<EquipmentTrade> tradeSlots = tradePlanet.GetForSale<TYPE>();
             for (int i = 0; i < tradeSlots.Count; i++)
             {
-                var weapon = tradeSlots[i];
-                var slot = Instantiate(slotPrefab, purchasableItemsGrid);
+                EquipmentTrade offer = tradeSlots[i];
+                SlotUI slot = Instantiate(slotPrefab, purchasableItemsGrid);
                 slot.type = equipmentName;
-                slot.Equipment = weapon.equipment;
-                slot.EquipmentTrade = weapon;
+                slot.Equipment = offer.equipment;
+                slot.EquipmentTrade = offer;
                 slot.onSlotClicked += OnPurchasableWeaponClicked;
             }
         }
@@ -103,8 +105,8 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
             var weaponSlots = PlayerShip.Instance.shipController.GetComponents<ShipWeaponController>();
             for (int i = 0; i < weaponSlots.Length; i++)
             {
-                var weaponSlot = weaponSlots[i];
-                var slot = Instantiate(slotPrefab, equippedItemsGrid);
+                ShipWeaponController weaponSlot = weaponSlots[i];
+                SlotUI slot = Instantiate(slotPrefab, equippedItemsGrid);
                 slot.type = "Weapon Slot";
                 slot.Count = 0;
                 slot.Equipment = weaponSlot.EquippedWeapon;
