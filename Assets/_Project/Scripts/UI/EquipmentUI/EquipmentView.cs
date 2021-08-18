@@ -37,6 +37,8 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         [SerializeField] private SlotUI slotPrefab;
 
+        [SerializeField] private Sprite[] categoryIcons;
+
         private TradeController currentTradePartner;
         private PlanetInstance tradePlanet;
         private SlotUI purchaseItemSlot;
@@ -78,6 +80,8 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
                     break;
             }
+
+            currentItemTypeIcon.sprite = categoryIcons[type];
         }
 
         private void ShowSlots<TYPE>(string equipmentName) where TYPE : AbstractShipEquipment
