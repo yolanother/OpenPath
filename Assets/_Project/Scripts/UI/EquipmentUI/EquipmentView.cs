@@ -7,7 +7,6 @@
  * https://opensource.org/licenses/MIT.
  */
 
-using System;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Equipment;
@@ -15,10 +14,8 @@ using DoubTech.OpenPath.Eqipment;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.UI.PreviewCamera;
 using DoubTech.OpenPath.UniverseScope.Equipment;
-using Lean.Common.Editor;
 using Michsky.UI.ModernUIPack;
 using TMPro;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
