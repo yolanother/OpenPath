@@ -63,6 +63,11 @@ namespace DoubTech.OpenPath.Controllers
             camera = Camera.main;
         }
 
+        private void OnDestroy()
+        {
+            Destroy(orbit);
+        }
+
         /// <summary>
         /// Move the ship to a given position and rotation.
         /// </summary>

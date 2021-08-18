@@ -31,7 +31,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
             while (true)
             {
                 // Buy Desired Equpment if possible
-                if (shipController.TradeController.Buy(desiredEquipment[0], Credits))
+                if (desiredEquipment.Count > 0 && shipController.TradeController.Buy(desiredEquipment[0], Credits))
                 {
                     timeout = Time.realtimeSinceStartup + 20;
                     yield return new WaitUntil(() => Time.realtimeSinceStartup > timeout || shipController.TradeController.Status == TradeController.State.Inactive);

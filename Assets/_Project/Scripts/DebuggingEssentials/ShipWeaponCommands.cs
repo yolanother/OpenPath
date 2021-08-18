@@ -5,6 +5,7 @@ using DoubTech.OpenPath.Data.Equipment;
 using DebuggingEssentials;
 using DoubTech.OpenPath.Controllers;
 using Sirenix.OdinInspector;
+using DoubTech.OpenPath.Eqipment;
 
 namespace DoubTech.OpenPath.Debugging
 {
@@ -19,6 +20,7 @@ namespace DoubTech.OpenPath.Debugging
         AbstractShipWeapon laserWeapon;
         [SerializeField, Tooltip("The missile weapon to test.")]
         AbstractShipWeapon missileWeapon;
+        public ShipShieldEquipment shields;
 
         [Button(), HideInEditorMode]
         [ConsoleCommand("buyAndEquipLaser", "Equip a ship to ship laser for all subsequent tests. The ship will go to a planet to purchase one first (it will magically get the credits needed.")]
@@ -48,6 +50,14 @@ namespace DoubTech.OpenPath.Debugging
         public void FireOnPlanet()
         {
             controller.weapon.Fire(planetTarget);
+        }
+
+        [Button(), HideInEditorMode]
+        [ConsoleCommand("BuyShields", "Buy shields for the players ship.")]
+        public void BuyShields()
+        {
+            controller.Credits += 10000;
+            controller.shipController.TradeController.Buy(shields, 10000);
         }
     }
 }

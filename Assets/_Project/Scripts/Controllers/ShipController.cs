@@ -5,6 +5,7 @@ using DoubTech.OpenPath.Data.Resources;
 using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Events;
+using DoubTech.OpenPath.Eqipment;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -121,6 +122,10 @@ namespace DoubTech.OpenPath.Controllers
             {
                 equipment.owner = this;
                 success = WeaponController.Equip((AbstractShipWeapon)equipment);
+            } else if (equipment is ShipShieldEquipment)
+            {
+                equipment.owner = this;
+                success = DamageController.Equip((ShipShieldEquipment)equipment);
             }
 
             if(!success) Debug.LogError($"Ship Controller doesn't know how to equip a {equipment.name}");
