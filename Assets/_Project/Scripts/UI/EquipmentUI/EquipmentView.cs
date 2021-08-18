@@ -24,7 +24,8 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 {
     public class EquipmentView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI selectedEquipmentName;
+        [SerializeField] private TextMeshProUGUI selectedPurchasableEquipmentName;
+        [SerializeField] private TextMeshProUGUI selectedInventoryItemName;
         [SerializeField] private Image currentItemTypeIcon;
         [SerializeField] private HorizontalSelector itemTypeSelector;
 
@@ -41,6 +42,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         private SlotUI purchaseItemSlot;
         private SlotUI inventoryItemSlot;
         private EquipmentTrade activePurchasable;
+        private EquipmentTrade activeSellable;
 
         private void OnEnable()
         {
@@ -54,9 +56,14 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         public void SetEquipmentType(int type)
         {
-            for (int i = equippedItemsGrid.childCount - 1; i >= 0; i++)
+            for (int i = equippedItemsGrid.childCount - 1; i >= 0; i--)
             {
                 Destroy(equippedItemsGrid.GetChild(i).gameObject);
+            }
+
+            for (int i = purchasableItemsGrid.childCount - 1; i >= 0; i--)
+            {
+                Destroy(purchasableItemsGrid.GetChild(i).gameObject);
             }
             switch (type)
             {
@@ -104,19 +111,17 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         private void OnPurchasableWeaponClicked(SlotUI selectedSlot,
             AbstractShipEquipment selectedEquipment)
         {
-            selectedEquipmentName.text = selectedEquipment
+            selectedPurchasableEquipmentName.text = selectedEquipment
                 ? selectedEquipment.name
                 : $"Empty {selectedSlot.type}";
 
             if (selectedSlot.EquipmentTrade)
             {
-                selectedEquipmentName.text +=
-                    " Asking $" + selectedSlot.EquipmentTrade.AskingPrice.ToString("F");
+                selectedPurchasableEquipmentName.text +=
+                    "\nAsking $" + selectedSlot.EquipmentTrade.AskingPrice.ToString("F");
             }
 
             buy.gameObject.SetActive(true);
-            buy.buttonText = "Buy";
-            buy.UpdateUI();
             activePurchasable = selectedSlot.EquipmentTrade;
 
             if (purchaseItemSlot) purchaseItemSlot.Selected = false;
@@ -126,18 +131,26 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         private void OnEquippedWeaponSlotCliked(SlotUI selectedSlot, AbstractShipEquipment selectedEquipment)
         {
-            selectedEquipmentName.text = selectedEquipment ? selectedEquipment.name : $"Empty {selectedSlot.type} Slot";
+            selectedInventoryItemName.text = selectedEquipment ? selectedEquipment.name : $"Empty {selectedSlot.type} Slot";
             if (inventoryItemSlot) inventoryItemSlot.Selected = false;
             inventoryItemSlot = selectedSlot;
             selectedSlot.Selected = true;
 
-            bool sellable = selectedEquipment;
-            buy.gameObject.SetActive(sellable);
-            if(sellable) {
-                buy.buttonText = "Sell";
-                buy.UpdateUI();
+
+            bool sellable = selectedSlot.Equipment;
+            if (sellable)
+            {
+                var sellableItems =
+                    tradePlanet.GetSellable<AbstractShipEquipment>(selectedSlot.Equipment);
+                if (sellableItems.Count > 0)
+                {
+                    activeSellable = sellableItems[0];
+                    sellable = true;
+                    selectedInventoryItemName.text += "\n[$" + activeSellable.OfferPrice.ToString("F") + "]";
+                }
             }
 
+            sell.gameObject.SetActive(sellable);
             activePurchasable = null;
         }
 
@@ -151,6 +164,14 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
             if (activePurchasable)
             {
                 activePurchasable.Buy();
+            }
+        }
+
+        public void Sell()
+        {
+            if (activeSellable)
+            {
+
             }
         }
     }
