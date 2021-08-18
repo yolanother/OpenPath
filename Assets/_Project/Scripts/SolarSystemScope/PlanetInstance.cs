@@ -86,7 +86,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         #region Trade Controller
 
-        internal List<EquipmentTrade> GetForSale<T>()
+        internal List<EquipmentTrade> GetForSale<T>() where T : AbstractShipEquipment
         {
             List<EquipmentTrade> results = new List<EquipmentTrade>();
             EquipmentTrade[] offers = GetComponents<EquipmentTrade>();
