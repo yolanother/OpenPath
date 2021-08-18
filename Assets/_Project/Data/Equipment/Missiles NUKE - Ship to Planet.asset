@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseValue: 100000
   owner: {fileID: 0}
+  icon: {fileID: 21300000, guid: b219ce1769a0c1245a3d20a62dfd85c9, type: 3}
   baseDamage: 10000
   cooldown: 60

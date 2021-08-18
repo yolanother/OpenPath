@@ -11,5 +11,7 @@ namespace DoubTech.OpenPath.Data.Equipment
         internal float baseValue = 100;
         [SerializeField, Tooltip("The current owner of this equipment.")]
         internal ShipController owner;
+
+        [SerializeField] public Sprite icon;
     }
 }
