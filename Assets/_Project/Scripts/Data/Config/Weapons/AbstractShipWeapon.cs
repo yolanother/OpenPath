@@ -31,7 +31,7 @@ namespace DoubTech.OpenPath.Data.Equipment
 
             if (!CanDamage(target))
             {
-                Debug.Log($"{owner.name} attempted to fire on {target.gameObject.name} with {name} which can't damage it.");
+                Debug.Log($"{owner?.name} attempted to fire on {target?.gameObject?.name} with {name} which can't damage it.");
                 return;
             }
 

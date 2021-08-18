@@ -16,6 +16,7 @@ namespace DoubTech.OpenPath.Combat
     public class LaserButtonControl : MonoBehaviour
     {
         [SerializeField] private IntGameEvent weaponControl;
+        [SerializeField] private Transform raycastOrigin;
         private bool buttonDown;
 
         public void OnLaserButtonDown()
@@ -42,7 +43,7 @@ namespace DoubTech.OpenPath.Combat
 
         public void Fire()
         {
-            if(Physics.Raycast(PlayerShip.Transform.position, PlayerShip.Transform.forward, out var hit, 1000))
+            if(Physics.Raycast(raycastOrigin.position, PlayerShip.Transform.forward, out var hit, 1000))
             {
                 Debug.Log("Hit: " + hit.transform.name);
                 PlayerShip.Instance.shipController.WeaponController.weapon
