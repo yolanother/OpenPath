@@ -49,7 +49,7 @@ namespace DoubTech.OpenPath.Controllers
             {
                 if (defaultWeapon != null)
                 {
-                    EquippedWeapon = Instantiate(defaultWeapon);
+                    Equip(Instantiate(defaultWeapon));
                 } else
                 {
                     return;
@@ -93,14 +93,10 @@ namespace DoubTech.OpenPath.Controllers
             }
         }
 
-        public void Fire(Vector3 position)
+        internal bool Equip(AbstractShipWeapon weapon)
         {
-
-        }
-
-        internal bool Equip(AbstractShipWeapon equipment)
-        {
-            EquippedWeapon = equipment;
+            EquippedWeapon = weapon;
+            weapon.owner = shipController;
             return true;
         }
     }
