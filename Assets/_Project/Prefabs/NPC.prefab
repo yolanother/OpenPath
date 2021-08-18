@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
-  faction: {fileID: 0}
+  faction: {fileID: 11400000, guid: 731a632b4089d1044864b5efb1f0752a, type: 2}
   resources:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
@@ -184,6 +184,8 @@ MonoBehaviour:
   maxHitPoints: 100
   currentHitPoints: 100
   shields: {fileID: 0}
+  damageFeedbackPrefab: {fileID: 928559531144580290, guid: 2ab087cfb71bf414c947c7f8cc4ced11,
+    type: 3}
 --- !u!114 &1691445754
 MonoBehaviour:
   m_ObjectHideFlags: 0

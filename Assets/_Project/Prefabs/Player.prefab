@@ -305,6 +305,8 @@ MonoBehaviour:
   maxHitPoints: 300
   currentHitPoints: 300
   shields: {fileID: 0}
+  damageFeedbackPrefab: {fileID: 928559531144580290, guid: 2ab087cfb71bf414c947c7f8cc4ced11,
+    type: 3}
 --- !u!114 &1901487234
 MonoBehaviour:
   m_ObjectHideFlags: 0

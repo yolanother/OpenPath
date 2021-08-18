@@ -60,7 +60,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
   - {fileID: 11400000, guid: 2865d4ad188b64746adeca19357ebab2, type: 2}
   - {fileID: 11400000, guid: 3904f3985955c8f46b05069aa9888ddc, type: 2}
+  - {fileID: 11400000, guid: 34c91f7a537dd4645a0d0ed3a1027ff7, type: 2}
   - {fileID: 11400000, guid: 7d5df7f57ff5b8747a537184fe78e8e2, type: 2}
+  - {fileID: 11400000, guid: ba8d109d62aecb84e855b85fb5989ff4, type: 2}
+  - {fileID: 11400000, guid: 9d38bf5a6da0a9c45ba914f6f0a13f7a, type: 2}
   investments:
   - {fileID: 11400000, guid: 12ec5101d2ec93144ba49fef07e10c0d, type: 2}
   distanceScale: 100

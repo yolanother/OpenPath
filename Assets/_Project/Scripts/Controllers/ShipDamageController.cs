@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.Eqipment;
+using System;
+using Random = UnityEngine.Random;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -18,6 +20,8 @@ namespace DoubTech.OpenPath.Controllers
         float currentHitPoints = 100;
         [SerializeField, Tooltip("Shields equipped here will protect the ship from damage, but once they are depleted the ship will fall quickly.")]
         ShipShieldEquipment shields;
+        [SerializeField, Tooltip("Prefab to spawn when recieving damage.")]
+        GameObject damageFeedbackPrefab;
 
         public float PercentHitPoints => currentHitPoints / maxHitPoints;
 
@@ -42,6 +46,8 @@ namespace DoubTech.OpenPath.Controllers
         /// <param name="damageAmount">The amount of the damage.</param>
         public void AddDamage(AbstractShipWeapon weapon, float damageAmount)
         {
+            StartCoroutine(DamageFeedbackCo(weapon, damageAmount));
+
             float hullDamage = damageAmount;
             if (shields != null && shields.HitPoints > 0)
             {
@@ -64,6 +70,15 @@ namespace DoubTech.OpenPath.Controllers
             shipController.WeaponController.SetTarget(weapon.owner);
 
             if (currentHitPoints <= 0) Die();
+        }
+
+        private IEnumerator DamageFeedbackCo(AbstractShipWeapon weapon, float damageAmount)
+        {
+            yield return null;
+
+            Vector3 offset = Random.insideUnitSphere * 0.2f;
+            //TODO use pooling for explosions
+            Destroy(Instantiate(damageFeedbackPrefab, transform.position + offset, Quaternion.identity, transform), 5);
         }
 
         public void Die()
