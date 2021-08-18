@@ -30,8 +30,18 @@ namespace DoubTech.OpenPath.Combat
 
         public void WorldPositionFire(Vector3 position)
         {
-            //PlayerShip.Instance.shipController.WeaponController.weapon.Fire(position);
+            var impact = Physics.OverlapSphere(position, 1);
+            if (impact.Length > 0)
+            {
+                PlayerShip.Instance.shipController.WeaponController.weapon.Fire(impact[0].transform);
+            }
+
             if(buttonDown) weaponControl.Invoke(0);
+        }
+
+        public void Fire()
+        {
+            weaponControl.Invoke(0);
         }
     }
 }
