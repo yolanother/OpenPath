@@ -30,6 +30,7 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private PlanetSelectionGameEvent onVisitPlanet;
         [SerializeField] private PlanetSelectionGameEvent onLeavePlanetEvent;
         [SerializeField] private PlanetSelectionGameEvent onDeselectPlanet;
+        [SerializeField] private PlanetSelectionGameEvent onStartTrading;
 
         [SerializeField] private Image[] tintedUIBackgrounds;
         [SerializeField] private Image[] tintedUIOverlay;
@@ -150,7 +151,7 @@ namespace DoubTech.OpenPath.UI
             }
 
             actionButtonMine.gameObject.SetActive(!inhabited && hasSpace);
-            actionButtonTrade.gameObject.SetActive(inhabited && hasCargo);
+            actionButtonTrade.gameObject.SetActive(inhabited);
             actionButtonSellAll.gameObject.SetActive(inhabited && hasCargo);
 
             UpdateMineableResources();
@@ -288,6 +289,11 @@ namespace DoubTech.OpenPath.UI
             {
                 distance.text = "Distance: " + d;
             }
+        }
+
+        public void Trade()
+        {
+            onStartTrading.Invoke(planetInstance);
         }
     }
 }

@@ -56,6 +56,30 @@ namespace DoubTech.OpenPath.UI.PreviewCamera
             TakeScreenshot(target, onSpriteReady);
         }
 
+        public void FocusCameraOn(Component component)
+        {
+            foreach (var renderer in component.GetComponentsInChildren<Renderer>())
+            {
+                renderer.gameObject.layer = 7;
+            }
+            var target = component.gameObject.GetComponentInChildren<PreviewCameraTarget>();
+            transform.parent = target.cameraContainer;
+            transform.localPosition = Vector3.zero;
+            transform.localEulerAngles = Vector3.zero;
+        }
+
+        public void FocusCameraOn(GameObject component)
+        {
+            foreach (var renderer in component.GetComponentsInChildren<Renderer>())
+            {
+                renderer.gameObject.layer = 7;
+            }
+            var target = component.GetComponentInChildren<PreviewCameraTarget>();
+            transform.parent = target.cameraContainer;
+            transform.localPosition = Vector3.zero;
+            transform.localEulerAngles = Vector3.zero;
+        }
+
         public void TakeScreenshot(Component component, Action<Sprite> onSpriteReady)
         {
             var target = component.gameObject.GetComponentInChildren<PreviewCameraTarget>();

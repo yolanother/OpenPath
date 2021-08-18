@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Cargo Pod
   m_EditorClassIdentifier: 
   baseValue: 100
+  owner: {fileID: 0}
+  icon: {fileID: 21300000, guid: aa0d265e63787574584470522c88b1e2, type: 3}
   resource: {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
   capacity: 1000
