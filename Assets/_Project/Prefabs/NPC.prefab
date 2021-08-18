@@ -203,6 +203,7 @@ MonoBehaviour:
   defaultWeapon: {fileID: 0}
   weapon: {fileID: 0}
   scanFrequency: 2
+  enableAIFiring: 1
 --- !u!1 &989584490283401557
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ namespace DoubTech.OpenPath.Controllers
         internal AbstractShipWeapon weapon;
         [SerializeField, Tooltip("The frequency at which the ship will scan for enemy ships.")]
         float scanFrequency = 2f;
+        [SerializeField, Tooltip("AI firing will automatically attack any enemy ship within range.")]
+        bool enableAIFiring = false;
 
         internal AbstractShipWeapon EquippedWeapon
         {
@@ -63,7 +65,7 @@ namespace DoubTech.OpenPath.Controllers
                     EquippedWeapon.Fire(currentTargetShip.transform);
                 }
             }
-            else if (OnAlert && Time.timeSinceLevelLoad > timeOfNextScan)
+            else if (enableAIFiring && OnAlert && Time.timeSinceLevelLoad > timeOfNextScan)
             {
                 List<ShipController> ships = ScanForObjectsOfType<ShipController>();
                 for (int i = 0; i < ships.Count; i++)
