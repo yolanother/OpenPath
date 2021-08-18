@@ -34,12 +34,14 @@ namespace DoubTech.OpenPath.CameraControls
         private float preTargetZoom;
         private Vector3 preTargetPosition;
         private bool hasPreviousPositionData;
+        private bool updateZoom;
 
         public Transform Target
         {
             get => target;
             set
             {
+                updateZoom = true;
                 if (!hasPreviousPositionData)
                 {
                     preTargetZoom = pinchCamera.Zoom;
@@ -52,11 +54,6 @@ namespace DoubTech.OpenPath.CameraControls
                 if (orbit)
                 {
                     target = orbit.orbitingObjectContainer;
-                }
-
-                if (!target)
-                {
-
                 }
             }
         }
@@ -83,8 +80,11 @@ namespace DoubTech.OpenPath.CameraControls
                     targetPosition,
                     Time.deltaTime * transformSpeed);
 
-                pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, orthographicSize,
-                    Time.deltaTime * zoomSpeed);
+                if (updateZoom)
+                {
+                    pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, orthographicSize,
+                        Time.deltaTime * zoomSpeed);
+                }
 
                 if (Vector3.Distance(camera.transform.position, targetPosition) < .001f)
                 {
@@ -97,8 +97,11 @@ namespace DoubTech.OpenPath.CameraControls
                     preTargetPosition,
                     Time.deltaTime * transformSpeed);
 
-                pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, preTargetZoom,
-                    Time.deltaTime * zoomSpeed);
+                if (updateZoom)
+                {
+                    pinchCamera.Zoom = Mathf.Lerp(pinchCamera.Zoom, preTargetZoom,
+                        Time.deltaTime * zoomSpeed);
+                }
 
                 if (Vector3.Distance(camera.transform.position, preTargetPosition) < .05f)
                 {
@@ -114,6 +117,33 @@ namespace DoubTech.OpenPath.CameraControls
         public void ClearSelection()
         {
             target = null;
+        }
+
+        public void ToggleFollow(Transform transform)
+        {
+            if (target)
+            {
+                target = null;
+                dragCamera.enabled = true;
+            }
+            else
+            {
+                Target = transform;
+            }
+        }
+
+        public void TogglePositionOnly(Transform transform)
+        {
+            if (target)
+            {
+                target = null;
+                dragCamera.enabled = true;
+            }
+            else
+            {
+                Target = transform;
+                updateZoom = false;
+            }
         }
     }
 }

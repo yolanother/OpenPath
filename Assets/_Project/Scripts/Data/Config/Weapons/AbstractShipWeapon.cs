@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using DoubTech.OpenPath.Controllers;
+using DoubTech.ScriptableEvents.BuiltinTypes;
 
 namespace DoubTech.OpenPath.Data.Equipment
 {
@@ -12,6 +13,8 @@ namespace DoubTech.OpenPath.Data.Equipment
         internal float baseDamage = 10;
         [SerializeField, Tooltip("The time a weapon must cooldown before it can fire again")]
         float cooldown = 1f;
+        [SerializeField] private IntGameEvent fireWeaponEvent;
+        [SerializeField] private int weaponEffectIndex;
 
         float timeCooldownOver;
         internal Transform currentTarget;

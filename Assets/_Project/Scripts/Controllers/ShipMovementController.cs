@@ -39,6 +39,9 @@ namespace DoubTech.OpenPath.Controllers
         private bool movingIntoOrbit;
 
         private PlanetInstance orbitPlanetTarget;
+        private bool lockLookTarget;
+        private Vector3 lockLookPosition;
+
         /// <summary>
         /// The transform that this ship is currently targeting for orbit.
         ///
@@ -156,6 +159,11 @@ namespace DoubTech.OpenPath.Controllers
                 {
                     lookPosition = transform.position + (orbit.NextOrbitPosition - orbit.PreviousOrbitPosition);
                 }
+
+                if (lockLookTarget)
+                {
+                    lookPosition = lockLookPosition;
+                }
                 transform.LookAt(lookPosition);
                 nextAngle = transform.rotation;
             }
@@ -239,15 +247,32 @@ namespace DoubTech.OpenPath.Controllers
 
         public void MoveTo(Vector3 worldPos)
         {
-            movingIntoOrbit = true;
-            var pos = new Vector3(worldPos.x, worldPos.y);
-            if (orbitTarget && !orbit.WithinOrbit(pos))
+            if (lockLookTarget)
             {
-                orbitTarget = null;
-                orbitPlanetTarget = null;
+                lockLookPosition = worldPos;
             }
+            else
+            {
+                movingIntoOrbit = true;
+                var pos = new Vector3(worldPos.x, worldPos.y);
+                if (orbitTarget && !orbit.WithinOrbit(pos))
+                {
+                    orbitTarget = null;
+                    orbitPlanetTarget = null;
+                }
 
-            positionTarget.position = pos;
+                positionTarget.position = pos;
+            }
+        }
+
+        public void LockLook()
+        {
+            lockLookTarget = true;
+        }
+
+        public void UnlockLook()
+        {
+            lockLookTarget = false;
         }
 
         public void Stop()

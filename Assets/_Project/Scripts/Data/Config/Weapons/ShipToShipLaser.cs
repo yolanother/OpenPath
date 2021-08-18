@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Controllers;
+using DoubTech.ScriptableEvents.BuiltinTypes;
 
 namespace DoubTech.OpenPath.Data.Equipment
 {
