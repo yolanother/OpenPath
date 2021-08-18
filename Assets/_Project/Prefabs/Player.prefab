@@ -284,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
+  defaultWeapon: {fileID: 11400000, guid: 87103dcf405c6ed498208061f3e73896, type: 2}
   weapon: {fileID: 0}
   scanFrequency: 2
 --- !u!114 &989584489362738211
@@ -301,7 +302,7 @@ MonoBehaviour:
   maxSensorRange: 5000
   maxInteractionRange: 150
   maxHitPoints: 300
-  currentHitPoints: 0
+  currentHitPoints: 300
   shields: {fileID: 0}
 --- !u!1 &989584490283401557
 GameObject:

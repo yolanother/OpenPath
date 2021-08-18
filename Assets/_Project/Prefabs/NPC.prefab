@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 2000
   maxInteractionRange: 150
+  defaultWeapon: {fileID: 0}
   weapon: {fileID: 0}
   scanFrequency: 2
 --- !u!1 &989584490283401557

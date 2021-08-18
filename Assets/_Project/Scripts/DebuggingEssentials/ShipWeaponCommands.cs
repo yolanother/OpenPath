@@ -34,7 +34,7 @@ namespace DoubTech.OpenPath.Debugging
         [ConsoleCommand("fireOnShip", "Move to within firing range of the target and fire.")]
         public void FireOnShip()
         {
-            controller.weapon.Fire(shipTarget);
+            controller.EquippedWeapon.Fire(shipTarget);
         }
 
         [Button(), HideInEditorMode]
@@ -49,7 +49,7 @@ namespace DoubTech.OpenPath.Debugging
         [ConsoleCommand("fireOnPlanet", "Move to within firing range of the target and fire.")]
         public void FireOnPlanet()
         {
-            controller.weapon.Fire(planetTarget);
+            controller.EquippedWeapon.Fire(planetTarget);
         }
 
         [Button(), HideInEditorMode]

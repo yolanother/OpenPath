@@ -107,7 +107,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 var slot = Instantiate(slotPrefab, equippedItemsGrid);
                 slot.type = "Weapon Slot";
                 slot.Count = 0;
-                slot.Equipment = weaponSlot.weapon;
+                slot.Equipment = weaponSlot.EquippedWeapon;
                 slot.onSlotClicked += OnEquippedWeaponSlotCliked;
             }
         }

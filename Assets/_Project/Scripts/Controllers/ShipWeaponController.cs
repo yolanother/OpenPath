@@ -14,10 +14,25 @@ namespace DoubTech.OpenPath.Controllers
     /// </summary>
     public class ShipWeaponController : AbstractActionController
     {
+        [SerializeField, Tooltip("The default weapon that comes with this controller as standard.")]
+        internal AbstractShipWeapon defaultWeapon;
         [SerializeField, Tooltip("The weapon this controller is in charge of.")]
         internal AbstractShipWeapon weapon;
         [SerializeField, Tooltip("The frequency at which the ship will scan for enemy ships.")]
         float scanFrequency = 2f;
+
+        internal AbstractShipWeapon EquippedWeapon
+        {
+            get => weapon;
+            set
+            {
+                if (weapon != value)
+                {
+                    Destroy(weapon);
+                    weapon = value;
+                }
+            }
+        }
 
         ShipController currentTargetShip;
         float timeOfNextScan;
@@ -30,13 +45,22 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            if (weapon == null) return;
+            if (EquippedWeapon == null)
+            {
+                if (defaultWeapon != null)
+                {
+                    EquippedWeapon = Instantiate(defaultWeapon);
+                } else
+                {
+                    return;
+                }
+            }
 
             if (currentTargetShip != null)
             {
-                if (!weapon.OnCooldown)
+                if (!EquippedWeapon.OnCooldown)
                 {
-                    weapon.Fire(currentTargetShip.transform);
+                    EquippedWeapon.Fire(currentTargetShip.transform);
                 }
             }
             else if (OnAlert && Time.timeSinceLevelLoad > timeOfNextScan)
@@ -60,18 +84,18 @@ namespace DoubTech.OpenPath.Controllers
 
         public override string StatusAsString()
         {
-            if (weapon == null)
+            if (EquippedWeapon == null)
             {
                 return "No weapons equipped";
             } else
             {
-                return weapon.name;
+                return EquippedWeapon.name;
             }
         }
 
         internal bool Equip(AbstractShipWeapon equipment)
         {
-            weapon = equipment;
+            EquippedWeapon = equipment;
             return true;
         }
     }
