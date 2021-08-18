@@ -1573,6 +1573,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponControl: {fileID: 11400000, guid: 585a15988abe9e343bfcc1c5106c85df, type: 2}
   raycastOrigin: {fileID: 1724389658}
+  debugWeaponType: 1
+  debugWeaponIndex: 0
 --- !u!114 &257271543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13560,7 +13562,7 @@ PrefabInstance:
     - target: {fileID: 7679768072136246376, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75.5246
       objectReference: {fileID: 0}
     - target: {fileID: 7679768072427182461, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}

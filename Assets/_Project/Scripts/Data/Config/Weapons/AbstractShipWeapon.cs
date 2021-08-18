@@ -13,8 +13,8 @@ namespace DoubTech.OpenPath.Data.Equipment
         internal float baseDamage = 10;
         [SerializeField, Tooltip("The time a weapon must cooldown before it can fire again")]
         float cooldown = 1f;
-        [SerializeField] private IntGameEvent fireWeaponEvent;
-        [SerializeField] private int weaponEffectIndex;
+        [SerializeField] public IntGameEvent fireWeaponEvent;
+        [SerializeField] public int weaponEffectIndex;
 
         float timeCooldownOver;
         internal Transform currentTarget;
@@ -45,7 +45,7 @@ namespace DoubTech.OpenPath.Data.Equipment
         /// </summary>
         internal virtual void PullTrigger()
         {
-            Debug.LogFormat("{0} is firing upon {1} with {2}", owner.name, currentTarget.gameObject.name, name);
+            Debug.LogFormat("{0} is firing upon {1} with {2}", owner?.name, currentTarget?.gameObject?.name, name);
 
             IDamageController dc = currentTarget.GetComponent<IDamageController>();
             if (dc == null) return;

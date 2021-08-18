@@ -7,8 +7,10 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using System;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.ScriptableEvents.BuiltinTypes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.Combat
@@ -17,7 +19,18 @@ namespace DoubTech.OpenPath.Combat
     {
         [SerializeField] private IntGameEvent weaponControl;
         [SerializeField] private Transform raycastOrigin;
+
+        [SerializeField] private bool debugWeaponType = true;
+        [SerializeField] private int debugWeaponIndex = 0;
+
         private bool buttonDown;
+
+        private void Start()
+        {
+            #if !UNITY_EDITOR
+            debugWeaponType = false;
+            #endif
+        }
 
         public void OnLaserButtonDown()
         {
@@ -31,6 +44,7 @@ namespace DoubTech.OpenPath.Combat
 
         public void WorldPositionFire(Vector3 position)
         {
+            var weapon = PlayerShip.Instance.shipController.WeaponController.weapon;
             var impact = Physics.OverlapSphere(position, 1);
             if (impact.Length > 0)
             {
@@ -39,20 +53,27 @@ namespace DoubTech.OpenPath.Combat
                 PlayerShip.Instance.shipController.WeaponController.weapon.Fire(ship.transform);
             }
 
-            if(buttonDown) weaponControl.Invoke(0);
+            if(buttonDown)
+                weapon.fireWeaponEvent.Invoke(debugWeaponType
+                    ? debugWeaponIndex
+                    : weapon.weaponEffectIndex);
         }
 
+        [Button]
         public void Fire()
         {
+            var weapon = PlayerShip.Instance.shipController.WeaponController.weapon;
             if(Physics.Raycast(raycastOrigin.position, PlayerShip.Transform.forward, out var hit, 1000))
             {
                 var ship = hit.transform.GetComponentInParent<ShipController>();
-                Debug.Log("Hit: " + ship.name);
-                PlayerShip.Instance.shipController.WeaponController.weapon
-                    .Fire(ship.transform);
+                if (ship)
+                {
+                    Debug.Log("Hit: " + ship.name);
+                    weapon.Fire(ship.transform);
+                }
             }
 
-            weaponControl.Invoke(0);
+            weapon.fireWeaponEvent.Invoke(debugWeaponType ? debugWeaponIndex : weapon.weaponEffectIndex);
         }
     }
 }

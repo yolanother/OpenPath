@@ -18,4 +18,4 @@ MonoBehaviour:
   baseDamage: 2
   cooldown: 1.5
   fireWeaponEvent: {fileID: 11400000, guid: 585a15988abe9e343bfcc1c5106c85df, type: 2}
-  weaponEffectIndex: 0
+  weaponEffectIndex: 8

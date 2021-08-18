@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fxController: {fileID: 9205431592519876463}
+  socket: {fileID: 9205431591307693242}
 --- !u!1001 &989584489579883573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1251,6 +1252,18 @@ PrefabInstance:
     - {fileID: 1515784901842430407, guid: 5ca8ac141faeaa5449cd58323be417ec, type: 3}
     - {fileID: 1515784901842430404, guid: 5ca8ac141faeaa5449cd58323be417ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ca8ac141faeaa5449cd58323be417ec, type: 3}
+--- !u!1 &9205431592519876457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1515784901842430400, guid: 5ca8ac141faeaa5449cd58323be417ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 7694792577504630441}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9205431591307693242 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1515784900906850835, guid: 5ca8ac141faeaa5449cd58323be417ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 7694792577504630441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9205431592519876463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1515784901842430406, guid: 5ca8ac141faeaa5449cd58323be417ec,
@@ -1266,12 +1279,6 @@ MonoBehaviour:
 --- !u!4 &9205431592519876460 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1515784901842430405, guid: 5ca8ac141faeaa5449cd58323be417ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 7694792577504630441}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &9205431592519876457 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515784901842430400, guid: 5ca8ac141faeaa5449cd58323be417ec,
     type: 3}
   m_PrefabInstance: {fileID: 7694792577504630441}
   m_PrefabAsset: {fileID: 0}

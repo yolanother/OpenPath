@@ -18,6 +18,7 @@ namespace DoubTech.OpenPath.Combat
     {
         public F3DFXController fxController;
         private bool isFiring;
+        [SerializeField] private Transform socket;
 
         [Button]
         public void Fire(int weaponType = -1)
@@ -31,17 +32,27 @@ namespace DoubTech.OpenPath.Combat
 
                 fxController.Fire();
                 isFiring = true;
-                StartCoroutine(StopFiring());
+                StartCoroutine(StopFiringCO());
             }
         }
 
-        private IEnumerator StopFiring()
+        [Button]
+        public void StopFiring()
+        {
+            StartCoroutine(StopFiringCO());
+        }
+
+        private IEnumerator StopFiringCO()
         {
             yield return new WaitForSeconds(.25f);
             if (isFiring)
             {
                 fxController.Stop();
                 isFiring = false;
+                for (int i = socket.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(socket.GetChild(i).gameObject);
+                }
             }
         }
     }
