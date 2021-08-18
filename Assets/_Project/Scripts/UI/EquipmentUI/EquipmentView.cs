@@ -35,6 +35,9 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         [SerializeField] private SlotUI slotPrefab;
 
         private TradeController currentTradePartner;
+        private PlanetInstance tradePlanet;
+        private SlotUI purchaseItemSlot;
+        private SlotUI inventoryItemSlot;
 
         private void OnEnable()
         {
@@ -55,30 +58,33 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
             switch (type)
             {
                 case 0:
-                    ShowCargoBaySlots();
+                    ShowSlots<CargoPod>("Cargo Bay");
                     break;
                 case 1:
+                    ShowSlots<AbstractShipWeapon>("Weapon");
                     ShowWeaponSlots();
                     break;
                 case 2:
-                    ShowShieldSlots();
+
                     break;
             }
         }
 
-        private void ShowShieldSlots()
+        private void ShowSlots<TYPE>(string equipmentName) where TYPE : AbstractShipEquipment
         {
-
-        }
-
-        private void ShowCargoBaySlots()
-        {
-
+            var tradeSlots = tradePlanet.GetForSale<TYPE>();
+            for (int i = 0; i < tradeSlots.Count; i++)
+            {
+                var weapon = tradeSlots[i];
+                var slot = Instantiate(slotPrefab, purchasableItemsGrid);
+                slot.type = equipmentName;
+                slot.Equipment = weapon.equipment;
+                slot.onSlotClicked += OnPurchasableWeaponClicked;
+            }
         }
 
         private void ShowWeaponSlots()
         {
-
             var weaponSlots = PlayerShip.Instance.shipController.GetComponents<ShipWeaponController>();
             for (int i = 0; i < weaponSlots.Length; i++)
             {
@@ -86,27 +92,10 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 var slot = Instantiate(slotPrefab, equippedItemsGrid);
                 slot.type = "Weapon Slot";
                 slot.Count = 0;
-                if (weaponSlot.weapon)
-                {
-                    slot.Equipment = weaponSlot.weapon;
-                }
+                slot.Equipment = weaponSlot.weapon;
 
                 slot.onSlotClicked += OnEquippedWeaponSlotCliked;
             }
-
-            /*var tradeSlots = currentTradePartner.GetComponents<Offer>();
-            for (int i = 0; i < tradeSlots.Length; i++)
-            {
-                var weaponSlot = tradeSlots[i];
-                var slot = Instantiate(slotPrefab, equippedItemsGrid);
-                slot.type = "Weapon";
-                if (weaponSlot.weapon)
-                {
-                    slot.equipment = weaponSlot.weapon;
-                }
-
-                slot.onSlotClicked += OnPurchasableWeaponClicked;
-            }*/
         }
 
         private void OnPurchasableWeaponClicked(SlotUI selectedSlot,
@@ -114,18 +103,25 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         {
             selectedEquipmentName.text = selectedEquipment
                 ? selectedEquipment.name
-                : $"Empty {selectedSlot.type} Slot";
+                : $"Empty {selectedSlot.type}";
 
+
+            if (purchaseItemSlot) purchaseItemSlot.Selected = false;
+            purchaseItemSlot = selectedSlot;
+            selectedSlot.Selected = true;
         }
 
         private void OnEquippedWeaponSlotCliked(SlotUI selectedSlot, AbstractShipEquipment selectedEquipment)
         {
             selectedEquipmentName.text = selectedEquipment ? selectedEquipment.name : $"Empty {selectedSlot.type} Slot";
+            if (inventoryItemSlot) inventoryItemSlot.Selected = false;
+            inventoryItemSlot = selectedSlot;
+            selectedSlot.Selected = true;
         }
 
         public void StartTrading(PlanetInstance instance)
         {
-            currentTradePartner = instance.GetComponent<TradeController>();
+            tradePlanet = instance;
         }
 
         public void Buy()
