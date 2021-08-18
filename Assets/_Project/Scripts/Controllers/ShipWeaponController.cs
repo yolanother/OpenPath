@@ -93,6 +93,11 @@ namespace DoubTech.OpenPath.Controllers
             }
         }
 
+        public void Fire(Vector3 position)
+        {
+
+        }
+
         internal bool Equip(AbstractShipWeapon equipment)
         {
             EquippedWeapon = equipment;
