@@ -34,8 +34,9 @@ namespace DoubTech.OpenPath.Combat
             var impact = Physics.OverlapSphere(position, 1);
             if (impact.Length > 0)
             {
-                Debug.Log("Hit: " + impact[0].name);
-                PlayerShip.Instance.shipController.WeaponController.weapon.Fire(impact[0].transform);
+                var ship = impact[0].GetComponentInParent<ShipController>();
+                Debug.Log("Hit: " + ship.name);
+                PlayerShip.Instance.shipController.WeaponController.weapon.Fire(ship.transform);
             }
 
             if(buttonDown) weaponControl.Invoke(0);
@@ -45,9 +46,10 @@ namespace DoubTech.OpenPath.Combat
         {
             if(Physics.Raycast(raycastOrigin.position, PlayerShip.Transform.forward, out var hit, 1000))
             {
-                Debug.Log("Hit: " + hit.transform.name);
+                var ship = hit.transform.GetComponentInParent<ShipController>();
+                Debug.Log("Hit: " + ship.name);
                 PlayerShip.Instance.shipController.WeaponController.weapon
-                    .Fire(hit.transform);
+                    .Fire(ship.transform);
             }
 
             weaponControl.Invoke(0);
