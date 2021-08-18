@@ -1248,9 +1248,9 @@ MonoBehaviour:
   slotPrefab: {fileID: 6027356690408197801, guid: 97cca037319611647af91b537bc4ec46,
     type: 3}
   categoryIcons:
-  - {fileID: 21300000, guid: aa0d265e63787574584470522c88b1e2, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 906fe76b46ee49a4a803ac48f8ed9fde, type: 3}
+  - {fileID: 21300000, guid: 509f4f3848348c64d8dbdcb514cdc172, type: 3}
+  - {fileID: 21300000, guid: f544d765a12ac574e92d8ae6c8fba3bd, type: 3}
 --- !u!114 &241917453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7294,17 +7294,17 @@ MonoBehaviour:
   index: 0
   itemList:
   - itemTitle: Cargo Bays
-    itemIcon: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
+    itemIcon: {fileID: 21300000, guid: 906fe76b46ee49a4a803ac48f8ed9fde, type: 3}
     onItemSelect:
       m_PersistentCalls:
         m_Calls: []
   - itemTitle: Weapons
-    itemIcon: {fileID: 21300000, guid: 6ca804909faea644aa355ec5c5a9e1ba, type: 3}
+    itemIcon: {fileID: 21300000, guid: 509f4f3848348c64d8dbdcb514cdc172, type: 3}
     onItemSelect:
       m_PersistentCalls:
         m_Calls: []
   - itemTitle: Shields
-    itemIcon: {fileID: 21300000, guid: e7f5d551fd1925040bd01a8ec66c0ae0, type: 3}
+    itemIcon: {fileID: 21300000, guid: f544d765a12ac574e92d8ae6c8fba3bd, type: 3}
     onItemSelect:
       m_PersistentCalls:
         m_Calls: []
