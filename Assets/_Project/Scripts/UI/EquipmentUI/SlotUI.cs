@@ -23,6 +23,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
         [SerializeField] public Image slotIcon;
         [SerializeField] public GameObject countContainer;
         [SerializeField] public TextMeshProUGUI countText;
+        [SerializeField] public Sprite emptySprite;
 
         public Action<SlotUI, AbstractShipEquipment> onSlotClicked;
         private AbstractShipEquipment equipment;
@@ -40,7 +41,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 }
                 else
                 {
-                    slotIcon.sprite = null;
+                    slotIcon.sprite = emptySprite;
                 }
             }
         }

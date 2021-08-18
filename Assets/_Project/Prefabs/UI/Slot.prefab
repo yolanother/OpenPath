@@ -666,6 +666,7 @@ MonoBehaviour:
   slotIcon: {fileID: 7095700192129080174}
   countContainer: {fileID: 7095700192095421974}
   countText: {fileID: 7095700192096100132}
+  emptySprite: {fileID: 21300000, guid: 41fb0b6b06dc6c741bccfdfee0074717, type: 3}
   type: 
 --- !u!1 &7095700192089340658
 GameObject:
@@ -1018,7 +1019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4c58a0f2afcf934fb85bdc5f3906af8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41fb0b6b06dc6c741bccfdfee0074717, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
