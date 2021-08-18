@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright 2021 Doubling Technolgoies
 
  *
@@ -14,6 +14,7 @@ using DoubTech.OpenPath.Data.Equipment;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.Orbits;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 using UnityEngine;
 
 namespace DoubTech.OpenPath.SolarSystemScope
@@ -40,6 +41,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
             }
         }
 
+        #region Orbit Controller
+
         public void AddOrbitingShip(ShipController shipController)
         {
             orbitingShips.Add(shipController);
@@ -50,6 +53,10 @@ namespace DoubTech.OpenPath.SolarSystemScope
             orbitingShips.Remove(shipController);
         }
 
+        #endregion
+
+
+        #region Damage Controller
         public void AddDamage(AbstractShipWeapon weapon, float damageAmount)
         {
             if (planetData.Population > 0)
@@ -74,5 +81,26 @@ namespace DoubTech.OpenPath.SolarSystemScope
         {
             
         }
+
+        #endregion
+
+        #region Trade Controller
+
+        internal List<EquipmentTrade> GetForSale<T>()
+        {
+            List<EquipmentTrade> results = new List<EquipmentTrade>();
+            EquipmentTrade[] offers = GetComponents<EquipmentTrade>();
+            for (int i = 1; i < offers.Length; i++)
+            {
+                if (offers[i].equipment is T && offers[i].quantityAvailable > 0)
+                {
+                    results.Add(offers[i]);
+                }
+            }
+
+            return results;
+        }
+
+        #endregion
     }
 }
