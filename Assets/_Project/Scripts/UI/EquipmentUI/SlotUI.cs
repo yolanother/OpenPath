@@ -9,6 +9,7 @@
 
 using System;
 using DoubTech.OpenPath.Data.Equipment;
+using DoubTech.OpenPath.UniverseScope.Equipment;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,5 +73,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
                 unselectedOverlay.gameObject.SetActive(!value);
             }
         }
+
+        public EquipmentTrade EquipmentTrade { get; set; }
     }
 }
