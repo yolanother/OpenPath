@@ -107,7 +107,7 @@ namespace DoubTech.OpenPath.Controllers
             }
             else
             {
-                Debug.LogErrorFormat($"{gameObject.name} was unable to find a mining source for {resource.type.name} within scanning distance ({maxSensorRange}) of {transform.position}.");
+                Debug.LogFormat($"{gameObject.name} was unable to find a mining source for {resource.type.name} within scanning distance ({maxSensorRange}) of {transform.position}.");
             }
         }
 
