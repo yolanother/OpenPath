@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseValue: 100
   owner: {fileID: 0}
+  icon: {fileID: 21300000, guid: 109d796ea3e794942848570775f5e7dd, type: 3}
   maxHitPoints: 100
   currentHitPoints: 100
   regenerationPerSecond: 0.5
