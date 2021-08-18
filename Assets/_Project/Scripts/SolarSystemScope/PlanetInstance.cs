@@ -79,7 +79,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
         public void Die()
         {
-            
+
         }
 
         #endregion
@@ -95,6 +95,24 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 if (offers[i].equipment is T && offers[i].quantityAvailable > 0)
                 {
                     results.Add(offers[i]);
+                }
+            }
+
+            return results;
+        }
+
+        internal List<EquipmentTrade> GetSellable<T>(T equipment = null) where T : AbstractShipEquipment
+        {
+            List<EquipmentTrade> results = new List<EquipmentTrade>();
+            EquipmentTrade[] offers = GetComponents<EquipmentTrade>();
+            for (int i = 1; i < offers.Length; i++)
+            {
+                if (offers[i].equipment is T && offers[i].quantityRequested > 0)
+                {
+                    if (!equipment || equipment == offers[i].equipment)
+                    {
+                        results.Add(offers[i]);
+                    }
                 }
             }
 
