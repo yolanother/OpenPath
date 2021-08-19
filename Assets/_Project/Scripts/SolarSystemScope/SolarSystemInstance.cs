@@ -63,64 +63,81 @@ namespace DoubTech.OpenPath.SolarSystemScope
             var planets = new PlanetInstance[planetPositions.Length];
             for (int i = 0; i < planetPositions.Length; i++)
             {
-                Orbit orbit;
-#if UNITY_EDITOR
-                if (Application.isPlaying)
-                {
-                    orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
-                }
-                else
-                {
-                    orbit = (Orbit)PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
-                }
-#else
-                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
-#endif
-
-                orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
-
-                orbit.transform.parent = transform;
-                var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
-                var planet = Instantiate(config.Prefab);
-                var lightSource = planet.GetComponent<LightSource>();
-                if (lightSource) lightSource.Sun = star.gameObject;
-                orbit.ellipse.radiusX = planetPositions[i] *
-                                        solarSystemConfig.distanceScale;
-                orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
-
-                orbit.startPosition = Random.Range(0, 1f);
-
-                orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
-                orbit.RefreshOrbits();
-                planet.transform.parent = orbit.orbitingObjectContainer;
-                planet.transform.localPosition = Vector3.zero;
-                planet.transform.localEulerAngles = Vector3.zero;
-
-                var planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
-                planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
-                if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
-                if (Random.value <= config.habitability) planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
-                planetInstance.planetData.PlanetId = planetInstance.name;
-                planetInstance.planetData.Habitability = config.habitability;
-                planetInstance.orbit = orbit;
-                planetInstance.planetData.PlanetIndex = i;
-
-                // Generate player interactions
-                GenerateResourceSupplyAndDemand(config, planetInstance);
-                GenerateTrade(config, planetInstance);
-                GenerateInvestments(config, planetInstance);
-
-                planets[i] = planetInstance;
+                float distance = planetPositions[i];
+                PlanetConfig config = solarSystemConfig.GetPlanetConfig(coordinates, i, distance);
+                planets[i] = GetPlanetInstance(coordinates, i, config, distance);
+                GeneratePlanetGO(star, planets[i].orbit, config);
+                GenerateResourceSupplyAndDemand(config, planets[i]);
+                GenerateTrade(config, planets[i]);
+                GenerateInvestments(config, planets[i]);
 
 #if UNITY_EDITOR
                 if (!Application.isPlaying)
                 {
-                    EditorUtility.SetDirty(planetInstance);
+                    EditorUtility.SetDirty(planets[i]);
                 }
 #endif
             }
 
             this.planets = planets;
+        }
+
+        private PlanetInstance GetPlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
+        {
+            Orbit orbit = GetPlanetOrbit(coordinates, i, distance);
+            PlanetInstance planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
+            planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
+            if (null == planetInstance.planetData)
+            {
+                planetInstance.planetData = new Planet();
+            }
+            if (Random.value <= config.habitability)
+            {
+                planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
+            }
+            planetInstance.planetData.PlanetId = planetInstance.name;
+            planetInstance.planetData.Habitability = config.habitability;
+            planetInstance.orbit = orbit;
+            planetInstance.planetData.PlanetIndex = i;
+            return planetInstance;
+        }
+
+        private static void GeneratePlanetGO(StarInstance star, Orbit orbit, PlanetConfig config)
+        {
+            GameObject planetGO = Instantiate(config.Prefab);
+
+            LightSource lightSource = planetGO.GetComponent<LightSource>();
+            if (lightSource) lightSource.Sun = star.gameObject;
+
+            planetGO.transform.parent = orbit.orbitingObjectContainer;
+            planetGO.transform.localPosition = Vector3.zero;
+            planetGO.transform.localEulerAngles = Vector3.zero;
+        }
+
+        private Orbit GetPlanetOrbit(Vector2 coordinates, int i, float distance)
+        {
+            Orbit orbit;
+#if UNITY_EDITOR
+            if (Application.isPlaying)
+            {
+                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+            }
+            else
+            {
+                orbit = (Orbit)PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
+            }
+#else
+                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+#endif
+            orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
+            orbit.transform.parent = transform;
+            orbit.ellipse.radiusX = distance *
+                                    solarSystemConfig.distanceScale;
+            orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
+            orbit.startPosition = Random.Range(0, 1f);
+            orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
+            orbit.RefreshOrbits();
+            return orbit;
         }
 
         private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
