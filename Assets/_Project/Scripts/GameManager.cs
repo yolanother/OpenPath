@@ -28,6 +28,7 @@ namespace DoubTech.OpenPath
         private void Awake()
         {
             Instance = this;
+            DontDestroyOnLoad(Instance);
         }
 
         public int GetSolarSystemSeed(Vector2 solarSystemCoordinates)
