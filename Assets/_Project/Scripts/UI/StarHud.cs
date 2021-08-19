@@ -7,10 +7,14 @@
  * https://opensource.org/licenses/MIT.
  */
 
+using DoubTech.OpenPath.Data;
+using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.ScriptableEvents.BuiltinTypes;
 using Michsky.UI.ModernUIPack;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +24,8 @@ namespace DoubTech.OpenPath.UI
     public class StarHud : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI PopulatedPlanetsText;
+        [SerializeField] private TextMeshProUGUI UnpopulatedPlanetsText;
 
         [SerializeField] private Image bgOverlay;
         [SerializeField] private Image bg;
@@ -40,29 +46,63 @@ namespace DoubTech.OpenPath.UI
             set
             {
                 starInstance = value;
-                title.text = value.starData.DisplayName;
-                bgOverlay.color = starInstance.StarConfig.starColor;
-                headerOverlay.color = starInstance.StarConfig.starColor;
-                var alpha = starInstance.StarConfig.starColor;
-                alpha.a = .5f;
-                bg.color = alpha;
-                headerBg.color = alpha;
+                UpdateUI();
+            }
+        }
 
-                if(null == buttons) buttons = GetComponentsInChildren<UIGradient>();
+        private void UpdateUI()
+        {
+            SetUIColour();
+            SetUIData();
+        }
 
-                float h, s, v;
-                Color.RGBToHSV(starInstance.StarConfig.starColor, out h, out s, out v);
-                var leftColor = Color.HSVToRGB(h, s, v * .75f);
-                var rightColor = Color.HSVToRGB(h, s, v * .85f);
-                foreach (UIGradient button in buttons)
+        private void SetUIData()
+        {
+            int inhabitedCount = 0;
+            int uninhabitedCount = 0;
+            Vector2 starCoordinates = starInstance.starData.Coordinates;
+            SolarSystemConfig systemConfig = GameManager.Instance.galaxyConfig.solarSystemConfig;
+            float[] planetDistances = systemConfig.GetPlanetPositions(starCoordinates);
+            for (int i = 0; i < planetDistances.Length; i++)
+            {
+                PlanetConfig config = systemConfig.GetPlanetConfig(starCoordinates, i, planetDistances[i]);
+                PlanetData planetData = GameManager.Instance.solarSystemInstance.GetPlanetInstance(starCoordinates, i, config, planetDistances[i]).planetData;
+                if (planetData.population > 0)
                 {
-                    var colorKeys = button.EffectGradient.colorKeys;
-                    var alphaKeys = button.EffectGradient.alphaKeys;
-                    colorKeys[0].color = leftColor;
-                    colorKeys[1].color = rightColor;
-                    button.EffectGradient.SetKeys(colorKeys, alphaKeys);
+                    inhabitedCount++;
+                } else
+                {
+                    uninhabitedCount++;
                 }
+            }
 
+            title.text = starInstance.starData.DisplayName;
+            PopulatedPlanetsText.text = $"Populated Planets: {inhabitedCount}";
+            UnpopulatedPlanetsText.text = $"Unpopulated Planets: {uninhabitedCount}";
+        }
+
+        private void SetUIColour()
+        {
+            bgOverlay.color = starInstance.StarConfig.starColor;
+            headerOverlay.color = starInstance.StarConfig.starColor;
+            var alpha = starInstance.StarConfig.starColor;
+            alpha.a = .5f;
+            bg.color = alpha;
+            headerBg.color = alpha;
+
+            if (null == buttons) buttons = GetComponentsInChildren<UIGradient>();
+
+            float h, s, v;
+            Color.RGBToHSV(starInstance.StarConfig.starColor, out h, out s, out v);
+            var leftColor = Color.HSVToRGB(h, s, v * .75f);
+            var rightColor = Color.HSVToRGB(h, s, v * .85f);
+            foreach (UIGradient button in buttons)
+            {
+                var colorKeys = button.EffectGradient.colorKeys;
+                var alphaKeys = button.EffectGradient.alphaKeys;
+                colorKeys[0].color = leftColor;
+                colorKeys[1].color = rightColor;
+                button.EffectGradient.SetKeys(colorKeys, alphaKeys);
             }
         }
 

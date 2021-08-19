@@ -22,7 +22,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
     public class PlanetInstance : MonoBehaviour, IDamageController
     {
         public Orbit orbit;
-        public Planet planetData = new Planet();
+        public PlanetData planetData = new PlanetData();
         private HashSet<ShipController> orbitingShips = new HashSet<ShipController>();
 
         public ShipController[] OrbitingShips => orbitingShips.ToArray();

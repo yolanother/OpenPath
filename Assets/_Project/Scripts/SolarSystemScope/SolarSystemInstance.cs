@@ -26,7 +26,6 @@ namespace DoubTech.OpenPath.SolarSystemScope
 {
     public class SolarSystemInstance : MonoBehaviour
     {
-        [SerializeField] public SolarSystemConfig solarSystemConfig;
         [SerializeField] private Vector2 coordinates;
         [SerializeField] private bool runtimeBuild = true;
 
@@ -54,17 +53,17 @@ namespace DoubTech.OpenPath.SolarSystemScope
             }
             #endif
 
-            var starConfig = solarSystemConfig.GetStarConfig(coordinates);
+            var starConfig = GameManager.Instance.galaxyConfig.solarSystemConfig.GetStarConfig(coordinates);
             var star = Instantiate(starConfig.StarPrefab);
             star.StarConfig = starConfig;
             star.transform.parent = transform;
 
-            var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
+            var planetPositions = GameManager.Instance.galaxyConfig.solarSystemConfig.GetPlanetPositions(coordinates);
             var planets = new PlanetInstance[planetPositions.Length];
             for (int i = 0; i < planetPositions.Length; i++)
             {
                 float distance = planetPositions[i];
-                PlanetConfig config = solarSystemConfig.GetPlanetConfig(coordinates, i, distance);
+                PlanetConfig config = GameManager.Instance.galaxyConfig.solarSystemConfig.GetPlanetConfig(coordinates, i, distance);
                 planets[i] = GetPlanetInstance(coordinates, i, config, distance);
                 GeneratePlanetGO(star, planets[i].orbit, config);
                 GenerateResourceSupplyAndDemand(config, planets[i]);
@@ -82,14 +81,14 @@ namespace DoubTech.OpenPath.SolarSystemScope
             this.planets = planets;
         }
 
-        private PlanetInstance GetPlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
+        internal PlanetInstance GetPlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
         {
             Orbit orbit = GetPlanetOrbit(coordinates, i, distance);
             PlanetInstance planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
             planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
             if (null == planetInstance.planetData)
             {
-                planetInstance.planetData = new Planet();
+                planetInstance.planetData = new PlanetData();
             }
             if (Random.value <= config.habitability)
             {
@@ -120,19 +119,19 @@ namespace DoubTech.OpenPath.SolarSystemScope
 #if UNITY_EDITOR
             if (Application.isPlaying)
             {
-                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                orbit = Instantiate(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
             }
             else
             {
-                orbit = (Orbit)PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
+                orbit = (Orbit)PrefabUtility.InstantiatePrefab(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
             }
 #else
-                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
+                orbit = Instantiate(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
 #endif
             orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
             orbit.transform.parent = transform;
             orbit.ellipse.radiusX = distance *
-                                    solarSystemConfig.distanceScale;
+                                    GameManager.Instance.galaxyConfig.solarSystemConfig.distanceScale;
             orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
             orbit.startPosition = Random.Range(0, 1f);
             orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
@@ -145,13 +144,13 @@ namespace DoubTech.OpenPath.SolarSystemScope
             if (planetInstance.planetData.Population <= 0) return;
 
             float chance = 0;
-            for (int i = 0; i < solarSystemConfig.equipment.Length; i++)
+            for (int i = 0; i < GameManager.Instance.galaxyConfig.solarSystemConfig.equipment.Length; i++)
             {
                 chance = 40 + planetInstance.planetData.Population / 1000;
                 if (chance > 0 && Random.value <= chance)
                 {
                     EquipmentTrade trade = planetInstance.gameObject.AddComponent<EquipmentTrade>();
-                    trade.equipment = solarSystemConfig.equipment[i];
+                    trade.equipment = GameManager.Instance.galaxyConfig.solarSystemConfig.equipment[i];
                     trade.quantityAvailable = Random.Range(0, 5);
                     trade.askMultiplier = Random.Range(0.8f, 2f);
                     trade.quantityRequested = Random.Range(0, 5);
@@ -163,13 +162,13 @@ namespace DoubTech.OpenPath.SolarSystemScope
         private void GenerateInvestments(PlanetConfig config, PlanetInstance planetInstance)
         {
             float chance = 0;
-            for (int i = 0; i < solarSystemConfig.investments.Length; i++)
+            for (int i = 0; i < GameManager.Instance.galaxyConfig.solarSystemConfig.investments.Length; i++)
             {
-                chance = solarSystemConfig.investments[i].Chance(planetInstance.planetData);
+                chance = GameManager.Instance.galaxyConfig.solarSystemConfig.investments[i].Chance(planetInstance.planetData);
                 if (chance > 0 && Random.value <= chance)
                 {
                     InvestmentOpportunity opportunity = planetInstance.gameObject.AddComponent<InvestmentOpportunity>();
-                    opportunity.investment = solarSystemConfig.investments[i];
+                    opportunity.investment = GameManager.Instance.galaxyConfig.solarSystemConfig.investments[i];
                 }
             }
         }
@@ -177,12 +176,12 @@ namespace DoubTech.OpenPath.SolarSystemScope
         private void GenerateResourceSupplyAndDemand(PlanetConfig config, PlanetInstance planetInstance)
         {
             float chance = 0;
-            for (int r = 0; r < solarSystemConfig.resources.Length; r++)
+            for (int r = 0; r < GameManager.Instance.galaxyConfig.solarSystemConfig.resources.Length; r++)
             {
-                chance = solarSystemConfig.resources[r].generationChance;
+                chance = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r].generationChance;
                 for (int p = 0; p < config.resourceModifiers.Length; p++)
                 {
-                    if (config.resourceModifiers[p].resource == solarSystemConfig.resources[r])
+                    if (config.resourceModifiers[p].resource == GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r])
                     {
                         chance += config.resourceModifiers[p].modificationPercent;
                         break;
@@ -194,7 +193,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 if (chance > 0 && Random.value <= chance)
                 {
                     source = planetInstance.gameObject.AddComponent<ResourceSource>();
-                    source.resource = solarSystemConfig.resources[r];
+                    source.resource = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r];
                     source.quantityPerSecond = 1; // how easy is it to extract
                     source.resourceAvailable = 50000; // total resource reserves
                 }
@@ -202,7 +201,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 if (planetInstance.planetData.Population > 0)
                 {
                     demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
-                    demand.resource = solarSystemConfig.resources[r];
+                    demand.resource = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r];
 
                     if (source == null)
                     {

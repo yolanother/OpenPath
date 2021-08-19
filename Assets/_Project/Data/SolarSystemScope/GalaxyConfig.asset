@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1568557dc58fc724dbf1915e839535d5, type: 3}
   m_Name: GalaxyConfig
   m_EditorClassIdentifier: 
-  seed: 0
+  starDensity: 0.25
   galaxySize: 46340
+  solarSystemConfig: {fileID: 11400000, guid: 67d86d4ff2e309c4c83797d02a652fe3, type: 2}

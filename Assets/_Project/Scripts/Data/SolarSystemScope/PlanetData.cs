@@ -21,11 +21,11 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     /// Planet data holds all the runtime data about the planet.
     /// </summary>
     [Serializable]
-    public class Planet
+    public class PlanetData
     {
         [SerializeField] private string playerId;
-        [Tooltip("The current population of intelligent lifeforms in 10,000's.")]
-        [SerializeField] private int population;
+        [SerializeField, Tooltip("The current population of intelligent lifeforms in 10,000's.")]
+        internal int population;
         [Tooltip("How likely is intelligent life to survive on this planet.")]
         [SerializeField] private float habitability;
         [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
