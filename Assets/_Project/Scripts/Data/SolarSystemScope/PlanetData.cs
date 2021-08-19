@@ -47,7 +47,6 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         public string Name { get; set; }
         public float xCoord { get; set; }
         public float yCoord { get; set; }
-        public int PlanetIndex { get; set; }
 
         /// <summary>
         /// The current population of intelligent lifeforms in 10,000's.

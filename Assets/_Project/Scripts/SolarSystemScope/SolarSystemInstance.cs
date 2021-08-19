@@ -65,11 +65,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
             {
                 float distance = planetPositions[i];
                 PlanetConfig config = GameManager.Instance.galaxyConfig.solarSystemConfig.GetPlanetConfig(coordinates, i, distance);
-                planets[i] = GetPlanetInstance(coordinates, i, config, distance);
+                planets[i] = CreatePlanetInstance(coordinates, i, config, distance);
                 GeneratePlanetGO(star, planets[i].orbit, config);
-                GenerateResourceSupplyAndDemand(config, planets[i]);
-                GenerateTrade(config, planets[i]);
-                GenerateInvestments(config, planets[i]);
 
 #if UNITY_EDITOR
                 if (!Application.isPlaying)
@@ -82,30 +79,12 @@ namespace DoubTech.OpenPath.SolarSystemScope
             this.planets = planets;
         }
 
-        internal PlanetInstance GetPlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
+        internal PlanetInstance CreatePlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
         {
-            Orbit orbit = GetPlanetOrbit(coordinates, i, distance);
+            Orbit orbit = CreatePlanetOrbit(coordinates, i, distance);
             PlanetInstance planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
-            planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
-            if (null == planetInstance.planetData)
-            {
-                planetInstance.planetData = new PlanetData();
-            }
-
-            PlanetData planetData = planetInstance.planetData;
-
-            planetData.PlanetId = planetInstance.name;
-            planetData.PlanetIndex = i;
-
-            planetData.Habitability = config.habitability;
-            if (Random.value <= config.habitability)
-            {
-                planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
-            }
-
-            planetData.faction = GetOwningFaction(planetData);
-            
-            planetInstance.orbit = orbit;
+            planetInstance.Init(orbit, $"S{coordinates.x}.{this.coordinates.y} P{i}", config);
+            planetInstance.planetData.faction = GetOwningFaction(planetInstance.planetData);
 
             return planetInstance;
         }
@@ -147,7 +126,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
             planetGO.transform.localEulerAngles = Vector3.zero;
         }
 
-        private Orbit GetPlanetOrbit(Vector2 coordinates, int i, float distance)
+        private Orbit CreatePlanetOrbit(Vector2 coordinates, int i, float distance)
         {
             Orbit orbit;
 #if UNITY_EDITOR
@@ -171,81 +150,6 @@ namespace DoubTech.OpenPath.SolarSystemScope
             orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
             orbit.RefreshOrbits();
             return orbit;
-        }
-
-        private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
-        {
-            if (planetInstance.planetData.Population <= 0) return;
-
-            float chance = 0;
-            for (int i = 0; i < GameManager.Instance.galaxyConfig.solarSystemConfig.equipment.Length; i++)
-            {
-                chance = 40 + planetInstance.planetData.Population / 1000;
-                if (chance > 0 && Random.value <= chance)
-                {
-                    EquipmentTrade trade = planetInstance.gameObject.AddComponent<EquipmentTrade>();
-                    trade.equipment = GameManager.Instance.galaxyConfig.solarSystemConfig.equipment[i];
-                    trade.quantityAvailable = Random.Range(0, 5);
-                    trade.askMultiplier = Random.Range(0.8f, 2f);
-                    trade.quantityRequested = Random.Range(0, 5);
-                    trade.offerMultiplier = Random.Range(0.2f, 1.1f);
-                }
-            }
-        }
-
-        private void GenerateInvestments(PlanetConfig config, PlanetInstance planetInstance)
-        {
-            float chance = 0;
-            for (int i = 0; i < GameManager.Instance.galaxyConfig.solarSystemConfig.investments.Length; i++)
-            {
-                chance = GameManager.Instance.galaxyConfig.solarSystemConfig.investments[i].Chance(planetInstance.planetData);
-                if (chance > 0 && Random.value <= chance)
-                {
-                    InvestmentOpportunity opportunity = planetInstance.gameObject.AddComponent<InvestmentOpportunity>();
-                    opportunity.investment = GameManager.Instance.galaxyConfig.solarSystemConfig.investments[i];
-                }
-            }
-        }
-
-        private void GenerateResourceSupplyAndDemand(PlanetConfig config, PlanetInstance planetInstance)
-        {
-            float chance = 0;
-            for (int r = 0; r < GameManager.Instance.galaxyConfig.solarSystemConfig.resources.Length; r++)
-            {
-                chance = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r].generationChance;
-                for (int p = 0; p < config.resourceModifiers.Length; p++)
-                {
-                    if (config.resourceModifiers[p].resource == GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r])
-                    {
-                        chance += config.resourceModifiers[p].modificationPercent;
-                        break;
-                    }
-                }
-
-                ResourceSource source = null;
-                ResourceDemand demand = null;
-                if (chance > 0 && Random.value <= chance)
-                {
-                    source = planetInstance.gameObject.AddComponent<ResourceSource>();
-                    source.resource = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r];
-                    source.quantityPerSecond = 1; // how easy is it to extract
-                    source.resourceAvailable = 50000; // total resource reserves
-                }
-
-                if (planetInstance.planetData.Population > 0)
-                {
-                    demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
-                    demand.resource = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r];
-
-                    if (source == null)
-                    {
-                        demand.required = planetInstance.planetData.Population / 1000f;
-                    } else
-                    {
-                        demand.required = planetInstance.planetData.Population / 10000f;
-                    }
-                }
-            }
         }
     }
 }

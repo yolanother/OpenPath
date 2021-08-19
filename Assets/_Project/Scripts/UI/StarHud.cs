@@ -73,7 +73,7 @@ namespace DoubTech.OpenPath.UI
             for (int i = 0; i < planetDistances.Length; i++)
             {
                 PlanetConfig config = systemConfig.GetPlanetConfig(starCoordinates, i, planetDistances[i]);
-                PlanetData planetData = GameManager.Instance.solarSystemInstance.GetPlanetInstance(starCoordinates, i, config, planetDistances[i]).planetData;
+                PlanetData planetData = GameManager.Instance.solarSystemInstance.CreatePlanetInstance(starCoordinates, i, config, planetDistances[i]).planetData;
                 if (planetData.population > 0)
                 {
                     inhabitedCount++;
@@ -87,12 +87,12 @@ namespace DoubTech.OpenPath.UI
                     int count;
                     if (factionsPresent.TryGetValue(planetData.faction, out count))
                     {
-                        count++;
+                        factionsPresent[planetData.faction] = count++;
                     } else
                     {
                         count = 1;
+                        factionsPresent.Add(planetData.faction, count);
                     }
-                    factionsPresent.Add(planetData.faction, count);
                 }
             }
 
