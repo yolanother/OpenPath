@@ -196,8 +196,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8912640441606682756, guid: d8269afd8fae44046864283cd5409f71, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8269afd8fae44046864283cd5409f71, type: 3}
 --- !u!1 &184206372
 GameObject:
@@ -1506,12 +1505,12 @@ GameObject:
   - component: {fileID: 894381352}
   - component: {fileID: 894381351}
   m_Layer: 5
-  m_Name: Resources
+  m_Name: Factions Present Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &894381350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1739,8 +1738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 263673109}
-  PopulatedPlanetsText: {fileID: 531763316}
-  UnpopulatedPlanetsText: {fileID: 2051505988}
+  populatedPlanetsText: {fileID: 0}
+  unpopulatedPlanetsText: {fileID: 0}
+  factionsPresentText: {fileID: 0}
   bgOverlay: {fileID: 2128035918}
   bg: {fileID: 492605366}
   headerBg: {fileID: 1629968892}

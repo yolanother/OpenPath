@@ -9,6 +9,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,6 +22,19 @@ namespace DoubTech.OpenPath.Data.Factions
     {
         [SerializeField] public Sprite[] emblems;
         [SerializeField] public Faction[] aiFactions;
+        [SerializeField, Tooltip("The density of faction occupation in this universe." +
+            "This is a normalized value where 0 means no planets of interest will be owned by a faction through " +
+            "1 which means all planets of interest will be owned by a faction.")]
+        internal float factionDensity = 0.2f;
+
+        /// <summary>
+        /// Get a randomly selected faction.
+        /// </summary>
+        /// <returns>A randomly selected faction.</returns>
+        internal Faction GetRandomFaction()
+        {
+            return aiFactions[UnityEngine.Random.Range(0, aiFactions.Length)];
+        }
     }
 
     #if UNITY_EDITOR

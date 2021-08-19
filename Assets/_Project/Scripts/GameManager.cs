@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.SolarSystemScope;
+using DoubTech.OpenPath.Data.Factions;
 
 namespace DoubTech.OpenPath
 {
@@ -19,6 +20,8 @@ namespace DoubTech.OpenPath
         internal GalaxyConfig galaxyConfig;
         [SerializeField, Tooltip("The Solar System Instance used to generate the solar systems within the game.")]
         internal SolarSystemInstance solarSystemInstance;
+        [SerializeField, Tooltip("The factions that exist in this galaxy.")]
+        internal FactionConfiguration factionConfig;
 
         public static GameManager Instance { get; private set; }
 

@@ -9,12 +9,15 @@
 
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Events;
 using DoubTech.OpenPath.UniverseScope;
 using DoubTech.ScriptableEvents.BuiltinTypes;
 using Michsky.UI.ModernUIPack;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +27,9 @@ namespace DoubTech.OpenPath.UI
     public class StarHud : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI title;
-        [SerializeField] private TextMeshProUGUI PopulatedPlanetsText;
-        [SerializeField] private TextMeshProUGUI UnpopulatedPlanetsText;
+        [SerializeField] private TextMeshProUGUI populatedPlanetsText;
+        [SerializeField] private TextMeshProUGUI unpopulatedPlanetsText;
+        [SerializeField] private TextMeshProUGUI factionsPresentText;
 
         [SerializeField] private Image bgOverlay;
         [SerializeField] private Image bg;
@@ -60,7 +64,10 @@ namespace DoubTech.OpenPath.UI
         {
             int inhabitedCount = 0;
             int uninhabitedCount = 0;
+            Dictionary<Faction, int> factionsPresent = new Dictionary<Faction, int>();
+
             Vector2 starCoordinates = starInstance.starData.Coordinates;
+            
             SolarSystemConfig systemConfig = GameManager.Instance.galaxyConfig.solarSystemConfig;
             float[] planetDistances = systemConfig.GetPlanetPositions(starCoordinates);
             for (int i = 0; i < planetDistances.Length; i++)
@@ -74,11 +81,33 @@ namespace DoubTech.OpenPath.UI
                 {
                     uninhabitedCount++;
                 }
+
+                if (planetData.faction != null)
+                {
+                    int count;
+                    if (factionsPresent.TryGetValue(planetData.faction, out count))
+                    {
+                        count++;
+                    } else
+                    {
+                        count = 1;
+                    }
+                    factionsPresent.Add(planetData.faction, count);
+                }
             }
 
             title.text = starInstance.starData.DisplayName;
-            PopulatedPlanetsText.text = $"Populated Planets: {inhabitedCount}";
-            UnpopulatedPlanetsText.text = $"Unpopulated Planets: {uninhabitedCount}";
+            populatedPlanetsText.text = $"Populated Planets: {inhabitedCount}";
+            unpopulatedPlanetsText.text = $"Unpopulated Planets: {uninhabitedCount}";
+
+            StringBuilder factionsText = new StringBuilder();
+            for (int i = 0; i < factionsPresent.Count; i++)
+            {
+                string name = factionsPresent.ElementAt(i).Key.name;
+                int count = factionsPresent.ElementAt(i).Value;
+                factionsText.AppendLine($"{name}: {count} planets.");
+            }
+            factionsPresentText.text = factionsText.ToString();
         }
 
         private void SetUIColour()

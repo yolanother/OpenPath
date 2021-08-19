@@ -10,6 +10,7 @@
 using System;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Data.UniverseScope;
 using DoubTech.OpenPath.Orbits;
@@ -90,15 +91,48 @@ namespace DoubTech.OpenPath.SolarSystemScope
             {
                 planetInstance.planetData = new PlanetData();
             }
+
+            PlanetData planetData = planetInstance.planetData;
+
+            planetData.PlanetId = planetInstance.name;
+            planetData.PlanetIndex = i;
+
+            planetData.Habitability = config.habitability;
             if (Random.value <= config.habitability)
             {
                 planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
             }
-            planetInstance.planetData.PlanetId = planetInstance.name;
-            planetInstance.planetData.Habitability = config.habitability;
+
+            planetData.faction = GetOwningFaction(planetData);
+            
             planetInstance.orbit = orbit;
-            planetInstance.planetData.PlanetIndex = i;
+
             return planetInstance;
+        }
+
+        /// <summary>
+        /// Decide if the planet is owned by a faction and, if it is, return that faction.
+        /// </summary>
+        /// <param name="planetInstance">That planer we are testing for</param>
+        /// <returns>The owning faction or null if independent.</returns>
+        private Faction GetOwningFaction(PlanetData planetData)
+        {
+            //TODO planets with resource are of interest and might be owned by factions
+            if (planetData.population > 0
+                || planetData.Habitability > 0.7f)
+            {
+                if (Random.value < GameManager.Instance.factionConfig.factionDensity)
+                {
+                    return GameManager.Instance.factionConfig.GetRandomFaction();
+                } else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static void GeneratePlanetGO(StarInstance star, Orbit orbit, PlanetConfig config)
