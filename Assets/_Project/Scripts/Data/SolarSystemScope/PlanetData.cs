@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.UniverseScope.Resources;
@@ -32,7 +33,9 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
         [SerializeField, Range(0f, 1f)] private float healthcareQuality;
         [SerializeField, Tooltip("The faction that currently \"owns\" this planet.")] 
-        internal Faction faction;
+        internal Faction owningFaction;
+
+        internal Dictionary<Faction, float> factionAffinity = new Dictionary<Faction, float>(); // key = faction, value affinity from -1 (utter hatred) to 1 (worship)
 
         internal float tickFrequency = 1f; // how often the planet should tick (update its statistics) in seconds
 
@@ -83,7 +86,7 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
             }
         }
 
-        public Color FactionColor => faction ? faction.factionColor : Color.gray;
+        public Color FactionColor => owningFaction ? owningFaction.factionColor : Color.gray;
 
         public string HabitabilityString
         {

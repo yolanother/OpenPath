@@ -59,6 +59,32 @@ namespace DoubTech.OpenPath.SolarSystemScope
             GenerateResourceSupplyAndDemand();
             GenerateTrade();
             GenerateInvestments();
+            GenerateFactionAffinities();
+        }
+
+        //TODO right now factions are given an entirely random affinity. We should make it relative to the distance to a home planet.
+        private void GenerateFactionAffinities()
+        {
+            float highestAffinity = 0;
+
+            //TODO planets with resource are of interest and might be owned by factions
+            if (planetData.Population > 0
+                || (planetData.Habitability > 0.7f && Random.value > 0.6f))
+            {
+                Data.Factions.FactionConfiguration factionsConfig = GameManager.Instance.factionConfig;
+                for (int i = 0; i < factionsConfig.aiFactions.Length; i++)
+                {
+                    float affinity = Random.Range(-1f, 1f);
+                    planetData.factionAffinity.Add(factionsConfig.aiFactions[i], affinity);
+                    if (affinity >= highestAffinity)
+                    {
+                        planetData.owningFaction = factionsConfig.aiFactions[i];
+                    }
+                }
+            } else
+            {
+                planetData.owningFaction = null;
+            }
         }
 
         private void Update()

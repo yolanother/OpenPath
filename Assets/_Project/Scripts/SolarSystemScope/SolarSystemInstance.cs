@@ -85,34 +85,8 @@ namespace DoubTech.OpenPath.SolarSystemScope
             Orbit orbit = CreatePlanetOrbit(coordinates, i, distance);
             PlanetInstance planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
             planetInstance.Init(orbit, $"S{coordinates.x}.{this.coordinates.y} P{i}", config);
-            planetInstance.planetData.faction = GetOwningFaction(planetInstance.planetData);
 
             return planetInstance;
-        }
-
-        /// <summary>
-        /// Decide if the planet is owned by a faction and, if it is, return that faction.
-        /// </summary>
-        /// <param name="planetInstance">That planer we are testing for</param>
-        /// <returns>The owning faction or null if independent.</returns>
-        private Faction GetOwningFaction(PlanetData planetData)
-        {
-            //TODO planets with resource are of interest and might be owned by factions
-            if (planetData.Population > 0
-                || planetData.Habitability > 0.7f)
-            {
-                if (Random.value < GameManager.Instance.factionConfig.factionDensity)
-                {
-                    return GameManager.Instance.factionConfig.GetRandomFaction();
-                } else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
         }
 
         private static void GeneratePlanetGO(StarInstance star, Orbit orbit, PlanetConfig config)

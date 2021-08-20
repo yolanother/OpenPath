@@ -445,7 +445,7 @@ MonoBehaviour:
     population: 0
     habitability: 0
     healthcareQuality: 0
-    faction: {fileID: 0}
+    owningFaction: {fileID: 0}
 --- !u!114 &7106578027331033396
 MonoBehaviour:
   m_ObjectHideFlags: 0

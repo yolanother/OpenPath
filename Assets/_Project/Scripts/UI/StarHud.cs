@@ -95,16 +95,16 @@ namespace DoubTech.OpenPath.UI
                 }
 
                 // Get Faction Data
-                if (planetData.faction != null)
+                if (planetData.owningFaction != null)
                 {
                     int count;
-                    if (factionsPresent.TryGetValue(planetData.faction, out count))
+                    if (factionsPresent.TryGetValue(planetData.owningFaction, out count))
                     {
-                        factionsPresent[planetData.faction] = count++;
+                        factionsPresent[planetData.owningFaction] = count++;
                     } else
                     {
                         count = 1;
-                        factionsPresent.Add(planetData.faction, count);
+                        factionsPresent.Add(planetData.owningFaction, count);
                     }
                 }
 
