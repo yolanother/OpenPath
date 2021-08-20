@@ -41,6 +41,8 @@ namespace DoubTech.OpenPath.UI
 
         public void UpdateData()
         {
+            if (shipController == null) return;
+
             shipName.text = shipController.name;
             if (shipController.faction)
             {
