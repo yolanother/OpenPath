@@ -53,7 +53,10 @@ namespace DoubTech.OpenPath.UI
                 factionIcon.gameObject.SetActive(false);
             }
 
-            shield.fillAmount = shipController.DamageController.PercentHitPoints;
+            if (shield != null)
+            {
+                shield.fillAmount = shipController.DamageController.PercentHitPoints;
+            }
 
             if (!shipIcon.sprite)
             {

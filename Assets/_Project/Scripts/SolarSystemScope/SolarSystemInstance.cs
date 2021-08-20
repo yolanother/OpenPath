@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.Factions;
@@ -97,7 +98,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
         private Faction GetOwningFaction(PlanetData planetData)
         {
             //TODO planets with resource are of interest and might be owned by factions
-            if (planetData.population > 0
+            if (planetData.Population > 0
                 || planetData.Habitability > 0.7f)
             {
                 if (Random.value < GameManager.Instance.factionConfig.factionDensity)

@@ -22,12 +22,10 @@ namespace DoubTech.OpenPath.UniverseScope
         [SerializeField, Tooltip("The quantity of this resource that is mined per second when using standard mining equipment.")]
         internal float quantityPerSecond = 1;
 
-        float timeOflastExtraction = 0;
-
         /// <summary>
-        /// Check if there is resource available to be mined.
+        /// Check if there is resource can be mined.
         /// </summary>
-        public bool ResourceAvailable { 
+        public bool CanBeMined { 
             get { return resourceAvailable > 0; } 
         }
 
@@ -45,7 +43,7 @@ namespace DoubTech.OpenPath.UniverseScope
         /// <returns>The quantity mined.</returns>
         public float Extract(float batchDuration)
         {
-            if (!ResourceAvailable) return 0;
+            if (!CanBeMined) return 0;
 
             float quantityMined = quantityPerSecond * batchDuration;
             resourceAvailable -= quantityMined;

@@ -10,6 +10,7 @@
 using System;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.Factions;
+using DoubTech.OpenPath.UniverseScope.Resources;
 using SimpleSQL;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     {
         [SerializeField] private string playerId;
         [SerializeField, Tooltip("The current population of intelligent lifeforms in 10,000's.")]
-        internal int population;
+        private int population;
         [Tooltip("How likely is intelligent life to survive on this planet.")]
         [SerializeField] private float habitability;
         [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
@@ -111,9 +112,9 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
                 else if (habitability < .90)
                 {
                     return "Good";
+                } else {
+                    return "Excellent";
                 }
-
-                return "Excellent";
             }
         }
 

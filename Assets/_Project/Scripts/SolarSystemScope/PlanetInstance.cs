@@ -48,10 +48,6 @@ namespace DoubTech.OpenPath.SolarSystemScope
                 planetData = new PlanetData();
             }
 
-            GenerateResourceSupplyAndDemand();
-            GenerateTrade();
-            GenerateInvestments();
-
             planetData.PlanetId = name;
 
             planetData.Habitability = config.habitability;
@@ -59,6 +55,10 @@ namespace DoubTech.OpenPath.SolarSystemScope
             {
                 planetData.Population = (int)Random.Range(10, 1000000);
             }
+
+            GenerateResourceSupplyAndDemand();
+            GenerateTrade();
+            GenerateInvestments();
         }
 
         private void Update()
@@ -105,7 +105,7 @@ namespace DoubTech.OpenPath.SolarSystemScope
                     source = gameObject.AddComponent<ResourceSource>();
                     source.resource = GameManager.Instance.galaxyConfig.solarSystemConfig.resources[r];
                     source.quantityPerSecond = 1; // how easy is it to extract
-                    source.resourceAvailable = 50000; // total resource reserves
+                    source.resourceAvailable = Random.Range(10000, 50000); // total resource reserves
                 }
 
                 if (planetData.Population > 0)
@@ -115,11 +115,11 @@ namespace DoubTech.OpenPath.SolarSystemScope
 
                     if (source == null)
                     {
-                        demand.required = planetData.Population / 1000f;
+                        demand.requiredQuantity = planetData.Population / 1000f;
                     }
                     else
                     {
-                        demand.required = planetData.Population / 10000f;
+                        demand.requiredQuantity = planetData.Population / 10000f;
                     }
                 }
             }

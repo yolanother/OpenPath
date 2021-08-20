@@ -94,3 +94,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ff19a0704a06bb44ab86e3afd3d80bb5, type: 2}
   - {fileID: 11400000, guid: fb476d8bee09010428a8e82174e45ca8, type: 2}
   - {fileID: 11400000, guid: 4fa23ff986cd15c4daf630c63e56d1bb, type: 2}
+  factionDensity: 1

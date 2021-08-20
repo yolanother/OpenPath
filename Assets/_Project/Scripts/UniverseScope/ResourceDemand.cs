@@ -16,13 +16,13 @@ namespace DoubTech.OpenPath.UniverseScope.Resources
         [SerializeField, Tooltip("A resource that is demanded at this location.")]
         internal ProductionResource resource;
         [SerializeField, Tooltip("The remaining resource quantity that is demanded.")]
-        internal float required = 5000;
+        internal float requiredQuantity = 5000;
         
         internal float Price
         {
             get {
                 Debug.LogWarning("TODO: Better calculation price to pay for a resource based on local demand and resource scarcity.");
-                return Mathf.Clamp(resource.baseValue * (required / 10), resource.baseValue / 2, resource.baseValue * 1.5F); 
+                return Mathf.Clamp(resource.baseValue * (requiredQuantity / 10), resource.baseValue / 2, resource.baseValue * 1.5F); 
             }
         }
     }
