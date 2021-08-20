@@ -23,12 +23,28 @@ namespace DoubTech.OpenPath
         [SerializeField, Tooltip("The factions that exist in this galaxy.")]
         internal FactionConfiguration factionConfig;
 
+        public bool isPersistant = true;
+
         public static GameManager Instance { get; private set; }
 
-        private void Awake()
+        public virtual void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(Instance);
+            if (isPersistant)
+            {
+                if (!Instance)
+                {
+                    Instance = this;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
         }
 
         public int GetSolarSystemSeed(Vector2 solarSystemCoordinates)
