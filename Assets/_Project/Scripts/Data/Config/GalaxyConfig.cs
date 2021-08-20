@@ -15,7 +15,7 @@ namespace DoubTech.OpenPath.Data
     public class GalaxyConfig : ScriptableObject
     {
         [SerializeField] public float starDensity = .25f;
-        [SerializeField] public int seed = 0;
         [SerializeField] public int galaxySize = (int) Mathf.Sqrt(int.MaxValue);
+        [SerializeField] public SolarSystemConfig solarSystemConfig;
     }
 }

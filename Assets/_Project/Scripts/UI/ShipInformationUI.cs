@@ -41,6 +41,8 @@ namespace DoubTech.OpenPath.UI
 
         public void UpdateData()
         {
+            if (shipController == null) return;
+
             shipName.text = shipController.name;
             if (shipController.faction)
             {
@@ -53,7 +55,10 @@ namespace DoubTech.OpenPath.UI
                 factionIcon.gameObject.SetActive(false);
             }
 
-            shield.fillAmount = shipController.DamageController.PercentHitPoints;
+            if (shield != null)
+            {
+                shield.fillAmount = shipController.DamageController.PercentHitPoints;
+            }
 
             if (!shipIcon.sprite)
             {

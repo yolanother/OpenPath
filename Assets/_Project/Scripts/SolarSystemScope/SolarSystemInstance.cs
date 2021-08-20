@@ -8,8 +8,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.Config;
+using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Data.SolarSystemScope;
 using DoubTech.OpenPath.Data.UniverseScope;
 using DoubTech.OpenPath.Orbits;
@@ -26,7 +28,6 @@ namespace DoubTech.OpenPath.SolarSystemScope
 {
     public class SolarSystemInstance : MonoBehaviour
     {
-        [SerializeField] public SolarSystemConfig solarSystemConfig;
         [SerializeField] private Vector2 coordinates;
         [SerializeField] private bool runtimeBuild = true;
 
@@ -54,68 +55,24 @@ namespace DoubTech.OpenPath.SolarSystemScope
             }
             #endif
 
-            var starConfig = solarSystemConfig.GetStarConfig(coordinates);
+            var starConfig = GameManager.Instance.galaxyConfig.solarSystemConfig.GetStarConfig(coordinates);
             var star = Instantiate(starConfig.StarPrefab);
             star.StarConfig = starConfig;
             star.transform.parent = transform;
 
-            var planetPositions = solarSystemConfig.GetPlanetPositions(coordinates);
+            var planetPositions = GameManager.Instance.galaxyConfig.solarSystemConfig.GetPlanetPositions(coordinates);
             var planets = new PlanetInstance[planetPositions.Length];
             for (int i = 0; i < planetPositions.Length; i++)
             {
-                Orbit orbit;
-#if UNITY_EDITOR
-                if (Application.isPlaying)
-                {
-                    orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
-                }
-                else
-                {
-                    orbit = (Orbit)PrefabUtility.InstantiatePrefab(solarSystemConfig.planetOrbitPrefab);
-                }
-#else
-                orbit = Instantiate(solarSystemConfig.planetOrbitPrefab);
-#endif
-
-                orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
-
-                orbit.transform.parent = transform;
-                var config = solarSystemConfig.GetPlanetConfig(coordinates, i, planetPositions[i]);
-                var planet = Instantiate(config.Prefab);
-                var lightSource = planet.GetComponent<LightSource>();
-                if (lightSource) lightSource.Sun = star.gameObject;
-                orbit.ellipse.radiusX = planetPositions[i] *
-                                        solarSystemConfig.distanceScale;
-                orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
-
-                orbit.startPosition = Random.Range(0, 1f);
-
-                orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
-                orbit.RefreshOrbits();
-                planet.transform.parent = orbit.orbitingObjectContainer;
-                planet.transform.localPosition = Vector3.zero;
-                planet.transform.localEulerAngles = Vector3.zero;
-
-                var planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
-                planetInstance.name = $"S{coordinates.x}.{this.coordinates.y} P{i}";
-                if (null == planetInstance.planetData) planetInstance.planetData = new Planet();
-                if (Random.value <= config.habitability) planetInstance.planetData.Population = (int)Random.Range(10, 1000000);
-                planetInstance.planetData.PlanetId = planetInstance.name;
-                planetInstance.planetData.Habitability = config.habitability;
-                planetInstance.orbit = orbit;
-                planetInstance.planetData.PlanetIndex = i;
-
-                // Generate player interactions
-                GenerateResourceSupplyAndDemand(config, planetInstance);
-                GenerateTrade(config, planetInstance);
-                GenerateInvestments(config, planetInstance);
-
-                planets[i] = planetInstance;
+                float distance = planetPositions[i];
+                PlanetConfig config = GameManager.Instance.galaxyConfig.solarSystemConfig.GetPlanetConfig(coordinates, i, distance);
+                planets[i] = CreatePlanetInstance(coordinates, i, config, distance);
+                GeneratePlanetGO(star, planets[i].orbit, config);
 
 #if UNITY_EDITOR
                 if (!Application.isPlaying)
                 {
-                    EditorUtility.SetDirty(planetInstance);
+                    EditorUtility.SetDirty(planets[i]);
                 }
 #endif
             }
@@ -123,79 +80,51 @@ namespace DoubTech.OpenPath.SolarSystemScope
             this.planets = planets;
         }
 
-        private void GenerateTrade(PlanetConfig config, PlanetInstance planetInstance)
+        internal PlanetInstance CreatePlanetInstance(Vector2 coordinates, int i, PlanetConfig config, float distance)
         {
-            if (planetInstance.planetData.Population <= 0) return;
+            Orbit orbit = CreatePlanetOrbit(coordinates, i, distance);
+            PlanetInstance planetInstance = orbit.orbitingObjectContainer.gameObject.GetComponent<PlanetInstance>();
+            planetInstance.Init(orbit, $"S{coordinates.x}.{this.coordinates.y} P{i}", config);
 
-            float chance = 0;
-            for (int i = 0; i < solarSystemConfig.equipment.Length; i++)
-            {
-                chance = 40 + planetInstance.planetData.Population / 1000;
-                if (chance > 0 && Random.value <= chance)
-                {
-                    EquipmentTrade trade = planetInstance.gameObject.AddComponent<EquipmentTrade>();
-                    trade.equipment = solarSystemConfig.equipment[i];
-                    trade.quantityAvailable = Random.Range(0, 5);
-                    trade.askMultiplier = Random.Range(0.8f, 2f);
-                    trade.quantityRequested = Random.Range(0, 5);
-                    trade.offerMultiplier = Random.Range(0.2f, 1.1f);
-                }
-            }
+            return planetInstance;
         }
 
-        private void GenerateInvestments(PlanetConfig config, PlanetInstance planetInstance)
+        private static void GeneratePlanetGO(StarInstance star, Orbit orbit, PlanetConfig config)
         {
-            float chance = 0;
-            for (int i = 0; i < solarSystemConfig.investments.Length; i++)
-            {
-                chance = solarSystemConfig.investments[i].Chance(planetInstance.planetData);
-                if (chance > 0 && Random.value <= chance)
-                {
-                    InvestmentOpportunity opportunity = planetInstance.gameObject.AddComponent<InvestmentOpportunity>();
-                    opportunity.investment = solarSystemConfig.investments[i];
-                }
-            }
+            GameObject planetGO = Instantiate(config.Prefab);
+
+            LightSource lightSource = planetGO.GetComponent<LightSource>();
+            if (lightSource) lightSource.Sun = star.gameObject;
+
+            planetGO.transform.parent = orbit.orbitingObjectContainer;
+            planetGO.transform.localPosition = Vector3.zero;
+            planetGO.transform.localEulerAngles = Vector3.zero;
         }
 
-        private void GenerateResourceSupplyAndDemand(PlanetConfig config, PlanetInstance planetInstance)
+        private Orbit CreatePlanetOrbit(Vector2 coordinates, int i, float distance)
         {
-            float chance = 0;
-            for (int r = 0; r < solarSystemConfig.resources.Length; r++)
+            Orbit orbit;
+#if UNITY_EDITOR
+            if (Application.isPlaying)
             {
-                chance = solarSystemConfig.resources[r].generationChance;
-                for (int p = 0; p < config.resourceModifiers.Length; p++)
-                {
-                    if (config.resourceModifiers[p].resource == solarSystemConfig.resources[r])
-                    {
-                        chance += config.resourceModifiers[p].modificationPercent;
-                        break;
-                    }
-                }
-
-                ResourceSource source = null;
-                ResourceDemand demand = null;
-                if (chance > 0 && Random.value <= chance)
-                {
-                    source = planetInstance.gameObject.AddComponent<ResourceSource>();
-                    source.resource = solarSystemConfig.resources[r];
-                    source.quantityPerSecond = 1; // how easy is it to extract
-                    source.resourceAvailable = 50000; // total resource reserves
-                }
-
-                if (planetInstance.planetData.Population > 0)
-                {
-                    demand = planetInstance.gameObject.AddComponent<ResourceDemand>();
-                    demand.resource = solarSystemConfig.resources[r];
-
-                    if (source == null)
-                    {
-                        demand.required = planetInstance.planetData.Population / 1000f;
-                    } else
-                    {
-                        demand.required = planetInstance.planetData.Population / 10000f;
-                    }
-                }
+                orbit = Instantiate(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
             }
+            else
+            {
+                orbit = (Orbit)PrefabUtility.InstantiatePrefab(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
+            }
+#else
+                orbit = Instantiate(GameManager.Instance.galaxyConfig.solarSystemConfig.planetOrbitPrefab);
+#endif
+            orbit.name = $"Planet Orbit for S{coordinates.x}.{this.coordinates.y} P{i}";
+            orbit.transform.parent = transform;
+            orbit.ellipse.radiusX = distance *
+                                    GameManager.Instance.galaxyConfig.solarSystemConfig.distanceScale;
+            orbit.ellipse.radiusY = .75f * orbit.ellipse.radiusX;
+            orbit.startPosition = Random.Range(0, 1f);
+            orbit.orbitingObjectContainer.transform.localPosition = Vector3.zero;
+            orbit.RefreshOrbits();
+            return orbit;
         }
     }
 }

@@ -8,8 +8,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using DoubTech.OpenPath.Data.Config;
 using DoubTech.OpenPath.Data.Factions;
+using DoubTech.OpenPath.UniverseScope.Resources;
 using SimpleSQL;
 using TMPro;
 using UnityEngine;
@@ -21,18 +23,21 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
     /// Planet data holds all the runtime data about the planet.
     /// </summary>
     [Serializable]
-    public class Planet
+    public class PlanetData
     {
         [SerializeField] private string playerId;
-        [Tooltip("The current population of intelligent lifeforms in 10,000's.")]
-        [SerializeField] private int population;
+        [SerializeField, Tooltip("The current population of intelligent lifeforms in 10,000's.")]
+        private int population;
         [Tooltip("How likely is intelligent life to survive on this planet.")]
         [SerializeField] private float habitability;
         [Tooltip("Normalized Healthcare quality, the higher this number the better the healthcare. A Healthcare of 0 is roughly equivalent to automatic euthanasia upon any complaint, while 1 is a cure for almost every ill.")]
         [SerializeField, Range(0f, 1f)] private float healthcareQuality;
-        [SerializeField] private Faction faction;
+        [SerializeField, Tooltip("The faction that currently \"owns\" this planet.")] 
+        internal Faction owningFaction;
 
-        internal float tickFrequency = 1f; // how often the planet should tick
+        internal Dictionary<Faction, float> factionAffinity = new Dictionary<Faction, float>(); // key = faction, value affinity from -1 (utter hatred) to 1 (worship)
+
+        internal float tickFrequency = 1f; // how often the planet should tick (update its statistics) in seconds
 
         /// <summary>
         /// Planet id is derived from solarsystem coordinate and planet index
@@ -46,7 +51,6 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
         public string Name { get; set; }
         public float xCoord { get; set; }
         public float yCoord { get; set; }
-        public int PlanetIndex { get; set; }
 
         /// <summary>
         /// The current population of intelligent lifeforms in 10,000's.
@@ -82,7 +86,7 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
             }
         }
 
-        public Color FactionColor => faction ? faction.factionColor : Color.gray;
+        public Color FactionColor => owningFaction ? owningFaction.factionColor : Color.gray;
 
         public string HabitabilityString
         {
@@ -111,9 +115,9 @@ namespace DoubTech.OpenPath.Data.SolarSystemScope
                 else if (habitability < .90)
                 {
                     return "Good";
+                } else {
+                    return "Excellent";
                 }
-
-                return "Excellent";
             }
         }
 

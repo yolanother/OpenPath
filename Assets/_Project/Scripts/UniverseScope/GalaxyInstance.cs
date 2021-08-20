@@ -7,11 +7,10 @@
  * https://opensource.org/licenses/MIT.
  */
 
-using System;
 using System.Collections;
-using System.Numerics;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.Data.SolarSystemScope;
+using DoubTech.OpenPath.SolarSystemScope;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -23,9 +22,6 @@ namespace DoubTech.OpenPath.UniverseScope
 {
     public class GalaxyInstance : MonoBehaviour
     {
-        [SerializeField] private GalaxyConfig galaxyConfig;
-        [SerializeField] private SolarSystemConfig solarSystemConfig;
-
         private void Start()
         {
             Generate();
@@ -59,9 +55,9 @@ namespace DoubTech.OpenPath.UniverseScope
                     j < Camera.main.transform.position.y + dimension; j++)
                 {
                     var coord = new Vector2(i, j);
-                    Random.InitState(solarSystemConfig.GetSeed(coord));
+                    Random.InitState(GameManager.Instance.GetSolarSystemSeed(coord));
                     var value = Random.value;
-                    if (Random.value < galaxyConfig.starDensity)
+                    if (Random.value < GameManager.Instance.galaxyConfig.starDensity)
                     {
                         SpawnStar(coord);
                         yield return null;
@@ -72,7 +68,7 @@ namespace DoubTech.OpenPath.UniverseScope
 
         private void SpawnStar(Vector2 coordinates)
         {
-            var starConfig = solarSystemConfig.GetStarConfig(coordinates);
+            StarConfig starConfig = GameManager.Instance.galaxyConfig.solarSystemConfig.GetStarConfig(coordinates);
 
             StarInstance star;
             #if UNITY_EDITOR

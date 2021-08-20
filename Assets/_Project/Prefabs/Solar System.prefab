@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3950482616213758508}
   - component: {fileID: 3950482616213758507}
-  - component: {fileID: 8912640441606682756}
   m_Layer: 0
   m_Name: Solar System
   m_TagString: Untagged
@@ -44,18 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7978dff017f61c540adff29d0f650526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solarSystemConfig: {fileID: 11400000, guid: 67d86d4ff2e309c4c83797d02a652fe3, type: 2}
   coordinates: {x: 0, y: 0}
---- !u!114 &8912640441606682756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3950482616213758506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20e6e1584d834c4197d7b1e92738f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faction: {fileID: 11400000, guid: 731a632b4089d1044864b5efb1f0752a, type: 2}
+  runtimeBuild: 1

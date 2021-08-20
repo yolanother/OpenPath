@@ -41,30 +41,23 @@ namespace DoubTech.OpenPath.Data
         [SerializeField] public float distanceScale = 10;
         [SerializeField] public Orbit planetOrbitPrefab;
 
-        public int GetSeed(Vector2 coordinates)
-        {
-            return (int) (galaxyConfig.seed +
-                                  (coordinates.x * galaxyConfig.galaxySize +
-                                   coordinates.y));
-        }
-
         public int GetPlanetCount(Vector2 coordinates)
         {
-            var seed = GetSeed(coordinates);
+            int seed = GameManager.Instance.GetSolarSystemSeed(coordinates);
             Random.InitState(seed + 1);
             return Random.Range(minPlanets, maxPlanets);
         }
 
         public StarConfig GetStarConfig(Vector2 coordinates)
         {
-            var seed = GetSeed(coordinates);
+            var seed = GameManager.Instance.GetSolarSystemSeed(coordinates);
             Random.InitState(seed + 2);
             return starConfigs[(int) (Random.value * starConfigs.Length)];
         }
 
         public int GetStarSize(Vector2 coordinates)
         {
-            var seed = GetSeed(coordinates);
+            var seed = GameManager.Instance.GetSolarSystemSeed(coordinates);
             Random.InitState(seed + 3);
             return Random.Range(minStarSize, maxStarSize);
         }
@@ -72,7 +65,7 @@ namespace DoubTech.OpenPath.Data
         public float[] GetPlanetPositions(Vector2 coordinates)
         {
             float[] positions = new float[GetPlanetCount(coordinates)];
-            Random.InitState(GetSeed(coordinates) + 4);
+            Random.InitState(GameManager.Instance.GetSolarSystemSeed(coordinates) + 4);
             float distance = GetStarSize(coordinates);
 
             for (int i = 0; i < positions.Length; i++)
@@ -84,13 +77,20 @@ namespace DoubTech.OpenPath.Data
             return positions;
         }
 
+        /// <summary>
+        /// Get the PlanetConfig for a planet at a chosen position.
+        /// </summary>
+        /// <param name="coordinates">The coordinates of the star system in which this planet exists.</param>
+        /// <param name="index">The index of the planet within its system</param>
+        /// <param name="distance">The distance from the star in this system, if distance is unknown it will be looked up. Provide it wherever possible</param>
+        /// <returns>The planet configuraiton</returns>
         public PlanetConfig GetPlanetConfig(Vector2 coordinates, int index, float distance = -1)
         {
             if (distance == -1)
             {
                 distance = GetPlanetPositions(coordinates)[index];
             }
-            Random.InitState(GetSeed(coordinates) + 5);
+            Random.InitState(GameManager.Instance.GetSolarSystemSeed(coordinates) + 5);
             List<PlanetConfig> possiblePlanets = new List<PlanetConfig>();
             // TODO: Index this and improve search
             foreach (var planetConfig in planetConfigs)
@@ -107,7 +107,7 @@ namespace DoubTech.OpenPath.Data
                 }
             }
 
-            Random.InitState(GetSeed(coordinates) + 5 + index);
+            Random.InitState(GameManager.Instance.GetSolarSystemSeed(coordinates) + 5 + index);
             var planetIndex = Random.Range(0, possiblePlanets.Count - 1);
             return possiblePlanets[planetIndex];
         }

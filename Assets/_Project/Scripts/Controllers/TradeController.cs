@@ -42,9 +42,9 @@ namespace DoubTech.OpenPath.Controllers
                 {
                     float available = shipController.CargoController.Quantity(candidates[i].resource);
                     float estimatedrevenue;
-                    if (available >= candidates[i].required)
+                    if (available >= candidates[i].requiredQuantity)
                     {
-                        estimatedrevenue = candidates[i].required * candidates[i].resource.baseValue;
+                        estimatedrevenue = candidates[i].requiredQuantity * candidates[i].resource.baseValue;
                     }
                     else
                     {
@@ -159,9 +159,9 @@ namespace DoubTech.OpenPath.Controllers
 
             yield return new WaitForSeconds(tradeDuration);
 
-            float quantity = demand.required > shipController.CargoController.Quantity(demand.resource) ? shipController.CargoController.Quantity(demand.resource) : demand.required;
+            float quantity = demand.requiredQuantity > shipController.CargoController.Quantity(demand.resource) ? shipController.CargoController.Quantity(demand.resource) : demand.requiredQuantity;
             shipController.CargoController.Remove(demand.resource, quantity);
-            demand.required -= quantity;
+            demand.requiredQuantity -= quantity;
             float price = demand.Price * quantity;
             shipController.AddCredits(price);
             Debug.LogWarning("TODO: when completing resource sale we should deduct credits to the offerer.");

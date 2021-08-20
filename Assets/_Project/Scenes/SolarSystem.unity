@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0029811412, g: 0.002788286, b: 0.0030871807, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031037796, g: 0.0027302653, b: 0.0033076513, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7857,6 +7857,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402035329}
   m_CullTransparentMesh: 0
+--- !u!114 &1412473111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7679768072317400544, guid: 196caaaed3e66364cac23a25af5ab72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7679768071924924146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1413437164
 GameObject:
   m_ObjectHideFlags: 0
@@ -13296,6 +13308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet Hud
       objectReference: {fileID: 0}
+    - target: {fileID: 7679768070960505505, guid: 196caaaed3e66364cac23a25af5ab72e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7679768070960505509, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -13401,6 +13418,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7679768070960505518, guid: 196caaaed3e66364cac23a25af5ab72e,
+        type: 3}
+      propertyPath: factionIcon
+      value: 
+      objectReference: {fileID: 1412473111}
+    - target: {fileID: 7679768070960505518, guid: 196caaaed3e66364cac23a25af5ab72e,
+        type: 3}
+      propertyPath: unownedIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: d84f7eb6573951e4a874d6ad72b1bb1d,
+        type: 3}
+    - target: {fileID: 7679768070960505518, guid: 196caaaed3e66364cac23a25af5ab72e,
+        type: 3}
+      propertyPath: factionImage
+      value: 
+      objectReference: {fileID: 1412473111}
     - target: {fileID: 7679768070960505518, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: onStartTrading
@@ -13536,6 +13569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 75.5246
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679768072317400546, guid: 196caaaed3e66364cac23a25af5ab72e,
+        type: 3}
+      propertyPath: m_Name
+      value: Faction Icon
       objectReference: {fileID: 0}
     - target: {fileID: 7679768072427182461, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}

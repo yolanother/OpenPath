@@ -132,11 +132,11 @@ namespace DoubTech.OpenPath.Controllers
 
             currentMinedSource = source;
             isMining = true;
-            while (source.ResourceAvailable
+            while (source.CanBeMined
                 && capacity - resource.quantity > 0
                 && InPosition(source.transform.position))
             {
-                if (source.ResourceAvailable)
+                if (source.CanBeMined)
                 {
                     float amount = source.Extract(batchDuration);
                     resource.quantity += amount;

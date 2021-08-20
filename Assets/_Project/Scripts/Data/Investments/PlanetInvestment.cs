@@ -22,7 +22,7 @@ namespace DoubTech.OpenPath.Data.Investments
         /// </summary>
         /// <param name="planetData">The data object describing the planet.</param>
         /// <returns>A value between 0 (no chance) and 1 (</returns>
-        internal float Chance(Planet planetData)
+        internal float Chance(PlanetData planetData)
         {
             if (planetData.Population <= 0)
             {

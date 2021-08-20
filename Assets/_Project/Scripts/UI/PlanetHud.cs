@@ -47,6 +47,11 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private ButtonManagerBasic actionButtonTrade;
         [SerializeField] private ButtonManagerBasic actionButtonSellAll;
 
+        [SerializeField, Tooltip("The Image in the UI to use to display the faction emblem for this planet")] 
+        private Image factionImage;
+        [SerializeField, Tooltip("The sprite to use for the planet emblem if no faction owns this planet.")] 
+        private Sprite unownedIcon;
+
         private UIGradient[] buttons;
 
         private PlanetInstance planetInstance;
@@ -63,6 +68,14 @@ namespace DoubTech.OpenPath.UI
                 planetInstance = value;
                 var planetData = value.planetData;
                 title.text = value.planetData.DisplayName;
+                if (value.planetData.owningFaction == null)
+                {
+                    factionImage.sprite = null;
+                }
+                else
+                {
+                    factionImage.sprite = value.planetData.owningFaction.factionEmblem;
+                }
                 var alpha = planetData.FactionColor;
                 alpha.a = .5f;
 
@@ -232,7 +245,7 @@ namespace DoubTech.OpenPath.UI
                 for (int i = 0; i < resourceSources.Length; i++)
                 {
                     var resource = resourceSources[i];
-                    if (resource.ResourceAvailable)
+                    if (resource.CanBeMined)
                     {
                         PlayerShip.Instance.shipController.MiningController.Mine(resource);
                         break;
