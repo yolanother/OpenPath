@@ -16,7 +16,7 @@ namespace DoubTech.OpenPath.Debugging
         public AbstractShipEquipment requiredEquipment;
 
         [HideInEditorMode, Button()]
-        [ConsoleCommand("Mine Iron, Sell Iron, Buy Cargo Pod, Mine Gold, Sell Gold")]
+        [ConsoleCommand("Perform a complete loop of: Mine Iron, Sell Iron, Buy Cargo Pod, Mine Gold, Sell Gold")]
         public void MineTradeEquipLoop()
         {
             string firstResourceName = "Iron";

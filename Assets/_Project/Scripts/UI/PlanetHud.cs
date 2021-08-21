@@ -134,7 +134,7 @@ namespace DoubTech.OpenPath.UI
             {
                 foreach (var res in resourceSources)
                 {
-                    if (PlayerShip.Instance.shipController.CargoController.SpaceFor(res.resource) > 0)
+                    if (GameManager.Instance.player.CargoController.SpaceFor(res.resource) > 0)
                     {
                         hasSpace = true;
                         break;
@@ -143,7 +143,7 @@ namespace DoubTech.OpenPath.UI
 
                 foreach (var res in resourceDemands)
                 {
-                    if (PlayerShip.Instance.shipController.CargoController.Has(res.resource))
+                    if (GameManager.Instance.player.CargoController.Has(res.resource))
                     {
                         hasCargo = true;
                         break;
@@ -217,20 +217,20 @@ namespace DoubTech.OpenPath.UI
 
             if (planetInstance.IsPlayerOrbiting)
             {
-                PlayerShip.Instance.shipController.MovementController.LeaveOrbit();
+                GameManager.Instance.player.MovementController.LeaveOrbit();
             }
             else if (PlayerInTransitToPlanet)
             {
-                PlayerShip.MovementController.Stop();
+                GameManager.Instance.player.MovementController.Stop();
             }
             else
             {
-                PlayerShip.Instance.shipController.MovementController.Orbit(planetInstance);
+                GameManager.Instance.player.MovementController.Orbit(planetInstance);
             }
         }
 
         public bool PlayerInTransitToPlanet => planetInstance && !orbitingShip && !planetInstance.IsPlayerOrbiting &&
-                                               PlayerShip.MovementController.OrbitPlanetTarget ==
+                                               GameManager.Instance.player.MovementController.OrbitPlanetTarget ==
                                                planetInstance;
 
         public void DeselectPlanet()
@@ -247,7 +247,7 @@ namespace DoubTech.OpenPath.UI
                     var resource = resourceSources[i];
                     if (resource.CanBeMined)
                     {
-                        PlayerShip.Instance.shipController.MiningController.Mine(resource);
+                        GameManager.Instance.player.MiningController.Mine(resource);
                         break;
                     }
                 }
@@ -256,9 +256,9 @@ namespace DoubTech.OpenPath.UI
 
         public void SellAll()
         {
-            if (planetInstance && PlayerShip.Instance.shipController.TradeController && resourceDemands.Length > 0)
+            if (planetInstance && GameManager.Instance.player.TradeController && resourceDemands.Length > 0)
             {
-                PlayerShip.Instance.shipController.TradeController.SellAll(planetInstance);
+                GameManager.Instance.player.TradeController.SellAll(planetInstance);
             }
         }
 
@@ -285,7 +285,7 @@ namespace DoubTech.OpenPath.UI
                 UpdateData();
             }
 
-            var d = Vector3.Distance(PlayerShip.Transform.position,
+            var d = Vector3.Distance(GameManager.Instance.player.transform.position,
                 planetInstance.transform.position).ToString("0");
             if (PlayerInTransitToPlanet)
             {

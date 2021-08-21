@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.Data.Factions;
+using DoubTech.OpenPath.Controllers;
 
 namespace DoubTech.OpenPath
 {
@@ -13,6 +12,14 @@ namespace DoubTech.OpenPath
     /// </summary>
     public class GameManager : MonoBehaviour
     {
+        [SerializeField, Tooltip("Is this GameManager persistent across scene loads?")]
+        public bool isPersistant = true;
+
+        [Header("Game Configuration")]
+        [SerializeField, Tooltip("The prefab used to create the player if they do not already exist in the scene.")]
+        ShipController playerPrefab;
+
+        [Header("Universe Generation")]
         [SerializeField, Tooltip("The seed at the root of the generation of the game universe.")] 
         int seed = 0;
         [SerializeField, Tooltip("The Galaxy Config is at the root of the definition of a galaxy and everything within it." +
@@ -23,9 +30,9 @@ namespace DoubTech.OpenPath
         [SerializeField, Tooltip("The factions that exist in this galaxy.")]
         internal FactionConfiguration factionConfig;
 
-        public bool isPersistant = true;
-
         public static GameManager Instance { get; private set; }
+
+        public ShipController player { get; private set; }
 
         public virtual void Awake()
         {
@@ -45,6 +52,15 @@ namespace DoubTech.OpenPath
             {
                 Instance = this;
             }
+
+            GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+            if (playerGO)
+            {
+                player = playerGO.GetComponent<ShipController>();
+            } else {
+                player = Instantiate(playerPrefab);
+            }
+            DontDestroyOnLoad(player.gameObject);
         }
 
         public int GetSolarSystemSeed(Vector2 solarSystemCoordinates)

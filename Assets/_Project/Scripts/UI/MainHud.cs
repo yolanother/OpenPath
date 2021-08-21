@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Collections;
 using DoubTech.OpenPath.Controllers;
 using DoubTech.OpenPath.Data.Resources;
 using TMPro;
@@ -18,12 +19,15 @@ namespace DoubTech.OpenPath.UI
 {
     public class MainHud : MonoBehaviour
     {
-        [SerializeField] private ShipController playerShip;
+        [SerializeField] private ShipController player;
         [SerializeField] private RectTransform resourceContainer;
         [SerializeField] private Resource resourcePrefab;
         [SerializeField] private ProductionResource[] trackedResources;
         [SerializeField] private Sprite currencyIcon;
         [SerializeField] private Sprite capacityIcon;
+        [SerializeField, Tooltip("The frequency the UI should update in seconds.")]
+        private float refreshFrequency = 0.25f;
+
         private Resource[] resourceeValues;
         private Resource currency;
         private Resource capacity;
@@ -42,39 +46,57 @@ namespace DoubTech.OpenPath.UI
 
             currency = Instantiate(resourcePrefab, resourceContainer);
             currency.icon.sprite = currencyIcon;
+
+            player = GameManager.Instance.player;
+            StartCoroutine(UpdateData());
         }
 
-        public void UpdateData()
+        public IEnumerator UpdateData()
         {
-            if (!playerShip) return;
-            if (!playerShip.CargoController) return;
-            if (!playerShip.MiningController) return;
+            yield return new WaitUntil(() => player != null);
 
-            var current = playerShip.CargoController.AvailableCapacity +
-                          (playerShip.MiningController.capacity - playerShip.MiningController.resource.quantity);
-            var total = playerShip.CargoController.TotalCapacity +
-                        playerShip.MiningController.capacity;
-            capacity.quantity.text =
-                (total - current).ToString("0") + "/" +
-                total.ToString("0");
-            currency.quantity.text = playerShip.Credits.ToString("F2");
-
-            for (int i = 0; i < trackedResources.Length; i++)
+            while (true)
             {
-                resourceeValues[i].quantity.text = playerShip.CargoController
-                    .Quantity(trackedResources[i]).ToString("0");
-                LayoutRebuilder.MarkLayoutForRebuild(resourceeValues[i].quantity.rectTransform);
+                float current = 0;
+                float total = 0;
+                if (player.CargoController)
+                {
+                    current += player.CargoController.AvailableCapacity;
+                    total += player.CargoController.TotalCapacity;
+                }
+                if (player.MiningController)
+                {
+                    current += player.MiningController.capacity;
+                    current -= player.MiningController.resource.quantity;
+                    total += player.MiningController.capacity;
+                }
+                
+                capacity.quantity.text =
+                    (total - current).ToString("0") + "/" +
+                    total.ToString("0");
+                currency.quantity.text = player.Credits.ToString("F2");
+
+                yield return null;
+
+                for (int i = 0; i < trackedResources.Length; i++)
+                {
+                    float quantity = 0;
+                    if (player.CargoController)
+                    {
+                        quantity += player.CargoController.Quantity(trackedResources[i]);
+                    }
+                    resourceeValues[i].quantity.text = quantity.ToString("0");
+                    LayoutRebuilder.MarkLayoutForRebuild(resourceeValues[i].quantity.rectTransform);
+
+                    yield return null;
+                }
+
+                resourceContainer.ForceUpdateRectTransforms();
+                LayoutRebuilder.MarkLayoutForRebuild(resourceContainer);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(resourceContainer);
+
+                yield return new WaitForSeconds(refreshFrequency);
             }
-
-
-            resourceContainer.ForceUpdateRectTransforms();
-            LayoutRebuilder.MarkLayoutForRebuild(resourceContainer);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(resourceContainer);
-        }
-
-        private void OnEnable()
-        {
-            UpdateData();
         }
     }
 }

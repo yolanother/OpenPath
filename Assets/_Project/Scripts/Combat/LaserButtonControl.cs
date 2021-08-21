@@ -44,13 +44,13 @@ namespace DoubTech.OpenPath.Combat
 
         public void WorldPositionFire(Vector3 position)
         {
-            var weapon = PlayerShip.Instance.shipController.WeaponController.weapon;
+            var weapon = GameManager.Instance.player.WeaponController.weapon;
             var impact = Physics.OverlapSphere(position, 1);
             if (impact.Length > 0)
             {
                 var ship = impact[0].GetComponentInParent<ShipController>();
                 Debug.Log("Hit: " + ship.name);
-                PlayerShip.Instance.shipController.WeaponController.weapon.Fire(ship.transform);
+                GameManager.Instance.player.WeaponController.weapon.Fire(ship.transform);
             }
 
             if(buttonDown)
@@ -62,8 +62,9 @@ namespace DoubTech.OpenPath.Combat
         [Button]
         public void Fire()
         {
-            var weapon = PlayerShip.Instance.shipController.WeaponController.weapon;
-            if(Physics.Raycast(raycastOrigin.position, PlayerShip.Transform.forward, out var hit, 1000))
+            //TODO currently we can only fire a single weapon in battle, need to be able to fire the most appropriate
+            var weapon = GameManager.Instance.player.WeaponController.weapon;
+            if(Physics.Raycast(raycastOrigin.position, GameManager.Instance.player.transform.forward, out var hit, 1000))
             {
                 var ship = hit.transform.GetComponentInParent<ShipController>();
                 if (ship)

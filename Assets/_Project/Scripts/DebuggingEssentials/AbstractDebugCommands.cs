@@ -9,14 +9,42 @@ namespace DoubTech.OpenPath.Debugging
 {
     public abstract class AbstractDebugCommands<T> : MonoBehaviour where T : AbstractActionController
     {
-        public Transform player;
+        [SerializeField, Tooltip("How frequently, in seconds, should this debugger update its status? " +
+            "When updating status the debugger will query the game status. For some debuggers this is " +
+            "a costly operation and so you should slow down the frequency of updates.")]
+        internal float updateFrequency;
+
+        internal Transform player;
 
         protected T controller;
 
         private void Awake()
         {
             RuntimeConsole.Register(this);
-            controller = player.GetComponent<T>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(RefreshShips());
+        }
+
+        private IEnumerator RefreshShips()
+        {
+            yield return null;
+            while (true)
+            {
+                ShipController[] ships = GameManager.FindObjectsOfType<ShipController>();
+                foreach (ShipController ship in ships)
+                {
+                    if (ship.CompareTag("Player"))
+                    {
+                        player = ship.transform;
+                        controller = player.GetComponent<T>();
+                    }
+                    yield return true;
+                }
+                yield return new WaitForSeconds(updateFrequency);
+            }
         }
 
         [InfoBox("$Status")]

@@ -24,7 +24,6 @@ namespace DoubTech.OpenPath.Controllers
 
         [SerializeField] private Transform miningBeam;
         [SerializeField] private GameObject miningBeamVisualization;
-        [SerializeField] private FloatGameEvent onMinedResources;
 
         internal MinedResource resource;
         private Coroutine miningCo;
@@ -140,8 +139,7 @@ namespace DoubTech.OpenPath.Controllers
                 {
                     float amount = source.Extract(batchDuration);
                     resource.quantity += amount;
-                    //Debug.LogFormat("Mined {0} of {1} from {2}.\n\nTotal {1} available is now {3}", amount, resource.type.name, source.name, shipController.CargoController.Quantity(resource.type));
-                    onMinedResources?.Invoke(amount);
+                    //Debug.LogFormat("Mined {0} of {1} from {2}.\n\nTotal {1} available is now {3}", amount, resource.type.name, source.name, shipController.CargoController.Quantity(resource.type
                 }
                 yield return new WaitForSeconds(batchDuration);
             }

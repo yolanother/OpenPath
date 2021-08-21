@@ -122,7 +122,6 @@ MonoBehaviour:
   batchDuration: 0.25
   miningBeam: {fileID: 7477902610997336349}
   miningBeamVisualization: {fileID: 3312921920826308741}
-  onMinedResources: {fileID: 11400000, guid: 3e7aea1dfb5ccfc4c9bbdaebd88b38a6, type: 2}
 --- !u!114 &130801313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
-  onTradedResources: {fileID: 0}
 --- !u!114 &130801314
 MonoBehaviour:
   m_ObjectHideFlags: 0
