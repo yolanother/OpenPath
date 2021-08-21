@@ -20,19 +20,30 @@ namespace DoubTech.OpenPath
         ShipController playerPrefab;
 
         [Header("Universe Generation")]
-        [SerializeField, Tooltip("The seed at the root of the generation of the game universe.")] 
+        [SerializeField, Tooltip("The seed at the root of the generation of the game universe.")]
         int seed = 0;
         [SerializeField, Tooltip("The Galaxy Config is at the root of the definition of a galaxy and everything within it." +
             "It is essential to generating data within a glaxy.")]
         internal GalaxyConfig galaxyConfig;
         [SerializeField, Tooltip("The Solar System Instance used to generate the solar systems within the game.")]
-        internal SolarSystemInstance solarSystemInstance;
+        SolarSystemInstance solarSystemInstance;
         [SerializeField, Tooltip("The factions that exist in this galaxy.")]
         internal FactionConfiguration factionConfig;
 
         public static GameManager Instance { get; private set; }
 
         public ShipController player { get; private set; }
+
+        public SolarSystemInstance SolarSystemInstance {
+            get {
+                if (!solarSystemInstance)
+                {
+                    //OPTIMIZATION this will be called once per scene after scene load. We should move this into a OnSceneLoad or similar place
+                    solarSystemInstance = GameObject.FindObjectOfType<SolarSystemInstance>();
+                }
+                return solarSystemInstance;
+            }
+        }
 
         public virtual void Awake()
         {

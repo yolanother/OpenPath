@@ -54,21 +54,26 @@ namespace DoubTech.OpenPath.Data.Factions
             GUILayout.Label("Create factions with emblem textures", EditorStyles.boldLabel);
             if (GUILayout.Button("Generate Factions"))
             {
-                List<Faction> factions = new List<Faction>();
-
-                for (int i = 0; i < factionConfig.emblems.Length; i++)
-                {
-                    Faction faction =
-                        ScriptableObject.CreateInstance<Faction>();
-                    faction.factionEmblem = factionConfig.emblems[i];
-                    faction.factionColor =
-                        Color.HSVToRGB(i / (float) factionConfig.emblems.Length, .75f, .75f);
-
-                    AssetDatabase.CreateAsset(faction, $"Assets/_Project/Data/Factions/AI/AI Faction {i}.asset");
-                    factions.Add(faction);
-                }
+                GenerateFactions(factionConfig);
 
                 AssetDatabase.SaveAssets();
+            }
+        }
+
+        private static void GenerateFactions(FactionConfiguration factionConfig)
+        {
+            List<Faction> factions = new List<Faction>();
+
+            for (int i = 0; i < factionConfig.emblems.Length; i++)
+            {
+                Faction faction =
+                    ScriptableObject.CreateInstance<Faction>();
+                faction.factionEmblem = factionConfig.emblems[i];
+                faction.factionColor =
+                    Color.HSVToRGB(i / (float)factionConfig.emblems.Length, .75f, .75f);
+
+                AssetDatabase.CreateAsset(faction, $"Assets/_Project/Data/Factions/AI/AI Faction {i}.asset");
+                factions.Add(faction);
             }
         }
     }

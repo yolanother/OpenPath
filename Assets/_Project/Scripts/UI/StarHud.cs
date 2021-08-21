@@ -82,7 +82,7 @@ namespace DoubTech.OpenPath.UI
             for (int i = 0; i < planetDistances.Length; i++)
             {
                 PlanetConfig config = systemConfig.GetPlanetConfig(starCoordinates, i, planetDistances[i]);
-                PlanetInstance planetInstance= GameManager.Instance.solarSystemInstance.CreatePlanetInstance(starCoordinates, i, config, planetDistances[i]);
+                PlanetInstance planetInstance= GameManager.Instance.SolarSystemInstance.CreatePlanetInstance(starCoordinates, i, config, planetDistances[i]);
                 PlanetData planetData = planetInstance.planetData;
 
                 // Count of planets
