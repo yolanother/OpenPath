@@ -34,7 +34,7 @@ namespace DoubTech.OpenPath.Data.Factions
             AIShipController ship = Instantiate(shipPrefabs[Random.Range(0, shipPrefabs.Length)]);
             ship.transform.position = Random.insideUnitSphere * 500;
             ship.faction = this;
-            ship.name = NameList.Random;
+            ship.name = $"Captain { NameList.Random} of { name }";
 
             return ship;
         }

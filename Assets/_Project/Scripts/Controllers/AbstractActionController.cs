@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DoubTech.OpenPath.Data.UniverseScope;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -17,9 +18,15 @@ namespace DoubTech.OpenPath.Controllers
         
         public State Status { get; set; }
 
+        /// <summary>
+        /// Is this an AI controlled ship?
+        /// </summary>
+        public bool isAI { get; private set; }
+
         internal virtual void Start()
         {
             shipController = GetComponent<ShipController>();
+            isAI = shipController is AIShipController;
             Status = State.Inactive;
         }
 
