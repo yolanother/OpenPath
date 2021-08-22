@@ -20,6 +20,11 @@ namespace DoubTech.OpenPath.CameraControls
         [SerializeField] private Vector2 objectSizeRange = new Vector2(.25f, 10);
         [SerializeField] private Vector2 cameraZoomRange = new Vector2(0, 10000);
 
+        private void Start()
+        {
+            if (!trackingCamera) trackingCamera = Camera.main;
+        }
+
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -29,7 +34,7 @@ namespace DoubTech.OpenPath.CameraControls
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (!trackingCamera) trackingCamera = Camera.main;
         }
