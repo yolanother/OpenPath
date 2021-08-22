@@ -17,3 +17,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c28a9b8862aa8d04c9096531a37e2cda, type: 3}
   baseDamage: 10000
   cooldown: 60
+  maxRange: 500
+  fireWeaponEvent: {fileID: 0}
+  weaponEffectIndex: 0

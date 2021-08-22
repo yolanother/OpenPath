@@ -22,7 +22,7 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField, Tooltip("The frequency at which the ship will scan for enemy ships.")]
         float scanFrequency = 2f;
 
-        internal AbstractShipWeapon EquippedWeapon
+        internal AbstractShipWeapon equippedWeapon
         {
             get => weapon;
             set
@@ -46,7 +46,7 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            if (EquippedWeapon == null)
+            if (equippedWeapon == null)
             {
                 if (defaultWeapon != null)
                 {
@@ -59,9 +59,19 @@ namespace DoubTech.OpenPath.Controllers
 
             if (currentTargetShip != null)
             {
-                if (!EquippedWeapon.OnCooldown)
+                //OPTIMIZATION use sqrMagnitude rather than Distance
+                if (Vector3.Distance(transform.position, currentTargetShip.transform.position) < equippedWeapon.maxRange)
                 {
-                    EquippedWeapon.Fire(currentTargetShip.transform);
+                    if (!equippedWeapon.OnCooldown)
+                    {
+                        equippedWeapon.Fire(currentTargetShip.transform);
+                    }
+                } else
+                {
+                    if (Random.value < shipController.aggression)
+                    {
+                        shipController.MovementController.MoveTo(currentTargetShip.transform.position);
+                    }
                 }
             }
             else if (((isAI && OnAlert ) || !GameManager.Instance.areWeaponsPlayerControlled) 
@@ -90,18 +100,18 @@ namespace DoubTech.OpenPath.Controllers
 
         public override string StatusAsString()
         {
-            if (EquippedWeapon == null)
+            if (equippedWeapon == null)
             {
                 return "No weapons equipped";
             } else
             {
-                return EquippedWeapon.name;
+                return equippedWeapon.name;
             }
         }
 
         internal bool Equip(AbstractShipWeapon weapon)
         {
-            EquippedWeapon = weapon;
+            equippedWeapon = weapon;
             weapon.owner = shipController;
             return true;
         }
