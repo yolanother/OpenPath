@@ -6,6 +6,7 @@ using DoubTech.OpenPath.Controllers;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using System;
+using DoubTech.OpenPath.CameraControls;
 
 namespace DoubTech.OpenPath
 {
@@ -34,6 +35,7 @@ namespace DoubTech.OpenPath
         SolarSystemInstance solarSystemInstance;
         [SerializeField, Tooltip("The factions that exist in this galaxy.")]
         internal FactionConfiguration factionConfig;
+        private CameraZoomObjectScaler playerModel;
 
         public static GameManager Instance { get; private set; }
 
@@ -81,18 +83,18 @@ namespace DoubTech.OpenPath
 
         private void Start()
         {
+            playerModel = player.GetComponentInChildren<CameraZoomObjectScaler>();
             SceneManager.sceneLoaded += SetupPlayer;
         }
 
         private void SetupPlayer(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "Galaxy")
+            if (scene.name == "SolarSystem")
             {
-                //TODO position the ship somewhere near the star they most recently visited
-                player.transform.position = new Vector3 (0, 0, -10000);
+                playerModel.gameObject.SetActive(true);
             } else
             {
-                player.transform.position = new Vector3(-500, -500, 0);
+                playerModel.gameObject.SetActive(false);
             }
         }
 
