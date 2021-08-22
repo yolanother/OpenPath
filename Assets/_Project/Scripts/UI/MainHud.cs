@@ -52,7 +52,15 @@ namespace DoubTech.OpenPath.UI
             combatCanvas.gameObject.SetActive(GameManager.Instance.areWeaponsPlayerControlled);
 
             player = GameManager.Instance.player;
+        }
+
+        private void OnEnable() {
             StartCoroutine(UpdateData());
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
         }
 
         public IEnumerator UpdateData()
