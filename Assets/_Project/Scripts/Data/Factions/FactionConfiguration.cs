@@ -20,8 +20,14 @@ namespace DoubTech.OpenPath.Data.Factions
     [CreateAssetMenu(fileName = "AiFactions", menuName = "OpenPath/Factions/Faction Configuration")]
     public class FactionConfiguration : ScriptableObject
     {
-        [SerializeField] public Sprite[] emblems;
-        [SerializeField] public Faction[] aiFactions;
+        //REFACTER parts of this are editor tooling, parts are runtime only. It needs to be separated out
+        [Header("Editor: Faction Options")]
+        [SerializeField, Tooltip("The emblems that faction can use to identify itself")] 
+        public Sprite[] emblems;
+
+        [Header("Runtime")]
+        [SerializeField, Tooltip("The collection of factions that are avilable in the game.")] 
+        public Faction[] aiFactions;
         [SerializeField, Tooltip("The density of faction occupation in this universe." +
             "This is a normalized value where 0 means no planets of interest will be owned by a faction through " +
             "1 which means all planets of interest will be owned by a faction.")]
@@ -54,21 +60,25 @@ namespace DoubTech.OpenPath.Data.Factions
             GUILayout.Label("Create factions with emblem textures", EditorStyles.boldLabel);
             if (GUILayout.Button("Generate Factions"))
             {
-                List<Faction> factions = new List<Faction>();
-
-                for (int i = 0; i < factionConfig.emblems.Length; i++)
-                {
-                    Faction faction =
-                        ScriptableObject.CreateInstance<Faction>();
-                    faction.factionEmblem = factionConfig.emblems[i];
-                    faction.factionColor =
-                        Color.HSVToRGB(i / (float) factionConfig.emblems.Length, .75f, .75f);
-
-                    AssetDatabase.CreateAsset(faction, $"Assets/_Project/Data/Factions/AI/AI Faction {i}.asset");
-                    factions.Add(faction);
-                }
-
+                GenerateFactions(factionConfig);
                 AssetDatabase.SaveAssets();
+            }
+        }
+
+        private static void GenerateFactions(FactionConfiguration factionConfig)
+        {
+            List<Faction> factions = new List<Faction>();
+
+            for (int i = 0; i < factionConfig.emblems.Length; i++)
+            {
+                Faction faction =
+                    ScriptableObject.CreateInstance<Faction>();
+                faction.factionEmblem = factionConfig.emblems[i];
+                faction.factionColor =
+                    Color.HSVToRGB(i / (float)factionConfig.emblems.Length, .75f, .75f);
+
+                AssetDatabase.CreateAsset(faction, $"Assets/_Project/Data/Factions/AI/AI Faction {i}.asset");
+                factions.Add(faction);
             }
         }
     }

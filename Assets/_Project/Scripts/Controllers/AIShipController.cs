@@ -9,6 +9,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
 {
     public class AIShipController : ShipController
     {
+        [Header("Mission")]
         [SerializeField, Tooltip("An ordered list of items that this AI will attempt to buy for their ship. " +
             "The AI will mine and trade until it can afford the first item in the list. It will then purchase " +
             "that item, remove it from the list and repeat.")]

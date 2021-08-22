@@ -36,7 +36,7 @@ namespace DoubTech.OpenPath.Debugging
                 ShipController[] ships = GameManager.FindObjectsOfType<ShipController>();
                 foreach (ShipController ship in ships)
                 {
-                    if (ship.CompareTag("Player"))
+                    if (ship != null && ship.CompareTag("Player")) // need to check for nulla as may have been destroyed since above FindObjectsOfType
                     {
                         player = ship.transform;
                         controller = player.GetComponent<T>();

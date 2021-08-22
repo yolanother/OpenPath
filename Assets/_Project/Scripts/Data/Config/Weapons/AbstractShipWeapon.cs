@@ -9,10 +9,15 @@ namespace DoubTech.OpenPath.Data.Equipment
 {
     public abstract class AbstractShipWeapon : AbstractShipEquipment
     {
+        [Header("Weapon Configuration")]
         [SerializeField, Tooltip("Base damage done by this weapon under normal circumstances. For Ship to Ship weapons this will normally be below 100 and will represent the number of hit points of damage done. For ship to planet weapons this will typically map to a percentage of the population killed with each slot, where 100 is around 1%.")]
         internal float baseDamage = 10;
         [SerializeField, Tooltip("The time a weapon must cooldown before it can fire again")]
         float cooldown = 1f;
+        [SerializeField, Tooltip("Maximum range of this weapon.")]
+        internal float maxRange = 250;
+
+        [Header("Event Handling")]
         [SerializeField] public IntGameEvent fireWeaponEvent;
         [SerializeField] public int weaponEffectIndex;
 

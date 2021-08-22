@@ -203,6 +203,7 @@ MonoBehaviour:
   currencyIcon: {fileID: 21300000, guid: b219ce1769a0c1245a3d20a62dfd85c9, type: 3}
   capacityIcon: {fileID: 21300000, guid: aa0d265e63787574584470522c88b1e2, type: 3}
   refreshFrequency: 0.25
+  combatCanvas: {fileID: 31514769}
 --- !u!114 &15141250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +363,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17109275}
   m_CullTransparentMesh: 1
+--- !u!1 &20092119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3950482616213758506, guid: d8269afd8fae44046864283cd5409f71,
+    type: 3}
+  m_PrefabInstance: {fileID: 3950482615401727736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &20092122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20092119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20e6e1584d834c4197d7b1e92738f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipSpawnFrequency: 1
+  OnSpawnShipGameEvent: {fileID: 0}
 --- !u!1 &31514768
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,8 +4085,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 235104202}
   m_HandleRect: {fileID: 235104201}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4400,8 +4421,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 308548881}
   m_HandleRect: {fileID: 308548880}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6558,7 +6579,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2029147705}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9898,7 +9919,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 957607914}
   m_HandleRect: {fileID: 957607913}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -6,6 +6,7 @@ using DoubTech.OpenPath.Data.Equipment;
 using System.Text;
 using System;
 using Random = UnityEngine.Random;
+using DoubTech.OpenPath.Data.UniverseScope;
 
 namespace DoubTech.OpenPath.Controllers
 {
@@ -20,10 +21,8 @@ namespace DoubTech.OpenPath.Controllers
         internal AbstractShipWeapon weapon;
         [SerializeField, Tooltip("The frequency at which the ship will scan for enemy ships.")]
         float scanFrequency = 2f;
-        [SerializeField, Tooltip("AI firing will automatically attack any enemy ship within range.")]
-        bool enableAIFiring = false;
 
-        internal AbstractShipWeapon EquippedWeapon
+        internal AbstractShipWeapon equippedWeapon
         {
             get => weapon;
             set
@@ -47,7 +46,7 @@ namespace DoubTech.OpenPath.Controllers
 
         private void Update()
         {
-            if (EquippedWeapon == null)
+            if (equippedWeapon == null)
             {
                 if (defaultWeapon != null)
                 {
@@ -60,22 +59,37 @@ namespace DoubTech.OpenPath.Controllers
 
             if (currentTargetShip != null)
             {
-                if (!EquippedWeapon.OnCooldown)
+                //OPTIMIZATION use sqrMagnitude rather than Distance
+                if (Vector3.Distance(transform.position, currentTargetShip.transform.position) < equippedWeapon.maxRange)
                 {
-                    EquippedWeapon.Fire(currentTargetShip.transform);
+                    if (!equippedWeapon.OnCooldown)
+                    {
+                        equippedWeapon.Fire(currentTargetShip.transform);
+                    }
+                } else
+                {
+                    if (Random.value < shipController.aggression)
+                    {
+                        shipController.MovementController.MoveTo(currentTargetShip.transform.position);
+                    }
                 }
             }
-            else if (enableAIFiring && OnAlert && Time.timeSinceLevelLoad > timeOfNextScan)
+            else if (((isAI && OnAlert ) || !GameManager.Instance.areWeaponsPlayerControlled) 
+                && Time.timeSinceLevelLoad > timeOfNextScan)
             {
                 List<ShipController> ships = ScanForObjectsOfType<ShipController>();
                 for (int i = 0; i < ships.Count; i++)
                 {
                     if (ships[i].faction != shipController.faction)
                     {
-                        currentTargetShip = ships[i];
-                        break;
+                        if (Random.value <= shipController.aggression)
+                        {
+                            currentTargetShip = ships[i];
+                            break;
+                        }
                     }
                 }
+                timeOfNextScan = Time.timeSinceLevelLoad + scanFrequency;
             }
         }
 
@@ -86,18 +100,18 @@ namespace DoubTech.OpenPath.Controllers
 
         public override string StatusAsString()
         {
-            if (EquippedWeapon == null)
+            if (equippedWeapon == null)
             {
                 return "No weapons equipped";
             } else
             {
-                return EquippedWeapon.name;
+                return equippedWeapon.name;
             }
         }
 
         internal bool Equip(AbstractShipWeapon weapon)
         {
-            EquippedWeapon = weapon;
+            equippedWeapon = weapon;
             weapon.owner = shipController;
             return true;
         }

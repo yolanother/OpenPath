@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 73820891}
   - component: {fileID: 1691445753}
   - component: {fileID: 1691445754}
+  - component: {fileID: -1329853188380743483}
   m_Layer: 0
   m_Name: NPC Ship
   m_TagString: Untagged
@@ -76,6 +77,7 @@ MonoBehaviour:
   resources:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
+  aggression: 0.5
   onShipInfoChanged: {fileID: 0}
   desiredEquipment:
   - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
@@ -201,7 +203,23 @@ MonoBehaviour:
   defaultWeapon: {fileID: 0}
   weapon: {fileID: 0}
   scanFrequency: 2
-  enableAIFiring: 1
+--- !u!114 &-1329853188380743483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584488960964521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84261b0858df478478f118a6ad89daf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggression: 0.5
+  possibleWeapons:
+  - {fileID: 11400000, guid: 87103dcf405c6ed498208061f3e73896, type: 2}
+  - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
+  - {fileID: 11400000, guid: 2865d4ad188b64746adeca19357ebab2, type: 2}
 --- !u!1 &989584490283401557
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,6 +54,10 @@ namespace DoubTech.OpenPath.Controllers
         /// </summary>
         public PlanetInstance OrbitPlanetTarget => orbitPlanetTarget;
 
+        /// <summary>
+        /// Get the position of the current destination.
+        /// </summary>
+        public Vector3 currentDestination { get => positionTarget.position; }
 
         internal override void Start()
         {
@@ -275,6 +279,9 @@ namespace DoubTech.OpenPath.Controllers
             lockLookTarget = false;
         }
 
+        /// <summary>
+        /// Stop the current move order. This will result in the ship stopping moving and holding its current position.
+        /// </summary>
         public void Stop()
         {
             MoveTo(transform.position);
