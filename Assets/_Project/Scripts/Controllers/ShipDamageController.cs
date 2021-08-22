@@ -77,8 +77,9 @@ namespace DoubTech.OpenPath.Controllers
             yield return null;
 
             Vector3 offset = Random.insideUnitSphere * 0.2f;
-            //TODO use pooling for explosions
-            Destroy(Instantiate(damageFeedbackPrefab, transform.position + offset, Quaternion.identity, transform), 5);
+            //OPTIMIZATION use pooling for explosions
+            GameObject fx = Instantiate(damageFeedbackPrefab, transform.position + offset, Quaternion.identity, shipController.model);
+            Destroy(fx, 5);
         }
 
         public void Die()

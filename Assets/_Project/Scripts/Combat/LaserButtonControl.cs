@@ -44,12 +44,13 @@ namespace DoubTech.OpenPath.Combat
 
         public void WorldPositionFire(Vector3 position)
         {
-            var weapon = GameManager.Instance.player.WeaponController.weapon;
-            var impact = Physics.OverlapSphere(position, 1);
+            Data.Equipment.AbstractShipWeapon weapon = GameManager.Instance.player.WeaponController.weapon;
+            //OPTIMIZATION use layers for ships and planets so we aren't grabbing other things in the scene
+            Collider[] impact = Physics.OverlapSphere(position, 1);
             if (impact.Length > 0)
             {
-                var ship = impact[0].GetComponentInParent<ShipController>();
-                Debug.Log("Hit: " + ship.name);
+                ShipController ship = impact[0].GetComponentInParent<ShipController>();
+                Debug.Log("Hit: " + impact[0].transform.name); // sometimes we are hitting something that is not a ship, not sure what though. This will uncover it
                 GameManager.Instance.player.WeaponController.weapon.Fire(ship.transform);
             }
 

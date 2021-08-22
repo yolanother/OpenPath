@@ -16,6 +16,7 @@ namespace DoubTech.OpenPath.Controllers
     [RequireComponent(typeof(AudioSource))]
     public class ShipController : AbstractActionController
     {
+        [Header("Faction")]
         [SerializeField, Tooltip("The faction this ship belongs to. This will be used to decide relations between this ship and other ships and planets.")]
         internal Faction faction;
         [SerializeField, Tooltip("A list of resources this ship is interested in.")]
@@ -24,6 +25,10 @@ namespace DoubTech.OpenPath.Controllers
         [Header("Captain")]
         [SerializeField, Tooltip("How aggressive is the captain of this ship. This will influence the decision making of the AI ship controllers."), Range(0f, 1f)]
         internal float aggression = 0.5f;
+
+        [Header("Game Engine")]
+        [SerializeField, Tooltip("The GameObect representing the model of this ship.")]
+        internal Transform model;
 
         [SerializeField] public ShipGameEvent onShipInfoChanged;
 
