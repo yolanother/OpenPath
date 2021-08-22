@@ -18,6 +18,8 @@ namespace DoubTech.OpenPath
         [Header("Game Configuration")]
         [SerializeField, Tooltip("The prefab used to create the player if they do not already exist in the scene.")]
         ShipController playerPrefab;
+        [SerializeField, Tooltip("Does the player manually controll targeting and firing of weapons, or is this done by the ship AI?")]
+        internal bool areWeaponsPlayerControlled = true;
 
         [Header("Universe Generation")]
         [SerializeField, Tooltip("The seed at the root of the generation of the game universe.")]

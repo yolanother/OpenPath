@@ -246,6 +246,7 @@ MonoBehaviour:
   isPersistant: 1
   playerPrefab: {fileID: 989584488960964565, guid: a2447c8193740dd4e8429782fd2c50a1,
     type: 3}
+  areWeaponsPlayerControlled: 0
   seed: 0
   galaxyConfig: {fileID: 11400000, guid: ba5f1607c9730de478351617baaa13ae, type: 2}
   solarSystemInstance: {fileID: 0}

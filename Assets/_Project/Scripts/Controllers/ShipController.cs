@@ -20,6 +20,10 @@ namespace DoubTech.OpenPath.Controllers
         [SerializeField, Tooltip("A list of resources this ship is interested in.")]
         internal List<ProductionResource> resources;
 
+        [Header("Captain")]
+        [SerializeField, Tooltip("How aggressive is the captain of this ship. This will influence the decision making of the AI ship controllers."), Range(0f, 1f)]
+        internal float aggression = 0.5f;
+
         [SerializeField] public ShipGameEvent onShipInfoChanged;
 
         private float credits;

@@ -109,6 +109,7 @@ MonoBehaviour:
   resources:
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
+  aggression: 0.5
   onShipInfoChanged: {fileID: 11400000, guid: 52cbacaf36600414dbdec199a8daa481, type: 2}
 --- !u!114 &989584488960964566
 MonoBehaviour:

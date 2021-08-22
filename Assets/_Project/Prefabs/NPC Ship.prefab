@@ -77,8 +77,8 @@ MonoBehaviour:
   resources:
   - {fileID: 11400000, guid: 70b5463a2c1334247aae963b5f15cc9f, type: 2}
   - {fileID: 11400000, guid: a6f369686a01d214bbda6ca2e96dd2a2, type: 2}
-  onShipInfoChanged: {fileID: 0}
   aggression: 0.5
+  onShipInfoChanged: {fileID: 0}
   desiredEquipment:
   - {fileID: 11400000, guid: 1ebb405293218d044ad40bcda2e45bbf, type: 2}
   - {fileID: 11400000, guid: 9727f676da3c93241b931bcd601fdd8e, type: 2}

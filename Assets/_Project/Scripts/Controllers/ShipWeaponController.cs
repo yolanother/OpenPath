@@ -64,20 +64,22 @@ namespace DoubTech.OpenPath.Controllers
                     EquippedWeapon.Fire(currentTargetShip.transform);
                 }
             }
-            else if (isAI && OnAlert && Time.timeSinceLevelLoad > timeOfNextScan)
+            else if (((isAI && OnAlert ) || !GameManager.Instance.areWeaponsPlayerControlled) 
+                && Time.timeSinceLevelLoad > timeOfNextScan)
             {
                 List<ShipController> ships = ScanForObjectsOfType<ShipController>();
                 for (int i = 0; i < ships.Count; i++)
                 {
                     if (ships[i].faction != shipController.faction)
                     {
-                        if (Random.value <= ((AIShipController)shipController).aggression)
+                        if (Random.value <= shipController.aggression)
                         {
                             currentTargetShip = ships[i];
                             break;
                         }
                     }
                 }
+                timeOfNextScan = Time.timeSinceLevelLoad + scanFrequency;
             }
         }
 
