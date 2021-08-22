@@ -9,6 +9,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DoubTech.OpenPath.CameraControls
 {
@@ -21,7 +22,16 @@ namespace DoubTech.OpenPath.CameraControls
 
         private void OnEnable()
         {
-            if(!trackingCamera) trackingCamera = Camera.main;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            if (!trackingCamera) trackingCamera = Camera.main;
         }
 
         private void Update()
