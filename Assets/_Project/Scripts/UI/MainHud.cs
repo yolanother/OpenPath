@@ -27,6 +27,8 @@ namespace DoubTech.OpenPath.UI
         [SerializeField] private Sprite capacityIcon;
         [SerializeField, Tooltip("The frequency the UI should update in seconds.")]
         private float refreshFrequency = 0.25f;
+        [SerializeField, Tooltip("The UI to show when in combat and the player is managing combat.")]
+        RectTransform combatCanvas;
 
         private Resource[] resourceeValues;
         private Resource currency;
@@ -46,6 +48,8 @@ namespace DoubTech.OpenPath.UI
 
             currency = Instantiate(resourcePrefab, resourceContainer);
             currency.icon.sprite = currencyIcon;
+
+            combatCanvas.gameObject.SetActive(GameManager.Instance.areWeaponsPlayerControlled);
 
             player = GameManager.Instance.player;
             StartCoroutine(UpdateData());

@@ -203,6 +203,7 @@ MonoBehaviour:
   currencyIcon: {fileID: 21300000, guid: b219ce1769a0c1245a3d20a62dfd85c9, type: 3}
   capacityIcon: {fileID: 21300000, guid: aa0d265e63787574584470522c88b1e2, type: 3}
   refreshFrequency: 0.25
+  combatCanvas: {fileID: 31514769}
 --- !u!114 &15141250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12804,7 +12805,7 @@ PrefabInstance:
     - target: {fileID: 7679768072136246376, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75.5246
       objectReference: {fileID: 0}
     - target: {fileID: 7679768072317400546, guid: 196caaaed3e66364cac23a25af5ab72e,
         type: 3}
