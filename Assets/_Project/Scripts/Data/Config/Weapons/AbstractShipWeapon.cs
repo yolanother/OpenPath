@@ -20,6 +20,8 @@ namespace DoubTech.OpenPath.Data.Equipment
         [Header("Event Handling")]
         [SerializeField] public IntGameEvent fireWeaponEvent;
         [SerializeField] public int weaponEffectIndex;
+        [SerializeField, Tooltip("The sound to play when this weapon is fired.")]
+        internal AudioClip firingSound;
 
         float timeCooldownOver;
         internal Transform currentTarget;
@@ -51,6 +53,10 @@ namespace DoubTech.OpenPath.Data.Equipment
         internal virtual void PullTrigger()
         {
             Debug.LogFormat("{0} is firing upon {1} with {2}", owner?.name, currentTarget?.gameObject?.name, name);
+            if (owner.audioSource.clip != firingSound) {
+                owner.audioSource.clip = firingSound;
+            }
+            owner.audioSource.Play();
 
             IDamageController dc = currentTarget.GetComponent<IDamageController>();
             if (dc == null) return;

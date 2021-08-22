@@ -12,7 +12,7 @@ namespace DoubTech.OpenPath.Controllers
 {
     /// <summary>
     /// The Weapon Controller handles targetting and firing of the ships weapons.
-    /// </summary>
+    /// </summary
     public class ShipWeaponController : AbstractActionController
     {
         [SerializeField, Tooltip("The default weapon that comes with this controller as standard.")]

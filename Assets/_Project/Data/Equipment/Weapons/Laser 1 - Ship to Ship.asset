@@ -20,3 +20,4 @@ MonoBehaviour:
   maxRange: 150
   fireWeaponEvent: {fileID: 11400000, guid: 585a15988abe9e343bfcc1c5106c85df, type: 2}
   weaponEffectIndex: 8
+  firingSound: {fileID: 8300000, guid: 7ca11a0945a5da14e8281e45670ad7ef, type: 3}

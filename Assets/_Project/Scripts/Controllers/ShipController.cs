@@ -13,6 +13,7 @@ namespace DoubTech.OpenPath.Controllers
     /// The Ship Controller is the Bridge of a ship. It is from here all aspects of a Ship can be
     /// accessed and managed.
     /// </summary>
+    [RequireComponent(typeof(AudioSource))]
     public class ShipController : AbstractActionController
     {
         [SerializeField, Tooltip("The faction this ship belongs to. This will be used to decide relations between this ship and other ships and planets.")]
