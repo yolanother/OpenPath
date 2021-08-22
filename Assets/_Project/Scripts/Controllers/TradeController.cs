@@ -15,8 +15,6 @@ namespace DoubTech.OpenPath.Controllers
     /// </summary>
     public class TradeController : AbstractActionController
     {
-        [SerializeField] private FloatGameEvent onTradedResources;
-
         float tradeDuration = 2f;
 
         internal override void Start()
@@ -169,7 +167,6 @@ namespace DoubTech.OpenPath.Controllers
             Debug.Log($"{gameObject.name} traded {quantity} of {demand.resource.name} for a price of {price}.");
 
             Status = State.Inactive;
-            onTradedResources?.Invoke(quantity);
         }
 
         public override string StatusAsString()

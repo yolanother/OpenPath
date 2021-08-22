@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1152062586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1152062587}
-  - component: {fileID: 1152062588}
-  m_Layer: 0
-  m_Name: PlayerShip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1152062587
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152062586}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 989584488960964520}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1152062588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152062586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88638c90d1e5d0a4caee9731898d29e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipController: {fileID: 989584488960964565}
 --- !u!1 &845887978400090597
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,7 +29,7 @@ Transform:
   m_Children:
   - {fileID: 132607256678394030}
   m_Father: {fileID: 989584488960964520}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989584488960964521
 GameObject:
@@ -97,7 +53,7 @@ GameObject:
   - component: {fileID: 1901487234}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +74,6 @@ Transform:
   - {fileID: 989584490315842977}
   - {fileID: 989584490283401556}
   - {fileID: 7214476390332582241}
-  - {fileID: 1152062587}
   - {fileID: 3810277843642290983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -226,7 +181,6 @@ MonoBehaviour:
   batchDuration: 0.25
   miningBeam: {fileID: 7477902610997336349}
   miningBeamVisualization: {fileID: 3312921920826308741}
-  onMinedResources: {fileID: 11400000, guid: 3e7aea1dfb5ccfc4c9bbdaebd88b38a6, type: 2}
 --- !u!114 &130801313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSensorRange: 5000
   maxInteractionRange: 150
-  onTradedResources: {fileID: 0}
 --- !u!114 &130801314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,9 +1212,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7694792577504630441}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &9205431591307693242 stripped
+--- !u!4 &9205431592519876460 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1515784900906850835, guid: 5ca8ac141faeaa5449cd58323be417ec,
+  m_CorrespondingSourceObject: {fileID: 1515784901842430405, guid: 5ca8ac141faeaa5449cd58323be417ec,
     type: 3}
   m_PrefabInstance: {fileID: 7694792577504630441}
   m_PrefabAsset: {fileID: 0}
@@ -1277,9 +1230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b82c757a706dd44ad77efcf0d513f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &9205431592519876460 stripped
+--- !u!4 &9205431591307693242 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1515784901842430405, guid: 5ca8ac141faeaa5449cd58323be417ec,
+  m_CorrespondingSourceObject: {fileID: 1515784900906850835, guid: 5ca8ac141faeaa5449cd58323be417ec,
     type: 3}
   m_PrefabInstance: {fileID: 7694792577504630441}
   m_PrefabAsset: {fileID: 0}

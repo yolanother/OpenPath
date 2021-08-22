@@ -52,7 +52,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         public void FocusCamera()
         {
-            PreviewCameraController.Instance.FocusCameraOn(PlayerShip.Instance.shipController);
+            PreviewCameraController.Instance.FocusCameraOn(GameManager.Instance.player);
         }
 
         public void SetEquipmentType(int type)
@@ -99,7 +99,7 @@ namespace DoubTech.OpenPath.UI.EquipmentUI
 
         private void ShowWeaponSlots()
         {
-            var weaponSlots = PlayerShip.Instance.shipController.GetComponents<ShipWeaponController>();
+            var weaponSlots = GameManager.Instance.player.AllWeaponControllers;
             for (int i = 0; i < weaponSlots.Length; i++)
             {
                 ShipWeaponController weaponSlot = weaponSlots[i];

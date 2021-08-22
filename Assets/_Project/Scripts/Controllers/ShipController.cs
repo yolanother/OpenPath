@@ -69,7 +69,14 @@ namespace DoubTech.OpenPath.Controllers
 
         public TradeController TradeController { get; internal set; }
         public CargoController CargoController { get; internal set; }
+        /// <summary>
+        /// The primary weapon controller.
+        /// </summary>
         public ShipWeaponController WeaponController { get; internal set; }
+        /// <summary>
+        /// All the weapon controllers on the ship.
+        /// </summary>
+        public ShipWeaponController[] AllWeaponControllers { get; internal set; }
 
         internal override void Start()
         {
@@ -79,6 +86,7 @@ namespace DoubTech.OpenPath.Controllers
             TradeController = GetComponent<TradeController>();
             CargoController = GetComponent<CargoController>();
             WeaponController = GetComponent<ShipWeaponController>();
+            AllWeaponControllers = GetComponents<ShipWeaponController>();
             DamageController = GetComponent<ShipDamageController>();
         }
 
