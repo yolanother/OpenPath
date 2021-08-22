@@ -25,7 +25,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
         private IEnumerator MainControlerLoopCo()
         {
             float timeout;
-            WeaponController.OnAlert = true;
+            WeaponController.onAlert = true;
             yield return null;
 
             int resourceIdx = 0;
@@ -44,7 +44,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
                 ProductionResource resource = resources[resourceIdx];
                 MiningController.ConfigureMiningEquipment(resource);
 
-                WeaponController.OnAlert = false;
+                WeaponController.onAlert = false;
                 MiningController.Mine();
 
                 timeout = Time.realtimeSinceStartup + 20;
@@ -56,7 +56,7 @@ namespace DoubTech.OpenPath.Data.UniverseScope
                 yield return new WaitUntil(() => Time.realtimeSinceStartup > timeout || CargoController.Quantity(resource) == 0);
 
                 // Engage enemies
-                WeaponController.OnAlert = true;
+                WeaponController.onAlert = true;
                 yield return new WaitForSeconds(2);
 
                 resourceIdx++;

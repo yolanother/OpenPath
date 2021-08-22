@@ -42,7 +42,7 @@ namespace DoubTech.OpenPath.Controllers
         /// If a ship is OnAlert it will actively scan for enemy ships.
         /// If one is found it will be attacked.
         /// </summary>
-        public bool OnAlert { get; set; }
+        public bool onAlert { get; set; }
 
         private void Update()
         {
@@ -68,13 +68,13 @@ namespace DoubTech.OpenPath.Controllers
                     }
                 } else
                 {
-                    if (Random.value < shipController.aggression)
+                    if (isAI)
                     {
                         shipController.MovementController.MoveTo(currentTargetShip.transform.position);
                     }
                 }
             }
-            else if (((isAI && OnAlert ) || !GameManager.Instance.areWeaponsPlayerControlled) 
+            else if (((isAI && onAlert ) || !GameManager.Instance.areWeaponsPlayerControlled) 
                 && Time.timeSinceLevelLoad > timeOfNextScan)
             {
                 List<ShipController> ships = ScanForObjectsOfType<ShipController>();

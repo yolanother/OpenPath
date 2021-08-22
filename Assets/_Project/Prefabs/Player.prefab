@@ -130,7 +130,7 @@ MonoBehaviour:
   orbit: {fileID: 989584490597147778}
   camera: {fileID: 0}
   modelPivot: {fileID: 7214476390332582241}
-  velocity: 1
+  velocity: 1.5
   acceleration: 0.15
   stopDistance: 1
   onEnteredOrbit: {fileID: 11400000, guid: fac17060fff3a734db748da7129a283b, type: 2}
@@ -156,6 +156,19 @@ MonoBehaviour:
           Assembly-CSharp
         m_MethodName: MoveTo
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 989584489362738201}
+        m_TargetAssemblyTypeName: DoubTech.OpenPath.Controllers.ShipWeaponController,
+          Assembly-CSharp
+        m_MethodName: set_OnAlert
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
