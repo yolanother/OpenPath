@@ -15,7 +15,9 @@ namespace DoubTech.OpenPath.Controllers
         float maxInteractionRange = 150;
 
         internal ShipController shipController;
-        
+
+        internal AudioSource audioSource;
+
         public State Status { get; set; }
 
         /// <summary>
@@ -25,6 +27,7 @@ namespace DoubTech.OpenPath.Controllers
 
         internal virtual void Start()
         {
+            audioSource = GetComponent<AudioSource>();
             shipController = GetComponent<ShipController>();
             isAI = shipController is AIShipController;
             Status = State.Inactive;

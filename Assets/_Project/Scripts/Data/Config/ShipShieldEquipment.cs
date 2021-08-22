@@ -15,6 +15,9 @@ namespace DoubTech.OpenPath.Eqipment
         float currentHitPoints = 100;
         [SerializeField, Tooltip("The number of hit points the shields will regenerate per second.")]
         float regenerationPerSecond = 3;
+
+        [SerializeField, Tooltip("The sounds to play when taking damage. One of these sounds will be chosen at random.")]
+        AudioClip[] takeDamage;
         
         public float HitPoints
         {

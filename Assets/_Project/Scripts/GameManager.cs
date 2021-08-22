@@ -3,6 +3,10 @@ using DoubTech.OpenPath.Data;
 using DoubTech.OpenPath.SolarSystemScope;
 using DoubTech.OpenPath.Data.Factions;
 using DoubTech.OpenPath.Controllers;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using System;
+using DoubTech.OpenPath.CameraControls;
 
 namespace DoubTech.OpenPath
 {
@@ -31,6 +35,7 @@ namespace DoubTech.OpenPath
         SolarSystemInstance solarSystemInstance;
         [SerializeField, Tooltip("The factions that exist in this galaxy.")]
         internal FactionConfiguration factionConfig;
+        private CameraZoomObjectScaler playerModel;
 
         public static GameManager Instance { get; private set; }
 
@@ -74,6 +79,23 @@ namespace DoubTech.OpenPath
                 player = Instantiate(playerPrefab);
             }
             DontDestroyOnLoad(player.gameObject);
+        }
+
+        private void Start()
+        {
+            playerModel = player.GetComponentInChildren<CameraZoomObjectScaler>();
+            SceneManager.sceneLoaded += SetupPlayer;
+        }
+
+        private void SetupPlayer(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "SolarSystem")
+            {
+                playerModel.gameObject.SetActive(true);
+            } else
+            {
+                playerModel.gameObject.SetActive(false);
+            }
         }
 
         public int GetSolarSystemSeed(Vector2 solarSystemCoordinates)

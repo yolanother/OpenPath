@@ -9,6 +9,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DoubTech.OpenPath.CameraControls
 {
@@ -19,9 +20,14 @@ namespace DoubTech.OpenPath.CameraControls
         [SerializeField] private Vector2 objectSizeRange = new Vector2(.25f, 10);
         [SerializeField] private Vector2 cameraZoomRange = new Vector2(0, 10000);
 
+        private void Start()
+        {
+            if (!trackingCamera) trackingCamera = Camera.main;
+        }
+
         private void OnEnable()
         {
-            if(!trackingCamera) trackingCamera = Camera.main;
+            if (!trackingCamera) trackingCamera = Camera.main;
         }
 
         private void Update()
